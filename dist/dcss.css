@@ -7,45 +7,56 @@
 
 /**
  * dcss-ui — Design Tokens
- * Minimalist Design System & UI Kit
+ * Raycast-Inspired Minimalist Design System & UI Kit
+ * Accent: Cobalt Tech (Option C)
  */
 
 :root {
   /* Color Scheme */
   color-scheme: dark;
 
-  /* Surfaces & Backgrounds (Dark Mode - Default) */
-  --dcss-bg-canvas: #090d16;
-  --dcss-bg-surface: #111827;
-  --dcss-bg-surface-elevated: #1e293b;
-  --dcss-bg-surface-subtle: #172033;
-  --dcss-bg-surface-glass: rgba(17, 24, 39, 0.75);
-  --dcss-bg-overlay: rgba(3, 7, 18, 0.75);
+  /* Surfaces & Backgrounds (Raycast Dark Aesthetic - Default) */
+  --dcss-bg-base: #07080a;
+  --dcss-bg-canvas: var(--dcss-bg-base);
+  --dcss-bg-surface: #0d0e11;
+  --dcss-bg-card: #121316;
+  --dcss-bg-elevated: #18191e;
+  --dcss-bg-surface-elevated: var(--dcss-bg-elevated);
+  --dcss-bg-surface-subtle: #121316;
+  --dcss-bg-surface-glass: rgba(13, 14, 17, 0.75);
+  --dcss-bg-overlay: rgba(3, 4, 6, 0.75);
+  --dcss-bg-hover: rgba(255, 255, 255, 0.05);
+  --dcss-bg-active: rgba(255, 255, 255, 0.08);
 
-  /* Borders (Dark Mode) */
-  --dcss-border-subtle: rgba(255, 255, 255, 0.08);
-  --dcss-border-default: rgba(255, 255, 255, 0.16);
-  --dcss-border-strong: rgba(255, 255, 255, 0.28);
-  --dcss-border-focus: rgba(99, 102, 241, 0.6);
+  /* Borders & Hairlines (Raycast Precision) */
+  --dcss-border: rgba(255, 255, 255, 0.08);
+  --dcss-border-subtle: rgba(255, 255, 255, 0.04);
+  --dcss-border-default: var(--dcss-border);
+  --dcss-border-highlight: rgba(255, 255, 255, 0.16);
+  --dcss-border-strong: rgba(255, 255, 255, 0.24);
+  --dcss-border-focus: rgba(59, 130, 246, 0.6);
+  --dcss-top-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
   /* Typography Colors (Dark Mode) */
   --dcss-text-primary: #f8fafc;
+  --dcss-text-body: #94a3b8;
   --dcss-text-secondary: #94a3b8;
   --dcss-text-muted: #64748b;
-  --dcss-text-inverse: #090d16;
+  --dcss-text-inverse: #07080a;
 
-  /* Brand / Primary Accent (Indigo / Violet) */
-  --dcss-primary: #6366f1;
-  --dcss-primary-hover: #4f46e5;
-  --dcss-primary-active: #4338ca;
-  --dcss-primary-muted: rgba(99, 102, 241, 0.16);
+  /* Brand / Primary Accent (Cobalt Tech - Option C) */
+  --dcss-primary: #3b82f6;
+  --dcss-primary-hover: #60a5fa;
+  --dcss-primary-active: #1d4ed8;
+  --dcss-primary-subtle: rgba(59, 130, 246, 0.12);
+  --dcss-primary-muted: rgba(59, 130, 246, 0.12);
   --dcss-primary-contrast: #ffffff;
 
   /* Secondary / Accent */
-  --dcss-accent: #8b5cf6;
-  --dcss-accent-hover: #7c3aed;
-  --dcss-accent-active: #6d28d9;
-  --dcss-accent-muted: rgba(139, 92, 246, 0.16);
+  --dcss-accent: #6366f1;
+  --dcss-accent-hover: #4f46e5;
+  --dcss-accent-active: #4338ca;
+  --dcss-accent-muted: rgba(99, 102, 241, 0.16);
   --dcss-accent-contrast: #ffffff;
 
   /* Semantic - Success (Emerald) */
@@ -79,6 +90,7 @@
   /* Typography Fonts */
   --dcss-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --dcss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --dcss-letter-spacing-wide: 0.02em;
 
   /* Typography Scale */
   --dcss-font-xs: 0.75rem;     /* 12px */
@@ -115,21 +127,21 @@
   --dcss-space-11: 2.75rem;  /* 44px */
   --dcss-space-12: 3rem;     /* 48px */
 
-  /* Border Radiuses */
+  /* Precision Border Radiuses */
   --dcss-radius-none: 0px;
-  --dcss-radius-sm: 0.25rem;   /* 4px */
-  --dcss-radius-md: 0.375rem;  /* 6px */
-  --dcss-radius-lg: 0.5rem;    /* 8px */
-  --dcss-radius-xl: 0.75rem;   /* 12px */
-  --dcss-radius-2xl: 1rem;     /* 16px */
+  --dcss-radius-sm: 4px;
+  --dcss-radius-md: 8px;
+  --dcss-radius-lg: 12px;
+  --dcss-radius-xl: 16px;
+  --dcss-radius-2xl: 20px;
   --dcss-radius-full: 9999px;
 
-  /* Shadows & Elevations (Dark Mode) */
+  /* Shadows & Elevations (Raycast Obsidian Glow) */
   --dcss-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
   --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.45);
   --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
   --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
-  --dcss-shadow-glow: 0 0 16px rgba(99, 102, 241, 0.35);
+  --dcss-shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
   --dcss-shadow-glow-success: 0 0 16px rgba(16, 185, 129, 0.35);
   --dcss-shadow-glow-danger: 0 0 16px rgba(239, 68, 68, 0.35);
 
@@ -158,37 +170,47 @@
   color-scheme: light;
 
   /* Surfaces & Backgrounds */
+  --dcss-bg-base: #f8fafc;
   --dcss-bg-canvas: #f8fafc;
   --dcss-bg-surface: #ffffff;
+  --dcss-bg-card: #ffffff;
+  --dcss-bg-elevated: #ffffff;
   --dcss-bg-surface-elevated: #f1f5f9;
-  --dcss-bg-surface-subtle: #e2e8f0;
-  --dcss-bg-surface-glass: rgba(255, 255, 255, 0.82);
+  --dcss-bg-surface-subtle: #f1f5f9;
+  --dcss-bg-surface-glass: rgba(255, 255, 255, 0.85);
   --dcss-bg-overlay: rgba(15, 23, 42, 0.45);
+  --dcss-bg-hover: rgba(0, 0, 0, 0.04);
+  --dcss-bg-active: rgba(0, 0, 0, 0.07);
 
   /* Borders */
-  --dcss-border-subtle: rgba(0, 0, 0, 0.06);
-  --dcss-border-default: rgba(0, 0, 0, 0.12);
-  --dcss-border-strong: rgba(0, 0, 0, 0.22);
-  --dcss-border-focus: rgba(79, 70, 229, 0.6);
+  --dcss-border: rgba(0, 0, 0, 0.08);
+  --dcss-border-subtle: rgba(0, 0, 0, 0.04);
+  --dcss-border-default: rgba(0, 0, 0, 0.08);
+  --dcss-border-highlight: rgba(0, 0, 0, 0.12);
+  --dcss-border-strong: rgba(0, 0, 0, 0.18);
+  --dcss-border-focus: rgba(37, 99, 235, 0.6);
+  --dcss-top-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   /* Typography Colors */
   --dcss-text-primary: #0f172a;
+  --dcss-text-body: #334155;
   --dcss-text-secondary: #475569;
   --dcss-text-muted: #94a3b8;
   --dcss-text-inverse: #f8fafc;
 
-  /* Brand / Primary Accent (Indigo / Violet) */
-  --dcss-primary: #4f46e5;
-  --dcss-primary-hover: #4338ca;
-  --dcss-primary-active: #3730a3;
-  --dcss-primary-muted: rgba(79, 70, 229, 0.12);
+  /* Brand / Primary Accent (Cobalt Tech Light - #2563eb) */
+  --dcss-primary: #2563eb;
+  --dcss-primary-hover: #1d4ed8;
+  --dcss-primary-active: #1e40af;
+  --dcss-primary-subtle: rgba(37, 99, 235, 0.12);
+  --dcss-primary-muted: rgba(37, 99, 235, 0.12);
   --dcss-primary-contrast: #ffffff;
 
   /* Secondary / Accent */
-  --dcss-accent: #7c3aed;
-  --dcss-accent-hover: #6d28d9;
-  --dcss-accent-active: #5b21b6;
-  --dcss-accent-muted: rgba(124, 58, 237, 0.12);
+  --dcss-accent: #4f46e5;
+  --dcss-accent-hover: #4338ca;
+  --dcss-accent-active: #3730a3;
+  --dcss-accent-muted: rgba(79, 70, 229, 0.12);
   --dcss-accent-contrast: #ffffff;
 
   /* Semantic - Success */
@@ -224,7 +246,7 @@
   --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
   --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
   --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
-  --dcss-shadow-glow: 0 0 16px rgba(79, 70, 229, 0.22);
+  --dcss-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
   --dcss-shadow-glow-success: 0 0 16px rgba(5, 150, 105, 0.22);
   --dcss-shadow-glow-danger: 0 0 16px rgba(220, 38, 38, 0.22);
 }
@@ -260,8 +282,9 @@ body {
   font-size: var(--dcss-font-base, 1rem);
   font-weight: var(--dcss-font-weight-normal, 400);
   line-height: var(--dcss-leading-normal, 1.5);
-  color: var(--dcss-text-primary, #f8fafc);
-  background-color: var(--dcss-bg-canvas, #090d16);
+  letter-spacing: var(--dcss-letter-spacing-wide, 0.02em);
+  color: var(--dcss-text-body, #94a3b8);
+  background-color: var(--dcss-bg-base, #07080a);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -327,13 +350,13 @@ h6 {
 }
 
 a {
-  color: var(--dcss-primary, #6366f1);
+  color: var(--dcss-primary, #3b82f6);
   text-decoration: none;
   transition: color var(--dcss-transition-fast, 150ms ease);
 }
 
 a:hover {
-  color: var(--dcss-primary-hover, #4f46e5);
+  color: var(--dcss-primary-hover, #60a5fa);
 }
 
 /* 7. Code, pre, kbd */
@@ -436,6 +459,12 @@ ol {
   outline: none;
 }
 
+/* Keyboard Shortcut Inside Button */
+.dcss-btn .dcss-kbd {
+  margin-left: var(--dcss-space-2);
+  opacity: 0.85;
+}
+
 .dcss-btn:focus-visible {
   outline: 2px solid var(--dcss-border-focus);
   outline-offset: 2px;
@@ -460,19 +489,21 @@ ol {
 .dcss-btn-primary {
   background-color: var(--dcss-primary);
   color: var(--dcss-primary-contrast);
-  border-color: var(--dcss-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--dcss-top-highlight), 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .dcss-btn-primary:hover:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-primary-hover);
-  border-color: var(--dcss-primary-hover);
+  border-color: rgba(255, 255, 255, 0.25);
   color: var(--dcss-primary-contrast);
-  box-shadow: var(--dcss-shadow-glow);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-glow);
 }
 
 .dcss-btn-primary:active:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-primary-active);
   border-color: var(--dcss-primary-active);
+  box-shadow: none;
 }
 
 /* Secondary */
@@ -480,16 +511,19 @@ ol {
   background-color: var(--dcss-bg-surface-elevated);
   color: var(--dcss-text-primary);
   border-color: var(--dcss-border-default);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-sm);
 }
 
 .dcss-btn-secondary:hover:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-bg-surface-subtle);
   border-color: var(--dcss-border-strong);
   color: var(--dcss-text-primary);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-md);
 }
 
 .dcss-btn-secondary:active:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-bg-surface);
+  box-shadow: none;
 }
 
 /* Danger */
@@ -623,15 +657,15 @@ ol {
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: var(--dcss-bg-surface);
+  background-color: var(--dcss-bg-card);
   border: 1px solid var(--dcss-border-default);
   border-radius: var(--dcss-radius-lg);
-  box-shadow: var(--dcss-shadow-sm);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-sm);
   color: var(--dcss-text-primary);
   overflow: hidden;
-  transition: transform var(--dcss-transition-normal),
-              box-shadow var(--dcss-transition-normal),
-              border-color var(--dcss-transition-normal);
+  transition: transform 120ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Card Header */
@@ -678,7 +712,7 @@ ol {
 
 .dcss-card-interactive:hover {
   transform: translateY(-3px);
-  box-shadow: var(--dcss-shadow-lg);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-lg);
   border-color: var(--dcss-border-strong);
 }
 
@@ -763,7 +797,7 @@ ol {
 .dcss-select:focus,
 .dcss-textarea:focus {
   border-color: var(--dcss-border-focus);
-  box-shadow: var(--dcss-shadow-glow);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 /* Disabled State */
@@ -1391,6 +1425,308 @@ input[type="checkbox"].dcss-checkbox:disabled {
 }
 
 /**
+ * dcss-ui — Keyboard Key (Kbd) Component
+ * Raycast-Inspired Tactile 3D Keys
+ */
+
+.dcss-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  font-family: var(--dcss-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--dcss-text-muted);
+  background: linear-gradient(to bottom, #1e2025, #141519);
+  border: 1px solid var(--dcss-border-highlight);
+  border-radius: var(--dcss-radius-sm);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 0 rgba(0, 0, 0, 0.45);
+  line-height: 1;
+  user-select: none;
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+/* Small modifier */
+.dcss-kbd-sm {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  font-size: 10px;
+  border-radius: 3px;
+}
+
+/* Key sequence group (e.g. ⌘ + K or Ctrl + K) */
+.dcss-kbd-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dcss-kbd-group span {
+  font-family: var(--dcss-font-mono);
+  font-size: 11px;
+  color: var(--dcss-text-muted);
+}
+
+/**
+ * dcss-ui — List Items Component
+ * Raycast-Inspired High-Density Interactive List Navigation
+ */
+
+.dcss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dcss-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 12px;
+  border-radius: var(--dcss-radius-md);
+  color: var(--dcss-text-body);
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: background var(--dcss-transition-fast),
+              border-color var(--dcss-transition-fast),
+              color var(--dcss-transition-fast);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.dcss-list-item:hover,
+.dcss-list-item.is-selected {
+  background: var(--dcss-bg-hover);
+  color: var(--dcss-text-primary);
+}
+
+.dcss-list-item.is-selected {
+  border-color: var(--dcss-border-subtle);
+}
+
+/* Icon container */
+.dcss-list-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  color: var(--dcss-text-muted);
+  transition: color var(--dcss-transition-fast);
+}
+
+.dcss-list-item:hover .dcss-list-item-icon,
+.dcss-list-item.is-selected .dcss-list-item-icon {
+  color: var(--dcss-text-primary);
+}
+
+/* Content (title and subtitle) */
+.dcss-list-item-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.dcss-list-item-title {
+  font-size: var(--dcss-font-sm);
+  font-weight: 500;
+  color: var(--dcss-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--dcss-leading-tight);
+}
+
+.dcss-list-item-subtitle,
+.dcss-list-item-desc {
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--dcss-leading-normal);
+  margin-top: 2px;
+}
+
+/* Accessories slot (right-aligned) */
+.dcss-list-item-accessories {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-muted);
+}
+
+/**
+ * dcss-ui — Command Components
+ * Raycast-Inspired Command Palette, Action Bar, and Split View
+ */
+
+/* ==========================================================================
+   1. Command Bar (Spotlight-style Search Input)
+   ========================================================================== */
+
+.dcss-command-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: transparent;
+  border-bottom: 1px solid var(--dcss-border-subtle);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dcss-command-bar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dcss-text-muted);
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+}
+
+.dcss-command-bar-input {
+  flex: 1 1 auto;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--dcss-text-primary);
+  font-family: var(--dcss-font-sans);
+  font-size: var(--dcss-font-base);
+  line-height: var(--dcss-leading-normal);
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+.dcss-command-bar-input::placeholder {
+  color: var(--dcss-text-muted);
+  opacity: 0.7;
+}
+
+.dcss-command-bar-shortcut,
+.dcss-command-bar-accessories {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+
+/* ==========================================================================
+   2. Action Bar (Modal/Window Bottom Quick Action Toolbar)
+   ========================================================================== */
+
+.dcss-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--dcss-bg-surface);
+  border-top: 1px solid var(--dcss-border-subtle);
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-muted);
+  user-select: none;
+  min-height: 40px;
+  box-sizing: border-box;
+}
+
+.dcss-action-bar-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dcss-action-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--dcss-text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--dcss-transition-fast);
+}
+
+.dcss-action-item:hover {
+  color: var(--dcss-text-primary);
+}
+
+
+/* ==========================================================================
+   3. Split View (Dual Master / Detail Panes)
+   ========================================================================== */
+
+.dcss-split-view {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  border-radius: var(--dcss-radius-lg);
+  background: var(--dcss-bg-surface);
+  border: 1px solid var(--dcss-border-default);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-md);
+}
+
+.dcss-split-view-master {
+  flex: 0 0 45%;
+  max-width: 50%;
+  border-right: 1px solid var(--dcss-border-subtle);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.dcss-split-view-detail {
+  flex: 1 1 55%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--dcss-space-4);
+  box-sizing: border-box;
+  background: var(--dcss-bg-card);
+}
+
+@media (max-width: 768px) {
+  .dcss-split-view {
+    flex-direction: column;
+  }
+
+  .dcss-split-view-master {
+    flex: 1 1 auto;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--dcss-border-subtle);
+  }
+
+  .dcss-split-view-detail {
+    flex: 1 1 auto;
+  }
+}
+
+/**
  * dcss-ui — Interactive Components Stylesheet
  * Minimalist Design System & UI Kit
  * Covers: Toasts, Modals, Dropdowns, Tabs, and Drawers
@@ -1587,8 +1923,8 @@ input[type="checkbox"].dcss-checkbox:disabled {
   position: fixed;
   inset: 0;
   background-color: var(--dcss-bg-overlay);
-  backdrop-filter: var(--dcss-glass-blur);
-  -webkit-backdrop-filter: var(--dcss-glass-blur);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   z-index: var(--dcss-z-modal);
   opacity: 0;
   visibility: hidden;
@@ -1626,10 +1962,10 @@ input[type="checkbox"].dcss-checkbox:disabled {
   position: relative;
   width: 100%;
   max-width: 520px;
-  background-color: var(--dcss-bg-surface);
-  border: 1px solid var(--dcss-border-default);
+  background-color: var(--dcss-bg-elevated);
+  border: 1px solid var(--dcss-border-highlight);
   border-radius: var(--dcss-radius-xl);
-  box-shadow: var(--dcss-shadow-xl);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-xl);
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - var(--dcss-space-8));
@@ -1640,6 +1976,13 @@ input[type="checkbox"].dcss-checkbox:disabled {
 
 .dcss-modal.is-open .dcss-modal-dialog {
   transform: scale(1) translateY(0);
+}
+
+/* Modal Action Bar integration */
+.dcss-modal-dialog .dcss-action-bar {
+  border-bottom-left-radius: var(--dcss-radius-xl);
+  border-bottom-right-radius: var(--dcss-radius-xl);
+  background: var(--dcss-bg-surface);
 }
 
 /* Modal Header */

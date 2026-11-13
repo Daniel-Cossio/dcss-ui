@@ -195,8 +195,8 @@
   position: fixed;
   inset: 0;
   background-color: var(--dcss-bg-overlay);
-  backdrop-filter: var(--dcss-glass-blur);
-  -webkit-backdrop-filter: var(--dcss-glass-blur);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   z-index: var(--dcss-z-modal);
   opacity: 0;
   visibility: hidden;
@@ -234,10 +234,10 @@
   position: relative;
   width: 100%;
   max-width: 520px;
-  background-color: var(--dcss-bg-surface);
-  border: 1px solid var(--dcss-border-default);
+  background-color: var(--dcss-bg-elevated);
+  border: 1px solid var(--dcss-border-highlight);
   border-radius: var(--dcss-radius-xl);
-  box-shadow: var(--dcss-shadow-xl);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-xl);
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - var(--dcss-space-8));
@@ -248,6 +248,13 @@
 
 .dcss-modal.is-open .dcss-modal-dialog {
   transform: scale(1) translateY(0);
+}
+
+/* Modal Action Bar integration */
+.dcss-modal-dialog .dcss-action-bar {
+  border-bottom-left-radius: var(--dcss-radius-xl);
+  border-bottom-right-radius: var(--dcss-radius-xl);
+  background: var(--dcss-bg-surface);
 }
 
 /* Modal Header */

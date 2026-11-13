@@ -1,0 +1,99 @@
+/**
+ * dcss-ui — List Items Component
+ * Raycast-Inspired High-Density Interactive List Navigation
+ */
+
+.dcss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dcss-list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 12px;
+  border-radius: var(--dcss-radius-md);
+  color: var(--dcss-text-body);
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: background var(--dcss-transition-fast),
+              border-color var(--dcss-transition-fast),
+              color var(--dcss-transition-fast);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.dcss-list-item:hover,
+.dcss-list-item.is-selected {
+  background: var(--dcss-bg-hover);
+  color: var(--dcss-text-primary);
+}
+
+.dcss-list-item.is-selected {
+  border-color: var(--dcss-border-subtle);
+}
+
+/* Icon container */
+.dcss-list-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  color: var(--dcss-text-muted);
+  transition: color var(--dcss-transition-fast);
+}
+
+.dcss-list-item:hover .dcss-list-item-icon,
+.dcss-list-item.is-selected .dcss-list-item-icon {
+  color: var(--dcss-text-primary);
+}
+
+/* Content (title and subtitle) */
+.dcss-list-item-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.dcss-list-item-title {
+  font-size: var(--dcss-font-sm);
+  font-weight: 500;
+  color: var(--dcss-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--dcss-leading-tight);
+}
+
+.dcss-list-item-subtitle,
+.dcss-list-item-desc {
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--dcss-leading-normal);
+  margin-top: 2px;
+}
+
+/* Accessories slot (right-aligned) */
+.dcss-list-item-accessories {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-muted);
+}

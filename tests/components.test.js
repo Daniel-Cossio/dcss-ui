@@ -15,6 +15,9 @@ const cssFiles = {
   badges: path.join(rootDir, 'src/css/badges.css'),
   tables: path.join(rootDir, 'src/css/tables.css'),
   layout: path.join(rootDir, 'src/css/layout.css'),
+  kbd: path.join(rootDir, 'src/css/kbd.css'),
+  listItems: path.join(rootDir, 'src/css/list-items.css'),
+  command: path.join(rootDir, 'src/css/command.css'),
   index: path.join(rootDir, 'src/css/index.css')
 };
 
@@ -61,7 +64,10 @@ test('Hito 2: Verification of Component Files and Syntax', async (t) => {
       'forms.css',
       'badges.css',
       'tables.css',
-      'layout.css'
+      'layout.css',
+      'kbd.css',
+      'list-items.css',
+      'command.css'
     ];
 
     let lastIndex = -1;
@@ -227,5 +233,68 @@ test('Hito 2: Verification of Layout (src/css/layout.css)', async (t) => {
     assert.match(content, /\.dcss-stack\b/, '.dcss-stack exists');
     assert.match(content, /\.dcss-stack-sm\b/, '.dcss-stack-sm exists');
     assert.match(content, /\.dcss-stack-lg\b/, '.dcss-stack-lg exists');
+  });
+});
+
+test('Hito 2: Verification of Keyboard Key (src/css/kbd.css)', async (t) => {
+  const content = fs.readFileSync(cssFiles.kbd, 'utf8');
+
+  await t.test('.dcss-kbd base selector, physical 3D gradient, relief and typography', () => {
+    assert.match(content, /\.dcss-kbd\b/, '.dcss-kbd base selector exists');
+    assert.match(content, /linear-gradient\(to bottom,\s*#1e2025,\s*#141519\)/, 'Physical key vertical gradient defined');
+    assert.match(content, /--dcss-border-highlight/, 'Uses --dcss-border-highlight');
+    assert.match(content, /box-shadow:.*inset 0 1px 0 rgba\(255,\s*255,\s*255,\s*0\.1\)/, 'Top tactile inset highlight defined');
+    assert.match(content, /box-shadow:.*0 2px 0 rgba\(0,\s*0,\s*0,\s*0\.45\)/, 'Bottom physical depth shadow defined');
+    assert.match(content, /--dcss-font-mono/, 'Uses --dcss-font-mono');
+    assert.match(content, /--dcss-radius-sm/, 'Uses --dcss-radius-sm');
+  });
+
+  await t.test('.dcss-kbd modifiers and key groups', () => {
+    assert.match(content, /\.dcss-kbd-sm\b/, '.dcss-kbd-sm modifier exists');
+    assert.match(content, /\.dcss-kbd-group\b/, '.dcss-kbd-group sequence wrapper exists');
+  });
+});
+
+test('Hito 2: Verification of List Items (src/css/list-items.css)', async (t) => {
+  const content = fs.readFileSync(cssFiles.listItems, 'utf8');
+
+  await t.test('List item base class and interactive states', () => {
+    assert.match(content, /\.dcss-list-item\b/, '.dcss-list-item base selector exists');
+    assert.match(content, /\.dcss-list-item:hover\b/, ':hover state defined');
+    assert.match(content, /\.dcss-list-item\.is-selected\b/, '.is-selected state defined');
+    assert.match(content, /--dcss-bg-hover/, 'References --dcss-bg-hover');
+    assert.match(content, /--dcss-radius-md/, 'Uses --dcss-radius-md');
+  });
+
+  await t.test('List item internal structure and accessory slots', () => {
+    assert.match(content, /\.dcss-list-item-icon\b/, '.dcss-list-item-icon exists');
+    assert.match(content, /\.dcss-list-item-content\b/, '.dcss-list-item-content exists');
+    assert.match(content, /\.dcss-list-item-title\b/, '.dcss-list-item-title exists');
+    assert.match(content, /\.dcss-list-item-subtitle\b/, '.dcss-list-item-subtitle exists');
+    assert.match(content, /\.dcss-list-item-accessories\b/, '.dcss-list-item-accessories exists');
+    assert.match(content, /margin-left:\s*auto/, 'Accessories are right-aligned with margin-left: auto');
+  });
+});
+
+test('Hito 2: Verification of Command Components (src/css/command.css)', async (t) => {
+  const content = fs.readFileSync(cssFiles.command, 'utf8');
+
+  await t.test('Command bar Spotlight-style search', () => {
+    assert.match(content, /\.dcss-command-bar\b/, '.dcss-command-bar exists');
+    assert.match(content, /\.dcss-command-bar-input\b/, '.dcss-command-bar-input exists');
+    assert.match(content, /\.dcss-command-bar-icon\b/, '.dcss-command-bar-icon exists');
+    assert.match(content, /\.dcss-command-bar-shortcut\b/, '.dcss-command-bar-shortcut exists');
+  });
+
+  await t.test('Action bar bottom quick actions', () => {
+    assert.match(content, /\.dcss-action-bar\b/, '.dcss-action-bar exists');
+    assert.match(content, /\.dcss-action-bar-group\b/, '.dcss-action-bar-group exists');
+    assert.match(content, /\.dcss-action-item\b/, '.dcss-action-item exists');
+  });
+
+  await t.test('Split view master/detail dual-pane layout', () => {
+    assert.match(content, /\.dcss-split-view\b/, '.dcss-split-view exists');
+    assert.match(content, /\.dcss-split-view-master\b/, '.dcss-split-view-master exists');
+    assert.match(content, /\.dcss-split-view-detail\b/, '.dcss-split-view-detail exists');
   });
 });

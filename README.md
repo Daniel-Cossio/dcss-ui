@@ -1,17 +1,19 @@
 # ⚡ dcss-ui
 
-> **Design System & UI Kit Web Minimalista, Zero-Overhead & Dark-First**
+> **Design System & UI Kit Web Minimalista, Zero-Overhead & Dark-First**  
+> **Inspirado en la Precisión de Raycast con Identidad Cobalt Tech (#3B82F6)**
 
-`dcss-ui` es una librería gráfica web moderna y agnóstica de frameworks concebida para desarrolladores que necesitan interfaces elegantes, de alto rendimiento y bajo peso (&lt; 40KB CSS minificado, &lt; 21KB JS standalone) sin lidiar con complejas cadenas de compilación ni dependencias pesadas en tiempo de ejecución.
+`dcss-ui` es una librería gráfica web moderna y agnóstica de frameworks concebida para desarrolladores que necesitan interfaces de productividad ultra-rápidas, densas y elegantes (&lt; 43KB CSS minificado, &lt; 21KB JS standalone) sin lidiar con complejas cadenas de compilación ni dependencias pesadas en tiempo de ejecución.
 
 ---
 
 ## 🎯 Filosofía y Principios
 
-1. **Zero-Overhead**: Sin dependencias de terceros en producción. Sin jQuery, sin Tailwind compiler, sin React/Vue obligatorio. Solo CSS nativo optimizado y JavaScript Vanilla moderno.
-2. **Dark-First por Defecto**: Paleta visual moderna diseñada con superficies oscuras de alto contraste, acentos violeta/índigo y conmutación instantánea a modo claro mediante `data-theme="light"`.
-3. **Mobile-First & Accesible**: Estructuras responsivas con soporte táctil, contenedor de tablas con scroll suave, cajones laterales (*drawers*) y soporte completo de accesibilidad por teclado (`ESC` para modales y dropdowns, navegación por pestañas).
-4. **Consumo Híbrido**: Puede usarse como paquete NPM en proyectos basados en bundlers (Vite, Rollup, Webpack) o como archivos estáticos independientes (CDN / Standalone) en plantillas Jinja2, FastAPI, Flask o sitios HTML tradicionales.
+1. **Zero-Overhead**: Cero dependencias de terceros en producción. Sin jQuery, sin Tailwind compiler en el runtime, sin React/Vue obligatorio. Solo CSS nativo optimizado con variables y JavaScript Vanilla moderno.
+2. **Dark-First & Estética Raycast**: Arquitectura visual con superficies oscuras escalonadas en tono obsidiana (`#07080A` canvas, `#0D0E11` panel, `#121316` tarjeta, `#18191E` superficie elevada), bordes hairline de 1px (`rgba(255,255,255,0.08)`), destellos superiores cenitales (`--dcss-top-highlight`) y acento eléctrico **Cobalt Tech** (`#3B82F6`). Conmutación instantánea a modo claro mediante `data-theme="light"`.
+3. **Productividad Orientada a Teclado**: Componentes nativos diseñados para aplicaciones de alta velocidad: teclas físicas 3D (`.dcss-kbd`), barras de búsqueda estilo Spotlight (`.dcss-command-bar`), listas densas con accesorios (`.dcss-list-item`), vistas divididas maestro-detalle (`.dcss-split-view`) y barras de acción con atajos contextuales (`.dcss-action-bar`).
+4. **Mobile-First & Accesible**: Estructuras responsivas con soporte táctil, contenedor de tablas con scroll suave, cajones laterales (*drawers*) y soporte completo de accesibilidad por teclado (`ESC` para modales y dropdowns, navegación por pestañas y trigger `⌘K`).
+5. **Consumo Híbrido**: Puede usarse como paquete NPM en proyectos basados en bundlers (Vite, Rollup, Webpack) o como archivos estáticos independientes (CDN / Standalone) en plantillas Jinja2, FastAPI, Flask o sitios HTML tradicionales.
 
 ---
 
@@ -29,7 +31,7 @@ Descarga o copia directamente los archivos optimizados de la carpeta `dist/` a t
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Aplicación con dcss-ui</title>
   
-  <!-- CSS de dcss-ui -->
+  <!-- CSS de dcss-ui (Raycast + Cobalt Tech) -->
   <link rel="stylesheet" href="./dist/dcss.min.css">
 </head>
 <body>
@@ -42,7 +44,8 @@ Descarga o copia directamente los archivos optimizados de la carpeta `dist/` a t
       <div class="dcss-card-body">
         <p>Bienvenido a una aplicación rápida con dcss-ui.</p>
         <button class="dcss-btn dcss-btn-primary" onclick="DCSS.toast.success('¡Funciona!')">
-          Probar Notificación
+          <span>Probar Notificación</span>
+          <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">⌘S</kbd>
         </button>
       </div>
     </div>
@@ -80,17 +83,133 @@ theme.toggle();
 
 ---
 
+## ⌨️ Componentes de Productividad Estilo Raycast
+
+### 1. Keycaps 3D (`.dcss-kbd`)
+Teclas físicas renderizadas con gradiente de profundidad, relieve físico 3D, borde iluminado y sombra de contacto para indicar atajos de teclado individuales o en secuencia.
+
+```html
+<!-- Teclas individuales -->
+<kbd class="dcss-kbd">↵</kbd>
+<kbd class="dcss-kbd">Esc</kbd>
+<kbd class="dcss-kbd">Tab</kbd>
+<kbd class="dcss-kbd dcss-kbd-sm">⌘</kbd>
+
+<!-- Grupo de teclas combinadas -->
+<div class="dcss-kbd-group">
+  <kbd class="dcss-kbd">⌘</kbd>
+  <span>+</span>
+  <kbd class="dcss-kbd">K</kbd>
+</div>
+
+<!-- Integración en botones para atajos directos -->
+<button class="dcss-btn dcss-btn-primary">
+  <span>Guardar</span>
+  <kbd class="dcss-kbd dcss-kbd-sm">⌘S</kbd>
+</button>
+```
+
+### 2. List Items Densos (`.dcss-list-item`)
+Filas interactivas compactas optimizadas para menús de comandos, paletas de búsqueda y navegación rápida:
+
+```html
+<ul class="dcss-list">
+  <li class="dcss-list-item is-selected">
+    <span class="dcss-list-item-icon">🚀</span>
+    <div class="dcss-list-item-content">
+      <span class="dcss-list-item-title">Deploy to Production</span>
+      <span class="dcss-list-item-subtitle">Desplegar contenedores a nube privada</span>
+    </div>
+    <div class="dcss-list-item-accessories">
+      <span class="dcss-badge dcss-badge-success dcss-badge-pill">Producción</span>
+      <kbd class="dcss-kbd dcss-kbd-sm">⌘D</kbd>
+    </div>
+  </li>
+</ul>
+```
+
+### 3. Command Bar (`.dcss-command-bar`)
+Buscador contextual minimalista estilo Spotlight / Command Palette:
+
+```html
+<div class="dcss-command-bar">
+  <span class="dcss-command-bar-icon">🔍</span>
+  <input type="text" class="dcss-command-bar-input" placeholder="Buscar comando o archivo...">
+  <div class="dcss-command-bar-shortcut">
+    <span class="dcss-kbd-group">
+      <kbd class="dcss-kbd dcss-kbd-sm">⌘</kbd>
+      <kbd class="dcss-kbd dcss-kbd-sm">K</kbd>
+    </span>
+  </div>
+</div>
+```
+
+### 4. Action Bar (`.dcss-action-bar`)
+Franja inferior delgada de ventana o modal con separadores sutiles y acciones rápidas por atajo:
+
+```html
+<div class="dcss-action-bar">
+  <div class="dcss-action-bar-group">
+    <a href="#" class="dcss-action-item">
+      <kbd class="dcss-kbd dcss-kbd-sm">↵</kbd> Confirmar
+    </a>
+    <a href="#" class="dcss-action-item">
+      <kbd class="dcss-kbd dcss-kbd-sm">Esc</kbd> Cancelar
+    </a>
+  </div>
+  <div class="dcss-action-bar-group">
+    <span>Atajos rápidos activos</span>
+  </div>
+</div>
+```
+
+### 5. Split View (`.dcss-split-view`)
+Disposición de dos paneles (columna de selección maestra y visor de detalles):
+
+```html
+<div class="dcss-split-view">
+  <!-- Columna Maestra Izquierda -->
+  <div class="dcss-split-view-master">
+    <div class="dcss-command-bar">
+      <input class="dcss-command-bar-input" placeholder="Filtrar...">
+    </div>
+    <ul class="dcss-list">
+      <li class="dcss-list-item is-selected">Elemento 1</li>
+    </ul>
+    <div class="dcss-action-bar">
+      <span class="dcss-action-item"><kbd class="dcss-kbd dcss-kbd-sm">↵</kbd> Seleccionar</span>
+    </div>
+  </div>
+
+  <!-- Panel de Detalles Derecho -->
+  <div class="dcss-split-view-detail">
+    <h4>Vista Previa</h4>
+    <p>Detalles del elemento seleccionado.</p>
+    <div class="dcss-action-bar">
+      <span class="dcss-action-item"><kbd class="dcss-kbd dcss-kbd-sm">Esc</kbd> Volver</span>
+    </div>
+  </div>
+</div>
+```
+
+---
+
 ## 🎨 Catálogo de Componentes CSS
 
 | Componente | Clase Principal | Modificadores y Variantes | Descripción |
 | :--- | :--- | :--- | :--- |
-| **Botones** | `.dcss-btn` | `.dcss-btn-primary`, `.dcss-btn-secondary`, `.dcss-btn-danger`, `.dcss-btn-ghost`, `.dcss-btn-outline`<br>Tamaños: `.dcss-btn-sm`, `.dcss-btn-md`, `.dcss-btn-lg`<br>Estados: `.dcss-btn-loading`, `.is-disabled` | Botones accesibles con estados hover, active, focus y spinner de carga integrado. |
-| **Tarjetas** | `.dcss-card` | `.dcss-card-interactive`, `.dcss-card-glass`<br>Secciones: `.dcss-card-header`, `.dcss-card-body`, `.dcss-card-footer` | Contenedor de contenido con variantes hover elevadas y efecto glassmorphism con backdrop-blur. |
-| **Formularios** | `.dcss-input`, `.dcss-select`, `.dcss-textarea` | `.is-valid`, `.is-invalid`<br>Contenedores: `.dcss-form-group`, `.dcss-input-group`, `.dcss-input-addon`<br>Textos: `.dcss-label`, `.dcss-form-hint`, `.dcss-form-error` | Campos de texto, menús de selección, grupos de entrada con prefijo y validaciones semánticas. |
+| **Teclas 3D** | `.dcss-kbd` | `.dcss-kbd-sm`, Contenedor: `.dcss-kbd-group` | Teclas físicas con relieve táctil 3D, gradiente y sombra de contacto. |
+| **List Items** | `.dcss-list-item` | `.is-selected`, Contenedor: `.dcss-list`<br>Partes: `.dcss-list-item-icon`, `.dcss-list-item-content`, `.dcss-list-item-title`, `.dcss-list-item-subtitle`, `.dcss-list-item-accessories` | Filas densas con icono leading, contenido flexible, badges y teclas de atajo. |
+| **Command Bar** | `.dcss-command-bar` | `.dcss-command-bar-icon`, `.dcss-command-bar-input`, `.dcss-command-bar-shortcut`, `.dcss-command-bar-accessories` | Barra de búsqueda integrada estilo Spotlight / Command Palette. |
+| **Action Bar** | `.dcss-action-bar` | `.dcss-action-bar-group`, `.dcss-action-item` | Barra de acciones inferior para modales y ventanas con atajos contextuales. |
+| **Split View** | `.dcss-split-view` | `.dcss-split-view-master`, `.dcss-split-view-detail` | Disposición dual de 2 paneles (maestro-detalle) con apilado responsivo. |
+| **Botones** | `.dcss-btn` | `.dcss-btn-primary`, `.dcss-btn-secondary`, `.dcss-btn-danger`, `.dcss-btn-ghost`, `.dcss-btn-outline`<br>Tamaños: `.dcss-btn-sm`, `.dcss-btn-md`, `.dcss-btn-lg`<br>Estados: `.dcss-btn-loading`, `.is-disabled` | Botones accesibles con estados hover, active, focus, slots para `.dcss-kbd` y spinner integrado. |
+| **Tarjetas** | `.dcss-card` | `.dcss-card-interactive`, `.dcss-card-glass`<br>Secciones: `.dcss-card-header`, `.dcss-card-body`, `.dcss-card-footer` | Contenedor de contenido sobre superficie obsidiana (`#121316`) con top-edge highlight y hover lift. |
+| **Formularios** | `.dcss-input`, `.dcss-select`, `.dcss-textarea` | `.is-valid`, `.is-invalid`<br>Contenedores: `.dcss-form-group`, `.dcss-input-group`, `.dcss-input-addon`<br>Textos: `.dcss-label`, `.dcss-form-hint`, `.dcss-form-error` | Campos de texto integrados en la superficie, selectores, addons y validaciones semánticas. |
 | **Switches y Checks**| `.dcss-switch`, `.dcss-checkbox` | Controles deslizantes animados con clase `.dcss-switch-slider` | Switches animados nativos y cajas de selección accesibles. |
 | **Badges & Chips** | `.dcss-badge` | Semánticas: `primary`, `secondary/neutral`, `success`, `warning`, `danger`, `info`<br>Estilos: `.dcss-badge-pill`, `.dcss-badge-outline`<br>Animación: `.dcss-badge-dot`, `.dcss-badge-pulse` | Etiquetas de estado, chips con contorno e indicadores con pulsación viva. |
 | **Tablas** | `.dcss-table` | Modificadores: `.dcss-table-striped`, `.dcss-table-hover`, `.dcss-table-sticky`<br>Contenedor: `.dcss-table-responsive` | Tablas de datos con cabecera fija, alternancia de filas, resalte y contenedor táctil responsive. |
-| **Layout & Grid** | `.dcss-container`, `.dcss-grid` | `.dcss-grid-cols-2`, `.dcss-grid-cols-3`, `.dcss-grid-cols-4`, `.dcss-flex`, `.dcss-stack` | Utilidades de espaciado, contenedor fluido y sistema de grillas CSS. |
+| **Layout & Grid** | `.dcss-container`, `.dcss-grid` | `.dcss-grid-cols-2`, `.dcss-grid-cols-3`, `.dcss-grid-cols-4`, `.dcss-flex`, `.dcss-stack` | Utilidades de espaciado modular (4px), contenedor fluido y sistema de grillas CSS. |
 
 ---
 
@@ -135,7 +254,7 @@ DCSS.toast.info('Nueva notificación');
 ```
 
 ### 3. `DCSS.modal` — Diálogos Modales Accesibles
-Controla modales declarativos o genera ventanas de diálogo interactivas mediante código.
+Controla modales declarativos o genera ventanas de diálogo interactivas mediante código, con integración nativa de `.dcss-action-bar`.
 
 ```javascript
 // Abrir modal existente por ID o selector
@@ -211,15 +330,24 @@ Puedes sobrescribir cualquier token de `tokens.css` en tu propia hoja de estilos
 
 ```css
 :root {
-  /* Modificar color primario de marca */
-  --dcss-primary: #7c3aed;
-  --dcss-primary-hover: #6d28d9;
+  /* Modificar acento primario (Cobalt Tech por defecto #3b82f6) */
+  --dcss-primary: #3b82f6;
+  --dcss-primary-hover: #60a5fa;
+  --dcss-primary-active: #1d4ed8;
+
+  /* Modificar superficies Raycast */
+  --dcss-bg-base: #07080a;
+  --dcss-bg-surface: #0d0e11;
+  --dcss-bg-card: #121316;
+  --dcss-bg-elevated: #18191e;
 
   /* Modificar radios de bordes */
-  --dcss-radius-lg: 16px;
+  --dcss-radius-md: 8px;
+  --dcss-radius-lg: 12px;
 
   /* Modificar tipografía base */
-  --dcss-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --dcss-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --dcss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
 }
 
 /* Ajustes específicos para tema claro */
@@ -227,6 +355,7 @@ Puedes sobrescribir cualquier token de `tokens.css` en tu propia hoja de estilos
 .light-theme {
   --dcss-bg-canvas: #f8fafc;
   --dcss-bg-surface: #ffffff;
+  --dcss-primary: #2563eb;
 }
 ```
 
@@ -234,7 +363,7 @@ Puedes sobrescribir cualquier token de `tokens.css` en tu propia hoja de estilos
 
 ## 💻 Showcase Interactivo
 
-Para explorar todos los componentes en acción, clones visuales, selector de temas y snippets de código listos para copiar, abre el archivo local en tu navegador:
+Para explorar todos los componentes en acción, la barra de comandos `⌘K`, el muestrario de keycaps 3D, el Split View interactivo y los snippets de código listos para copiar, abre el archivo local en tu navegador:
 
 ```bash
 open showcase/index.html

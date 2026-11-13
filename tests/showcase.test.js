@@ -58,6 +58,52 @@ test('Hito 5: Verification of Showcase Header, Theme and Navigation', async (t) 
   });
 });
 
+test('Hito 5: Verification of Raycast Productivity Components in Showcase', async (t) => {
+  const html = fs.readFileSync(showcaseHtmlPath, 'utf8');
+
+  await t.test('Showcase contains dedicated Raycast Productivity section (#raycast)', () => {
+    assert.ok(html.includes('id="raycast"'), 'Must have section #raycast');
+    assert.ok(html.includes('Raycast'), 'Section must highlight Raycast aesthetic');
+  });
+
+  await t.test('Showcase header integrates interactive .dcss-command-bar with input and shortcut', () => {
+    assert.ok(html.includes('dcss-command-bar'), 'Header must contain .dcss-command-bar');
+    assert.ok(html.includes('dcss-command-bar-input'), 'Must contain .dcss-command-bar-input');
+    assert.ok(html.includes('dcss-command-bar-icon'), 'Must contain .dcss-command-bar-icon');
+    assert.ok(html.includes('dcss-command-bar-shortcut'), 'Must contain .dcss-command-bar-shortcut');
+  });
+
+  await t.test('Showcase demonstrates 3D tactile keycaps (.dcss-kbd) with sizes and groups', () => {
+    assert.ok(html.includes('dcss-kbd'), 'Must showcase .dcss-kbd');
+    assert.ok(html.includes('dcss-kbd-sm'), 'Must showcase .dcss-kbd-sm modifier');
+    assert.ok(html.includes('dcss-kbd-group'), 'Must showcase .dcss-kbd-group container');
+  });
+
+  await t.test('Showcase demonstrates high-density list items (.dcss-list-item) with accessories', () => {
+    assert.ok(html.includes('dcss-list'), 'Must showcase .dcss-list');
+    assert.ok(html.includes('dcss-list-item'), 'Must showcase .dcss-list-item');
+    assert.ok(html.includes('dcss-list-item-icon'), 'Must showcase .dcss-list-item-icon');
+    assert.ok(html.includes('dcss-list-item-content'), 'Must showcase .dcss-list-item-content');
+    assert.ok(html.includes('dcss-list-item-title'), 'Must showcase .dcss-list-item-title');
+    assert.ok(html.includes('dcss-list-item-subtitle'), 'Must showcase .dcss-list-item-subtitle');
+    assert.ok(html.includes('dcss-list-item-accessories'), 'Must showcase .dcss-list-item-accessories');
+    assert.ok(html.includes('is-selected'), 'Must showcase .is-selected state on list items');
+  });
+
+  await t.test('Showcase demonstrates Split View dual layout (.dcss-split-view)', () => {
+    assert.ok(html.includes('dcss-split-view'), 'Must showcase .dcss-split-view');
+    assert.ok(html.includes('dcss-split-view-master'), 'Must showcase .dcss-split-view-master');
+    assert.ok(html.includes('dcss-split-view-detail'), 'Must showcase .dcss-split-view-detail');
+  });
+
+  await t.test('Showcase demonstrates Action Bar (.dcss-action-bar) and modal integration', () => {
+    assert.ok(html.includes('dcss-action-bar'), 'Must showcase .dcss-action-bar');
+    assert.ok(html.includes('dcss-action-item'), 'Must showcase .dcss-action-item');
+    // Verify modal dialog integrates action bar
+    assert.match(html, /class=["'][^"']*dcss-modal-dialog[^"']*["'][\s\S]*?dcss-action-bar/, 'Modal dialog must incorporate .dcss-action-bar');
+  });
+});
+
 test('Hito 5: Verification of Component Showcase Sections', async (t) => {
   const html = fs.readFileSync(showcaseHtmlPath, 'utf8');
 
@@ -162,6 +208,12 @@ test('Hito 5: Verification of Copy Snippet Blocks and Interactive Script', async
   await t.test('showcase/app.js handles programmatic modal creation', () => {
     assert.ok(js.includes('modal.create'), 'Must invoke DCSS.modal.create');
   });
+
+  await t.test('showcase/app.js handles ⌘K / Ctrl+K shortcut, list filtering and item selection', () => {
+    assert.ok(js.includes('k') && (js.includes('metaKey') || js.includes('ctrlKey')), 'app.js must handle ⌘K/Ctrl+K shortcut');
+    assert.ok(js.includes('is-selected'), 'app.js must toggle .is-selected class on list items');
+    assert.ok(js.includes('split-filter-input') || js.includes('filter'), 'app.js must handle list filtering');
+  });
 });
 
 test('Hito 5: Verification of Comprehensive README.md Documentation', async (t) => {
@@ -177,6 +229,19 @@ test('Hito 5: Verification of Comprehensive README.md Documentation', async (t) 
     assert.match(readme, /Zero-Overhead/i, 'Must highlight Zero-Overhead philosophy');
     assert.match(readme, /Dark-First/i, 'Must highlight Dark-First philosophy');
     assert.match(readme, /Mobile-First/i, 'Must highlight Mobile-First philosophy');
+  });
+
+  await t.test('README.md details Raycast & Cobalt Tech visual identity', () => {
+    assert.match(readme, /Raycast/i, 'Must highlight Raycast inspiration');
+    assert.match(readme, /Cobalt\s*Tech|#3b82f6/i, 'Must document Cobalt Tech accent');
+  });
+
+  await t.test('README.md documents Raycast productivity components and snippets', () => {
+    assert.ok(readme.includes('.dcss-kbd'), 'Must document .dcss-kbd');
+    assert.ok(readme.includes('.dcss-list-item'), 'Must document .dcss-list-item');
+    assert.ok(readme.includes('.dcss-command-bar'), 'Must document .dcss-command-bar');
+    assert.ok(readme.includes('.dcss-action-bar'), 'Must document .dcss-action-bar');
+    assert.ok(readme.includes('.dcss-split-view'), 'Must document .dcss-split-view');
   });
 
   await t.test('README.md includes Quickstart Option 1: Standalone / CDN', () => {

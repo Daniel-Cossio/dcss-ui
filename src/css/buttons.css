@@ -55,6 +55,12 @@
   outline: none;
 }
 
+/* Keyboard Shortcut Inside Button */
+.dcss-btn .dcss-kbd {
+  margin-left: var(--dcss-space-2);
+  opacity: 0.85;
+}
+
 .dcss-btn:focus-visible {
   outline: 2px solid var(--dcss-border-focus);
   outline-offset: 2px;
@@ -79,19 +85,21 @@
 .dcss-btn-primary {
   background-color: var(--dcss-primary);
   color: var(--dcss-primary-contrast);
-  border-color: var(--dcss-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--dcss-top-highlight), 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .dcss-btn-primary:hover:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-primary-hover);
-  border-color: var(--dcss-primary-hover);
+  border-color: rgba(255, 255, 255, 0.25);
   color: var(--dcss-primary-contrast);
-  box-shadow: var(--dcss-shadow-glow);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-glow);
 }
 
 .dcss-btn-primary:active:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-primary-active);
   border-color: var(--dcss-primary-active);
+  box-shadow: none;
 }
 
 /* Secondary */
@@ -99,16 +107,19 @@
   background-color: var(--dcss-bg-surface-elevated);
   color: var(--dcss-text-primary);
   border-color: var(--dcss-border-default);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-sm);
 }
 
 .dcss-btn-secondary:hover:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-bg-surface-subtle);
   border-color: var(--dcss-border-strong);
   color: var(--dcss-text-primary);
+  box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-md);
 }
 
 .dcss-btn-secondary:active:not(:disabled):not(.is-disabled) {
   background-color: var(--dcss-bg-surface);
+  box-shadow: none;
 }
 
 /* Danger */

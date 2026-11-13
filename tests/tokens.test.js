@@ -74,40 +74,73 @@ test('Hito 1: Verification of Design Tokens', async (t) => {
     assert.match(tokensContent, /\.light-theme/, '.light-theme class selector must be defined');
   });
 
-  await t.test('Surface, canvas and border tokens in dark and light modes', () => {
+  await t.test('Raycast stepped surfaces and background tokens', () => {
     const surfaceTokens = [
+      '--dcss-bg-base',
       '--dcss-bg-canvas',
       '--dcss-bg-surface',
+      '--dcss-bg-card',
+      '--dcss-bg-elevated',
       '--dcss-bg-surface-elevated',
       '--dcss-bg-surface-glass',
       '--dcss-bg-overlay',
-      '--dcss-border-subtle',
-      '--dcss-border-default',
-      '--dcss-border-strong',
-      '--dcss-border-focus'
+      '--dcss-bg-hover',
+      '--dcss-bg-active'
     ];
 
     for (const token of surfaceTokens) {
-      assert.ok(tokensContent.includes(token), `Missing surface/border token: ${token}`);
+      assert.ok(tokensContent.includes(token), `Missing surface token: ${token}`);
     }
+
+    // Check specific Raycast color values in :root
+    assert.match(tokensContent, /--dcss-bg-base:\s*#07080a;/, '--dcss-bg-base should be near-black Raycast #07080a');
+    assert.match(tokensContent, /--dcss-bg-surface:\s*#0d0e11;/, '--dcss-bg-surface should be #0d0e11');
+    assert.match(tokensContent, /--dcss-bg-card:\s*#121316;/, '--dcss-bg-card should be #121316');
+    assert.match(tokensContent, /--dcss-bg-elevated:\s*#18191e;/, '--dcss-bg-elevated should be #18191e');
+    assert.match(tokensContent, /--dcss-bg-hover:\s*rgba\(255,\s*255,\s*255,\s*0\.05\);/);
+    assert.match(tokensContent, /--dcss-bg-active:\s*rgba\(255,\s*255,\s*255,\s*0\.08\);/);
   });
 
-  await t.test('Text & Brand tokens', () => {
-    const brandTokens = [
-      '--dcss-text-primary',
-      '--dcss-text-secondary',
-      '--dcss-text-muted',
-      '--dcss-text-inverse',
-      '--dcss-primary',
-      '--dcss-primary-hover',
-      '--dcss-primary-active',
-      '--dcss-primary-muted',
-      '--dcss-accent',
-      '--dcss-accent-hover'
+  await t.test('Raycast border, subtle hairlines and top-highlight tokens', () => {
+    const borderTokens = [
+      '--dcss-border',
+      '--dcss-border-subtle',
+      '--dcss-border-default',
+      '--dcss-border-highlight',
+      '--dcss-border-strong',
+      '--dcss-border-focus',
+      '--dcss-top-highlight'
     ];
 
-    for (const token of brandTokens) {
-      assert.ok(tokensContent.includes(token), `Missing text/brand token: ${token}`);
+    for (const token of borderTokens) {
+      assert.ok(tokensContent.includes(token), `Missing border token: ${token}`);
+    }
+
+    assert.match(tokensContent, /--dcss-border:\s*rgba\(255,\s*255,\s*255,\s*0\.08\);/);
+    assert.match(tokensContent, /--dcss-border-subtle:\s*rgba\(255,\s*255,\s*255,\s*0\.04\);/);
+    assert.match(tokensContent, /--dcss-border-highlight:\s*rgba\(255,\s*255,\s*255,\s*0\.16\);/);
+    assert.match(tokensContent, /--dcss-top-highlight:\s*inset 0 1px 0 rgba\(255,\s*255,\s*255,\s*0\.12\);/);
+  });
+
+  await t.test('Cobalt Tech Accent palette (Option C)', () => {
+    assert.match(tokensContent, /--dcss-primary:\s*#3b82f6;/, 'Primary accent should be Cobalt Tech #3b82f6');
+    assert.match(tokensContent, /--dcss-primary-hover:\s*#60a5fa;/);
+    assert.match(tokensContent, /--dcss-primary-active:\s*#1d4ed8;/);
+    assert.match(tokensContent, /--dcss-primary-subtle:\s*rgba\(59,\s*130,\s*246,\s*0\.12\);/);
+    assert.match(tokensContent, /--dcss-shadow-glow:\s*0 0 20px rgba\(59,\s*130,\s*246,\s*0\.25\);/);
+  });
+
+  await t.test('Text tokens including body text', () => {
+    const textTokens = [
+      '--dcss-text-primary',
+      '--dcss-text-body',
+      '--dcss-text-secondary',
+      '--dcss-text-muted',
+      '--dcss-text-inverse'
+    ];
+
+    for (const token of textTokens) {
+      assert.ok(tokensContent.includes(token), `Missing text token: ${token}`);
     }
   });
 
@@ -121,9 +154,10 @@ test('Hito 1: Verification of Design Tokens', async (t) => {
     }
   });
 
-  await t.test('Typography tokens (sans, mono, scale xs to 3xl, weights, line-heights)', () => {
+  await t.test('Typography tokens and Raycast letter-spacing', () => {
     assert.ok(tokensContent.includes('--dcss-font-sans'), 'Missing --dcss-font-sans');
     assert.ok(tokensContent.includes('--dcss-font-mono'), 'Missing --dcss-font-mono');
+    assert.match(tokensContent, /--dcss-letter-spacing-wide:\s*0\.02em;/, 'Must define --dcss-letter-spacing-wide: 0.02em');
 
     const scales = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl'];
     for (const s of scales) {
@@ -142,7 +176,11 @@ test('Hito 1: Verification of Design Tokens', async (t) => {
     }
   });
 
-  await t.test('Border Radiuses (--dcss-radius-sm to --dcss-radius-full)', () => {
+  await t.test('Raycast Precision Border Radiuses (4px, 8px, 12px)', () => {
+    assert.match(tokensContent, /--dcss-radius-sm:\s*4px;/, '--dcss-radius-sm must be 4px');
+    assert.match(tokensContent, /--dcss-radius-md:\s*8px;/, '--dcss-radius-md must be 8px');
+    assert.match(tokensContent, /--dcss-radius-lg:\s*12px;/, '--dcss-radius-lg must be 12px');
+
     const radii = ['sm', 'md', 'lg', 'xl', '2xl', 'full'];
     for (const r of radii) {
       assert.ok(tokensContent.includes(`--dcss-radius-${r}`), `Missing radius token: --dcss-radius-${r}`);
@@ -165,6 +203,12 @@ test('Hito 1: Verification of Design Tokens', async (t) => {
     }
   });
 
+  await t.test('Light theme adjustments for Cobalt Tech & clean surfaces', () => {
+    assert.match(tokensContent, /\[data-theme=["']light["']\][\s\S]*--dcss-primary:\s*#2563eb;/);
+    assert.match(tokensContent, /\[data-theme=["']light["']\][\s\S]*--dcss-bg-base:\s*#f8fafc;/);
+    assert.match(tokensContent, /\[data-theme=["']light["']\][\s\S]*--dcss-bg-surface:\s*#ffffff;/);
+  });
+
   await t.test('Fluid Transitions and Z-index scales', () => {
     assert.ok(tokensContent.includes('--dcss-transition-fast'), 'Missing --dcss-transition-fast');
     assert.ok(tokensContent.includes('--dcss-transition-normal'), 'Missing --dcss-transition-normal');
@@ -180,9 +224,10 @@ test('Hito 1: Verification of Reset CSS', async (t) => {
     assert.match(resetContent, /\*,\s*\*::before,\s*\*::after\s*\{[\s\S]*box-sizing:\s*border-box;/);
   });
 
-  await t.test('Body uses typography and background tokens', () => {
-    assert.match(resetContent, /body\s*\{[\s\S]*var\(--dcss-bg-canvas/);
-    assert.match(resetContent, /body\s*\{[\s\S]*var\(--dcss-text-primary/);
+  await t.test('Body uses typography, base background and letter-spacing tokens', () => {
+    assert.match(resetContent, /body\s*\{[\s\S]*var\(--dcss-bg-base/);
+    assert.match(resetContent, /body\s*\{[\s\S]*var\(--dcss-text-body/);
+    assert.match(resetContent, /body\s*\{[\s\S]*var\(--dcss-letter-spacing-wide/);
     assert.match(resetContent, /body\s*\{[\s\S]*var\(--dcss-font-sans/);
   });
 

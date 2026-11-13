@@ -40,7 +40,8 @@
       width: 32px;
       height: 32px;
       border-radius: var(--dcss-radius-md);
-      background: linear-gradient(135deg, var(--dcss-primary), var(--dcss-accent));
+      background: linear-gradient(135deg, var(--dcss-primary), var(--dcss-primary-active));
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
       color: #ffffff;
       font-weight: var(--dcss-font-weight-bold);
       font-size: var(--dcss-font-sm);
@@ -67,7 +68,7 @@
     .showcase-hero {
       padding: var(--dcss-space-12) 0 var(--dcss-space-10);
       text-align: center;
-      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 65%);
+      background: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 65%);
     }
     .showcase-hero h1 {
       font-size: clamp(2rem, 5vw, 3.25rem);
@@ -77,7 +78,7 @@
       line-height: var(--dcss-leading-tight);
     }
     .showcase-hero-gradient {
-      background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 50%, #c084fc 100%);
+      background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 50%, #1d4ed8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -202,12 +203,13 @@
       <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
         <span class="showcase-logo-icon">D</span>
         <span style="font-weight:bold; font-size:var(--dcss-font-md); color:var(--dcss-text-primary);">dcss-ui</span>
-        <span class="dcss-badge dcss-badge-primary dcss-badge-pill">v1.0.0</span>
+        <span class="dcss-badge dcss-badge-primary dcss-badge-pill">v0.1.0</span>
       </div>
       <button class="dcss-drawer-close" data-dcss-drawer-close aria-label="Cerrar">&times;</button>
     </div>
     <div class="dcss-drawer-body" style="padding:var(--dcss-space-5); display:flex; flex-direction:column; gap:var(--dcss-space-3); flex:1;">
       <a href="#top" class="showcase-nav-link" data-dcss-drawer-close>🚀 Inicio</a>
+      <a href="#raycast" class="showcase-nav-link" data-dcss-drawer-close style="color:var(--dcss-primary); font-weight:600;">⌨️ Raycast UI</a>
       <a href="#tokens" class="showcase-nav-link" data-dcss-drawer-close>🎨 Tokens de Diseño</a>
       <a href="#buttons" class="showcase-nav-link" data-dcss-drawer-close>🔘 Botones</a>
       <a href="#cards" class="showcase-nav-link" data-dcss-drawer-close>🃏 Tarjetas</a>
@@ -233,10 +235,11 @@
           <span class="showcase-logo-icon">D</span>
           <span>dcss-ui</span>
         </a>
-        <span class="dcss-badge dcss-badge-primary dcss-badge-pill">v1.0.0</span>
+        <span class="dcss-badge dcss-badge-primary dcss-badge-pill">v0.1.0</span>
       </div>
 
       <nav class="showcase-nav">
+        <a href="#raycast" class="showcase-nav-link" style="color:var(--dcss-primary); font-weight:600;">⌨️ Raycast</a>
         <a href="#tokens" class="showcase-nav-link">Tokens</a>
         <a href="#buttons" class="showcase-nav-link">Botones</a>
         <a href="#cards" class="showcase-nav-link">Tarjetas</a>
@@ -253,28 +256,433 @@
         <a href="https://github.com/danielcossio" target="_blank" rel="noopener noreferrer" class="dcss-btn dcss-btn-ghost dcss-btn-sm">GitHub</a>
       </div>
     </div>
+
+    <!-- Spotlight Command Bar Integrated into Header -->
+    <div class="dcss-container" style="margin-top: var(--dcss-space-3);">
+      <div class="dcss-command-bar" style="background: var(--dcss-bg-surface); border: 1px solid var(--dcss-border-default); border-radius: var(--dcss-radius-lg); box-shadow: var(--dcss-top-highlight), var(--dcss-shadow-sm);">
+        <span class="dcss-command-bar-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </span>
+        <input type="text" id="showcase-command-input" class="dcss-command-bar-input" placeholder="Buscar componente o comando en dcss-ui... (ej. botones, kbd, modal)" aria-label="Buscar componente">
+        <div class="dcss-command-bar-shortcut">
+          <span class="dcss-kbd-group">
+            <kbd class="dcss-kbd dcss-kbd-sm">⌘</kbd>
+            <kbd class="dcss-kbd dcss-kbd-sm">K</kbd>
+          </span>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Hero Section -->
   <section class="showcase-hero">
     <div class="dcss-container">
-      <span class="dcss-badge dcss-badge-primary dcss-badge-pill" style="margin-bottom:var(--dcss-space-3);">Design System Minimalista</span>
+      <div style="display:flex; justify-content:center; gap:var(--dcss-space-2); margin-bottom:var(--dcss-space-3); flex-wrap:wrap;">
+        <span class="dcss-badge dcss-badge-primary dcss-badge-pill">Estética Raycast Dark-First</span>
+        <span class="dcss-badge dcss-badge-outline dcss-badge-info">Cobalt Tech #3B82F6</span>
+      </div>
       <h1>
         Experiencias web fluidas con <br>
         <span class="showcase-hero-gradient">Zero-Overhead & Dark-First</span>
       </h1>
       <p>
-        Librería gráfica y sistema de componentes agnóstico de frameworks. Tokens CSS universales, componentes nativos ultra-ligeros y utilidades interactivas en JavaScript Vanilla.
+        Design System minimalista con superficies obsidiana de alta densidad, bordes hairline de precisión, keycaps 3D táctiles y utilidades interactivas en JavaScript Vanilla sin dependencias pesadas.
       </p>
       <div style="display:flex; justify-content:center; gap:var(--dcss-space-3); flex-wrap:wrap;">
-        <a href="#interactive" class="dcss-btn dcss-btn-primary dcss-btn-lg">⚡ Ver Demos Interactivas</a>
-        <a href="#buttons" class="dcss-btn dcss-btn-secondary dcss-btn-lg">🎨 Explorar Catálogo</a>
+        <a href="#raycast" class="dcss-btn dcss-btn-primary dcss-btn-lg">⌨️ Componentes Raycast</a>
+        <a href="#interactive" class="dcss-btn dcss-btn-secondary dcss-btn-lg">⚡ Ver Demos Interactivas</a>
+        <a href="#tokens" class="dcss-btn dcss-btn-ghost dcss-btn-lg">🎨 Tokens de Diseño</a>
       </div>
     </div>
   </section>
 
   <!-- MAIN CONTENT CONTAINER -->
   <main class="dcss-container">
+
+    <!-- ==========================================
+         SECCIÓN DESTACADA: COMPONENTES DE PRODUCTIVIDAD RAYCAST
+         ========================================== -->
+    <section id="raycast" class="showcase-section">
+      <div class="showcase-section-header">
+        <div style="display:flex; align-items:center; gap:var(--dcss-space-2); margin-bottom:var(--dcss-space-2);">
+          <span class="dcss-badge dcss-badge-primary dcss-badge-pill">Nuevo en v0.1.0</span>
+          <span class="dcss-badge dcss-badge-outline dcss-badge-info">Acento Cobalt Tech</span>
+        </div>
+        <h2 class="showcase-section-title">⌨️ Componentes de Productividad Estilo Raycast</h2>
+        <p class="showcase-section-desc">Arquitectura visual de alta densidad inspirada en Raycast: teclas físicas 3D con micro-relieve, listas de navegación con accesorios, paletas de comando spotlight, vistas duales split-view y barras de acción rápida.</p>
+      </div>
+
+      <!-- 1. VITRINA DE KEYCAPS 3D (.dcss-kbd) -->
+      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">1. Teclas Físicas 3D (<code style="font-size:var(--dcss-font-sm);">.dcss-kbd</code>)</h3>
+      <div class="showcase-demo-box">
+        <p style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-4);">
+          Keycaps táctiles renderizados con gradiente físico, borde iluminado <code>--dcss-border-highlight</code> y sombra de contacto que simula una tecla mecánica real.
+        </p>
+
+        <h4 style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">Teclas Individuales</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--dcss-space-3); align-items:center; margin-bottom:var(--dcss-space-5);">
+          <kbd class="dcss-kbd">↵</kbd>
+          <kbd class="dcss-kbd">Esc</kbd>
+          <kbd class="dcss-kbd">Tab</kbd>
+          <kbd class="dcss-kbd">⌘</kbd>
+          <kbd class="dcss-kbd">Ctrl</kbd>
+          <kbd class="dcss-kbd">Alt</kbd>
+          <kbd class="dcss-kbd">⌥</kbd>
+          <kbd class="dcss-kbd">⇧</kbd>
+          <kbd class="dcss-kbd">K</kbd>
+          <kbd class="dcss-kbd">Space</kbd>
+          <kbd class="dcss-kbd">Delete</kbd>
+        </div>
+
+        <h4 style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">Grupos de Combinación (<code style="font-size:var(--dcss-font-xs);">.dcss-kbd-group</code>) & Modificador Compacto (<code style="font-size:var(--dcss-font-xs);">.dcss-kbd-sm</code>)</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--dcss-space-4); align-items:center; margin-bottom:var(--dcss-space-5);">
+          <div class="dcss-kbd-group">
+            <kbd class="dcss-kbd">⌘</kbd>
+            <span>+</span>
+            <kbd class="dcss-kbd">K</kbd>
+          </div>
+          <div class="dcss-kbd-group">
+            <kbd class="dcss-kbd">Ctrl</kbd>
+            <span>+</span>
+            <kbd class="dcss-kbd">Shift</kbd>
+            <span>+</span>
+            <kbd class="dcss-kbd">P</kbd>
+          </div>
+          <div class="dcss-kbd-group">
+            <kbd class="dcss-kbd">⌥</kbd>
+            <span>+</span>
+            <kbd class="dcss-kbd">Tab</kbd>
+          </div>
+          <div class="dcss-kbd-group">
+            <kbd class="dcss-kbd dcss-kbd-sm">⌘</kbd>
+            <kbd class="dcss-kbd dcss-kbd-sm">S</kbd>
+          </div>
+          <span style="font-size:var(--dcss-font-xs); color:var(--dcss-text-muted);">(Tamaño sm para listas densas y botones)</span>
+        </div>
+
+        <h4 style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">Integración Nativa en Botones</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--dcss-space-3); align-items:center;">
+          <button class="dcss-btn dcss-btn-primary" onclick="DCSS.toast.success('¡Comando Guardar ejecutado!')">
+            <span>Guardar Cambios</span>
+            <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">⌘S</kbd>
+          </button>
+          <button class="dcss-btn dcss-btn-secondary" onclick="DCSS.toast.info('Buscador activado')">
+            <span>Buscar Archivos</span>
+            <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">⌘P</kbd>
+          </button>
+          <button class="dcss-btn dcss-btn-ghost" onclick="DCSS.toast.warning('Cancelado')">
+            <span>Cerrar Ventana</span>
+            <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">Esc</kbd>
+          </button>
+        </div>
+      </div>
+
+      <!-- Snippet Keycaps -->
+      <div class="showcase-code-wrapper" style="margin-bottom:var(--dcss-space-8);">
+        <div class="showcase-code-header">
+          <span>HTML — Keycaps 3D (.dcss-kbd)</span>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-sm btn-copy-snippet" data-copy-target="#snippet-kbd">Copiar Snippet</button>
+        </div>
+        <pre id="snippet-kbd" class="showcase-code-block"><code>&lt;!-- Teclas individuales --&gt;
+&lt;kbd class="dcss-kbd"&gt;↵&lt;/kbd&gt;
+&lt;kbd class="dcss-kbd"&gt;Esc&lt;/kbd&gt;
+&lt;kbd class="dcss-kbd dcss-kbd-sm"&gt;⌘&lt;/kbd&gt;
+
+&lt;!-- Grupo de teclas combinadas --&gt;
+&lt;div class="dcss-kbd-group"&gt;
+  &lt;kbd class="dcss-kbd"&gt;⌘&lt;/kbd&gt;
+  &lt;span&gt;+&lt;/span&gt;
+  &lt;kbd class="dcss-kbd"&gt;K&lt;/kbd&gt;
+&lt;/div&gt;
+
+&lt;!-- Botón con slot de atajo directo --&gt;
+&lt;button class="dcss-btn dcss-btn-primary"&gt;
+  Guardar
+  &lt;kbd class="dcss-kbd dcss-kbd-sm"&gt;⌘S&lt;/kbd&gt;
+&lt;/button&gt;</code></pre>
+      </div>
+
+      <!-- 2. VITRINA DE LIST ITEMS (.dcss-list-item) -->
+      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">2. List Items Densos e Interactivos (<code style="font-size:var(--dcss-font-sm);">.dcss-list-item</code>)</h3>
+      <div class="showcase-demo-box">
+        <p style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-4);">
+          Filas compactas de selección rápida estilo Raycast con icono inicial, título, descripción/subtítulo, badges y keycap al extremo derecho. Haz clic en cualquier elemento para alternar la selección <code>.is-selected</code>.
+        </p>
+
+        <div style="background:var(--dcss-bg-surface); border:1px solid var(--dcss-border-default); border-radius:var(--dcss-radius-lg); padding:var(--dcss-space-3); box-shadow:var(--dcss-shadow-sm);">
+          <ul class="dcss-list" id="demo-standalone-list">
+            <li class="dcss-list-item is-selected" data-action-name="Despliegue a Producción">
+              <span class="dcss-list-item-icon">🚀</span>
+              <div class="dcss-list-item-content">
+                <span class="dcss-list-item-title">Deploy to Production Fleet</span>
+                <span class="dcss-list-item-subtitle">Desplegar contenedores v1.0 a us-east-1 y eu-central-1</span>
+              </div>
+              <div class="dcss-list-item-accessories">
+                <span class="dcss-badge dcss-badge-success dcss-badge-pill">Producción</span>
+                <kbd class="dcss-kbd dcss-kbd-sm">⌘D</kbd>
+              </div>
+            </li>
+            <li class="dcss-list-item" data-action-name="Compilación de CSS y JS">
+              <span class="dcss-list-item-icon">📦</span>
+              <div class="dcss-list-item-content">
+                <span class="dcss-list-item-title">Build Minified Artifacts</span>
+                <span class="dcss-list-item-subtitle">Generar dist/dcss.min.css (&lt;43KB) y dist/dcss.min.js (&lt;21KB)</span>
+              </div>
+              <div class="dcss-list-item-accessories">
+                <span class="dcss-badge dcss-badge-primary dcss-badge-pill">Build</span>
+                <kbd class="dcss-kbd dcss-kbd-sm">⌘B</kbd>
+              </div>
+            </li>
+            <li class="dcss-list-item" data-action-name="Ejecutar Test Runner">
+              <span class="dcss-list-item-icon">🧪</span>
+              <div class="dcss-list-item-content">
+                <span class="dcss-list-item-title">Run Automated Test Suites</span>
+                <span class="dcss-list-item-subtitle">Node.js test runner con 134+ aserciones nativas</span>
+              </div>
+              <div class="dcss-list-item-accessories">
+                <span class="dcss-badge dcss-badge-outline dcss-badge-info">Test</span>
+                <kbd class="dcss-kbd dcss-kbd-sm">⌘T</kbd>
+              </div>
+            </li>
+            <li class="dcss-list-item" data-action-name="Gestión de Tokens">
+              <span class="dcss-list-item-icon">⚙️</span>
+              <div class="dcss-list-item-content">
+                <span class="dcss-list-item-title">Theme & Design Tokens Inspector</span>
+                <span class="dcss-list-item-subtitle">Ajustar paleta Cobalt Tech (#3B82F6) y fondos obsidiana</span>
+              </div>
+              <div class="dcss-list-item-accessories">
+                <span class="dcss-badge dcss-badge-warning dcss-badge-pill">Settings</span>
+                <kbd class="dcss-kbd dcss-kbd-sm">⌘,</kbd>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Snippet List Items -->
+      <div class="showcase-code-wrapper" style="margin-bottom:var(--dcss-space-8);">
+        <div class="showcase-code-header">
+          <span>HTML — List Items Raycast</span>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-sm btn-copy-snippet" data-copy-target="#snippet-list-items">Copiar Snippet</button>
+        </div>
+        <pre id="snippet-list-items" class="showcase-code-block"><code>&lt;ul class="dcss-list"&gt;
+  &lt;li class="dcss-list-item is-selected"&gt;
+    &lt;span class="dcss-list-item-icon"&gt;🚀&lt;/span&gt;
+    &lt;div class="dcss-list-item-content"&gt;
+      &lt;span class="dcss-list-item-title"&gt;Deploy to Production&lt;/span&gt;
+      &lt;span class="dcss-list-item-subtitle"&gt;Despliegue a cluster principal&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="dcss-list-item-accessories"&gt;
+      &lt;span class="dcss-badge dcss-badge-success dcss-badge-pill"&gt;Live&lt;/span&gt;
+      &lt;kbd class="dcss-kbd dcss-kbd-sm"&gt;⌘D&lt;/kbd&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      </div>
+
+      <!-- 3. VITRINA DE SPLIT VIEW & ACTION BAR (.dcss-split-view & .dcss-action-bar) -->
+      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">3. Split View Dual Maestro-Detalle & Action Bar</h3>
+      <div class="showcase-demo-box">
+        <p style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-4);">
+          Experiencia completa de productividad estilo Raycast: buscador superior integrado (<code style="font-size:var(--dcss-font-xs);">.dcss-command-bar</code>), lista izquierda navegable (<code style="font-size:var(--dcss-font-xs);">.dcss-split-view-master</code>), visor de detalles en tiempo real (<code style="font-size:var(--dcss-font-xs);">.dcss-split-view-detail</code>) y barra de atajos inferior (<code style="font-size:var(--dcss-font-xs);">.dcss-action-bar</code>).
+        </p>
+
+        <!-- Live Split View Container -->
+        <div class="dcss-split-view" id="showcase-split-view" style="min-height:440px;">
+          <!-- Master Pane (Left) -->
+          <div class="dcss-split-view-master">
+            <div class="dcss-command-bar" style="background:var(--dcss-bg-surface);">
+              <span class="dcss-command-bar-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </span>
+              <input type="text" id="split-filter-input" class="dcss-command-bar-input" placeholder="Filtrar comandos..." aria-label="Filtrar comandos">
+              <div class="dcss-command-bar-shortcut">
+                <kbd class="dcss-kbd dcss-kbd-sm">↵</kbd>
+              </div>
+            </div>
+
+            <div style="padding:var(--dcss-space-2); flex:1; overflow-y:auto;">
+              <ul class="dcss-list" id="split-items-list">
+                <li class="dcss-list-item is-selected"
+                    data-title="Deploy Pipeline"
+                    data-desc="Inicia el pipeline de integración y despliegue continuo en la nube privada."
+                    data-badge="Producción"
+                    data-badge-class="dcss-badge-success"
+                    data-shortcut="⌘D"
+                    data-icon="🚀"
+                    data-meta-runtime="GitHub Actions CI/CD"
+                    data-meta-status="Ready (100% Green)"
+                    data-meta-target="us-east-1 production">
+                  <span class="dcss-list-item-icon">🚀</span>
+                  <div class="dcss-list-item-content">
+                    <span class="dcss-list-item-title">Deploy Pipeline</span>
+                    <span class="dcss-list-item-subtitle">Despliegue automatizado a nube</span>
+                  </div>
+                  <div class="dcss-list-item-accessories">
+                    <kbd class="dcss-kbd dcss-kbd-sm">⌘D</kbd>
+                  </div>
+                </li>
+
+                <li class="dcss-list-item"
+                    data-title="Build System"
+                    data-desc="Compila y minifica todos los paquetes CSS y JavaScript en dist/ mediante scripts nativos de Node.js."
+                    data-badge="Core Build"
+                    data-badge-class="dcss-badge-primary"
+                    data-shortcut="⌘B"
+                    data-icon="📦"
+                    data-meta-runtime="Node.js 22 LTS"
+                    data-meta-status="Clean & Minified"
+                    data-meta-target="dist/ (ESM + IIFE + CSS)">
+                  <span class="dcss-list-item-icon">📦</span>
+                  <div class="dcss-list-item-content">
+                    <span class="dcss-list-item-title">Build System</span>
+                    <span class="dcss-list-item-subtitle">Compilar artefactos minificados</span>
+                  </div>
+                  <div class="dcss-list-item-accessories">
+                    <kbd class="dcss-kbd dcss-kbd-sm">⌘B</kbd>
+                  </div>
+                </li>
+
+                <li class="dcss-list-item"
+                    data-title="Unit Test Suite"
+                    data-desc="Ejecuta la suite de pruebas unitarias sobre tokens, componentes y bundler sin dependencias externas."
+                    data-badge="Verification"
+                    data-badge-class="dcss-badge-info"
+                    data-shortcut="⌘T"
+                    data-icon="🧪"
+                    data-meta-runtime="node:test native runner"
+                    data-meta-status="134/134 Passed"
+                    data-meta-target="tests/*.test.js">
+                  <span class="dcss-list-item-icon">🧪</span>
+                  <div class="dcss-list-item-content">
+                    <span class="dcss-list-item-title">Unit Test Suite</span>
+                    <span class="dcss-list-item-subtitle">134 tests unitarios</span>
+                  </div>
+                  <div class="dcss-list-item-accessories">
+                    <kbd class="dcss-kbd dcss-kbd-sm">⌘T</kbd>
+                  </div>
+                </li>
+
+                <li class="dcss-list-item"
+                    data-title="Raycast Palette"
+                    data-desc="Configuración y prueba de la paleta Cobalt Tech con superficies obsidiana de alto contraste."
+                    data-badge="Theme"
+                    data-badge-class="dcss-badge-warning"
+                    data-shortcut="⌘K"
+                    data-icon="🎨"
+                    data-meta-runtime="CSS Custom Properties"
+                    data-meta-status="Obsidian #07080A"
+                    data-meta-target="src/css/tokens.css">
+                  <span class="dcss-list-item-icon">🎨</span>
+                  <div class="dcss-list-item-content">
+                    <span class="dcss-list-item-title">Raycast Palette</span>
+                    <span class="dcss-list-item-subtitle">Acentos Cobalt Tech</span>
+                  </div>
+                  <div class="dcss-list-item-accessories">
+                    <kbd class="dcss-kbd dcss-kbd-sm">⌘K</kbd>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Left Action Bar Footer -->
+            <div class="dcss-action-bar">
+              <div class="dcss-action-bar-group">
+                <span class="dcss-action-item"><kbd class="dcss-kbd dcss-kbd-sm">↵</kbd> Seleccionar</span>
+                <span class="dcss-action-item"><kbd class="dcss-kbd dcss-kbd-sm">Tab</kbd> Acciones</span>
+              </div>
+              <div class="dcss-action-bar-group">
+                <span id="split-item-count" style="font-size:var(--dcss-font-xs); color:var(--dcss-text-muted);">4 elementos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail Pane (Right) -->
+          <div class="dcss-split-view-detail" id="split-detail-view">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-3);">
+                <span id="split-detail-icon" style="font-size:24px;">🚀</span>
+                <h4 id="split-detail-title" style="margin:0; font-size:var(--dcss-font-lg); font-weight:600; color:var(--dcss-text-primary);">Deploy Pipeline</h4>
+              </div>
+              <span id="split-detail-badge" class="dcss-badge dcss-badge-success dcss-badge-pill">Producción</span>
+            </div>
+
+            <p id="split-detail-desc" style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); line-height:var(--dcss-leading-relaxed); margin-bottom:var(--dcss-space-5);">
+              Inicia el pipeline de integración y despliegue continuo en la nube privada.
+            </p>
+
+            <div style="background:var(--dcss-bg-surface); border:1px solid var(--dcss-border-subtle); border-radius:var(--dcss-radius-md); padding:var(--dcss-space-4); margin-bottom:var(--dcss-space-5);">
+              <h5 style="margin:0 0 var(--dcss-space-3); font-size:var(--dcss-font-xs); text-transform:uppercase; letter-spacing:var(--dcss-letter-spacing-wide); color:var(--dcss-text-muted);">Metadatos de Ejecución</h5>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--dcss-space-3); font-size:var(--dcss-font-xs);">
+                <div>
+                  <span style="color:var(--dcss-text-muted); display:block;">Runtime:</span>
+                  <span id="split-detail-runtime" style="color:var(--dcss-text-primary); font-family:var(--dcss-font-mono);">GitHub Actions CI/CD</span>
+                </div>
+                <div>
+                  <span style="color:var(--dcss-text-muted); display:block;">Estado:</span>
+                  <span id="split-detail-status" style="color:var(--dcss-success); font-family:var(--dcss-font-mono);">Ready (100% Green)</span>
+                </div>
+                <div>
+                  <span style="color:var(--dcss-text-muted); display:block;">Destino:</span>
+                  <span id="split-detail-target" style="color:var(--dcss-text-secondary); font-family:var(--dcss-font-mono);">us-east-1 production</span>
+                </div>
+                <div>
+                  <span style="color:var(--dcss-text-muted); display:block;">Atajo asignado:</span>
+                  <span id="split-detail-shortcut"><kbd class="dcss-kbd dcss-kbd-sm">⌘D</kbd></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Detail Action Bar -->
+            <div class="dcss-action-bar" style="margin-top:auto; margin-left:-16px; margin-right:-16px; margin-bottom:-16px;">
+              <div class="dcss-action-bar-group">
+                <a href="javascript:void(0)" class="dcss-action-item" id="split-action-run">
+                  <kbd class="dcss-kbd dcss-kbd-sm">↵</kbd> Ejecutar Acción
+                </a>
+                <a href="javascript:void(0)" class="dcss-action-item" id="split-action-copy">
+                  <kbd class="dcss-kbd dcss-kbd-sm">⌘C</kbd> Copiar Detalles
+                </a>
+              </div>
+              <div class="dcss-action-bar-group">
+                <span class="dcss-action-item"><kbd class="dcss-kbd dcss-kbd-sm">Esc</kbd> Volver</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Snippet Split View & Action Bar -->
+      <div class="showcase-code-wrapper">
+        <div class="showcase-code-header">
+          <span>HTML — Split View & Action Bar</span>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-sm btn-copy-snippet" data-copy-target="#snippet-split-view">Copiar Snippet</button>
+        </div>
+        <pre id="snippet-split-view" class="showcase-code-block"><code>&lt;!-- Disposición Maestro-Detalle --&gt;
+&lt;div class="dcss-split-view"&gt;
+  &lt;!-- Panel Maestro Izquierdo --&gt;
+  &lt;div class="dcss-split-view-master"&gt;
+    &lt;div class="dcss-command-bar"&gt;
+      &lt;input class="dcss-command-bar-input" placeholder="Buscar..."&gt;
+    &lt;/div&gt;
+    &lt;ul class="dcss-list"&gt;
+      &lt;li class="dcss-list-item is-selected"&gt;...&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div class="dcss-action-bar"&gt;
+      &lt;span class="dcss-action-item"&gt;&lt;kbd class="dcss-kbd dcss-kbd-sm"&gt;↵&lt;/kbd&gt; Seleccionar&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Panel de Detalle Derecho --&gt;
+  &lt;div class="dcss-split-view-detail"&gt;
+    &lt;h4&gt;Detalle del Elemento&lt;/h4&gt;
+    &lt;p&gt;Información contextual en tiempo real.&lt;/p&gt;
+    &lt;div class="dcss-action-bar"&gt;
+      &lt;span class="dcss-action-item"&gt;&lt;kbd class="dcss-kbd dcss-kbd-sm"&gt;Esc&lt;/kbd&gt; Cerrar&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
 
     <!-- ==========================================
          SECCIÓN 1: TOKENS DE DISEÑO
@@ -286,42 +694,49 @@
       </div>
 
       <!-- Paleta de Colores -->
-      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">Paleta de Superficies & Acentos</h3>
+      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">Paleta de Superficies Raycast & Acento Cobalt Tech</h3>
       <div class="showcase-demo-box">
         <div class="color-swatch-grid">
           <div class="color-swatch">
             <div class="color-swatch-box" style="background-color: var(--dcss-bg-canvas);"></div>
             <div class="color-swatch-info">
               <div class="color-swatch-name">bg-canvas</div>
-              <div class="color-swatch-val">#090d16</div>
+              <div class="color-swatch-val">#07080a</div>
             </div>
           </div>
           <div class="color-swatch">
             <div class="color-swatch-box" style="background-color: var(--dcss-bg-surface);"></div>
             <div class="color-swatch-info">
               <div class="color-swatch-name">bg-surface</div>
-              <div class="color-swatch-val">#111827</div>
+              <div class="color-swatch-val">#0d0e11</div>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background-color: var(--dcss-bg-card);"></div>
+            <div class="color-swatch-info">
+              <div class="color-swatch-name">bg-card</div>
+              <div class="color-swatch-val">#121316</div>
             </div>
           </div>
           <div class="color-swatch">
             <div class="color-swatch-box" style="background-color: var(--dcss-bg-surface-elevated);"></div>
             <div class="color-swatch-info">
               <div class="color-swatch-name">surface-elevated</div>
-              <div class="color-swatch-val">#1e293b</div>
+              <div class="color-swatch-val">#18191e</div>
             </div>
           </div>
           <div class="color-swatch">
             <div class="color-swatch-box" style="background-color: var(--dcss-primary);"></div>
             <div class="color-swatch-info">
               <div class="color-swatch-name">primary</div>
-              <div class="color-swatch-val">#6366f1</div>
+              <div class="color-swatch-val">#3b82f6</div>
             </div>
           </div>
           <div class="color-swatch">
             <div class="color-swatch-box" style="background-color: var(--dcss-accent);"></div>
             <div class="color-swatch-info">
               <div class="color-swatch-name">accent</div>
-              <div class="color-swatch-val">#8b5cf6</div>
+              <div class="color-swatch-val">#6366f1</div>
             </div>
           </div>
           <div class="color-swatch">
@@ -427,6 +842,19 @@
           <button class="dcss-btn dcss-btn-secondary dcss-btn-icon" aria-label="Favorito">⭐</button>
           <button class="dcss-btn dcss-btn-secondary">
             <span>🚀</span> Enviar acción
+          </button>
+        </div>
+
+        <h4 style="font-size:var(--dcss-font-sm); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">Botones con Atajo de Teclado Directo (.dcss-kbd)</h4>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--dcss-space-3); margin-bottom:var(--dcss-space-5);">
+          <button class="dcss-btn dcss-btn-primary" onclick="DCSS.toast.success('Guardado')">
+            Guardar <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">⌘S</kbd>
+          </button>
+          <button class="dcss-btn dcss-btn-secondary" onclick="DCSS.toast.info('Buscando...')">
+            Buscar <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">⌘K</kbd>
+          </button>
+          <button class="dcss-btn dcss-btn-danger" onclick="DCSS.toast.danger('Eliminado')">
+            Eliminar <kbd class="dcss-kbd dcss-kbd-sm" style="margin-left:8px;">⌫</kbd>
           </button>
         </div>
 
@@ -864,16 +1292,25 @@ DCSS.toast.danger('Error al conectar');</code></pre>
       <div id="showcase-modal" class="dcss-modal" aria-hidden="true">
         <div class="dcss-modal-dialog">
           <div class="dcss-modal-header">
-            <h3 class="dcss-modal-title">Modal Declarativo dcss-ui</h3>
+            <h3 class="dcss-modal-title">Modal Estilo Raycast</h3>
             <button class="dcss-modal-close" data-dcss-modal-close aria-label="Cerrar">&times;</button>
           </div>
           <div class="dcss-modal-body">
-            <p>Este modal fue declarado en el HTML y se abre automáticamente con el atributo <code>data-dcss-modal-target="#showcase-modal"</code>.</p>
-            <p style="margin-top:var(--dcss-space-2);">Puedes cerrarlo pulsando la tecla <strong>ESC</strong>, haciendo clic en el backdrop oscuro exterior o pulsando los botones de cierre.</p>
+            <p>Este diálogo combina la estética de superficies obsidiana de <strong>Raycast</strong> con desenfoque de fondo profundo (<em>backdrop-filter: blur(24px) saturate(190%)</em>) y la barra inferior de acciones rápidas contextuales.</p>
+            <p style="margin-top:var(--dcss-space-2);">Puedes interactuar con los atajos rápidos de la barra inferior o cerrarlo pulsando la tecla <kbd class="dcss-kbd dcss-kbd-sm">Esc</kbd> o haciendo clic en el backdrop oscuro exterior.</p>
           </div>
-          <div class="dcss-modal-footer">
-            <button class="dcss-btn dcss-btn-ghost" data-dcss-modal-close>Cancelar</button>
-            <button class="dcss-btn dcss-btn-primary" data-dcss-modal-close onclick="DCSS.toast.success('¡Acción confirmada en modal!')">Confirmar</button>
+          <div class="dcss-action-bar">
+            <div class="dcss-action-bar-group">
+              <a href="javascript:void(0)" class="dcss-action-item" data-dcss-modal-close onclick="DCSS.toast.success('¡Acción confirmada desde modal Raycast!')">
+                <kbd class="dcss-kbd dcss-kbd-sm">↵</kbd> Confirmar
+              </a>
+              <a href="javascript:void(0)" class="dcss-action-item" data-dcss-modal-close>
+                <kbd class="dcss-kbd dcss-kbd-sm">Esc</kbd> Cancelar
+              </a>
+            </div>
+            <div class="dcss-action-bar-group">
+              <span style="font-size:var(--dcss-font-xs); color:var(--dcss-text-muted);">Atajos activos</span>
+            </div>
           </div>
         </div>
       </div>

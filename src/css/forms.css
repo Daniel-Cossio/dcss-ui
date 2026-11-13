@@ -71,7 +71,7 @@
 .dcss-select:focus,
 .dcss-textarea:focus {
   border-color: var(--dcss-border-focus);
-  box-shadow: var(--dcss-shadow-glow);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 /* Disabled State */

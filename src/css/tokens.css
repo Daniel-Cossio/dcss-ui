@@ -1,44 +1,55 @@
 /**
  * dcss-ui — Design Tokens
- * Minimalist Design System & UI Kit
+ * Raycast-Inspired Minimalist Design System & UI Kit
+ * Accent: Cobalt Tech (Option C)
  */
 
 :root {
   /* Color Scheme */
   color-scheme: dark;
 
-  /* Surfaces & Backgrounds (Dark Mode - Default) */
-  --dcss-bg-canvas: #090d16;
-  --dcss-bg-surface: #111827;
-  --dcss-bg-surface-elevated: #1e293b;
-  --dcss-bg-surface-subtle: #172033;
-  --dcss-bg-surface-glass: rgba(17, 24, 39, 0.75);
-  --dcss-bg-overlay: rgba(3, 7, 18, 0.75);
+  /* Surfaces & Backgrounds (Raycast Dark Aesthetic - Default) */
+  --dcss-bg-base: #07080a;
+  --dcss-bg-canvas: var(--dcss-bg-base);
+  --dcss-bg-surface: #0d0e11;
+  --dcss-bg-card: #121316;
+  --dcss-bg-elevated: #18191e;
+  --dcss-bg-surface-elevated: var(--dcss-bg-elevated);
+  --dcss-bg-surface-subtle: #121316;
+  --dcss-bg-surface-glass: rgba(13, 14, 17, 0.75);
+  --dcss-bg-overlay: rgba(3, 4, 6, 0.75);
+  --dcss-bg-hover: rgba(255, 255, 255, 0.05);
+  --dcss-bg-active: rgba(255, 255, 255, 0.08);
 
-  /* Borders (Dark Mode) */
-  --dcss-border-subtle: rgba(255, 255, 255, 0.08);
-  --dcss-border-default: rgba(255, 255, 255, 0.16);
-  --dcss-border-strong: rgba(255, 255, 255, 0.28);
-  --dcss-border-focus: rgba(99, 102, 241, 0.6);
+  /* Borders & Hairlines (Raycast Precision) */
+  --dcss-border: rgba(255, 255, 255, 0.08);
+  --dcss-border-subtle: rgba(255, 255, 255, 0.04);
+  --dcss-border-default: var(--dcss-border);
+  --dcss-border-highlight: rgba(255, 255, 255, 0.16);
+  --dcss-border-strong: rgba(255, 255, 255, 0.24);
+  --dcss-border-focus: rgba(59, 130, 246, 0.6);
+  --dcss-top-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
   /* Typography Colors (Dark Mode) */
   --dcss-text-primary: #f8fafc;
+  --dcss-text-body: #94a3b8;
   --dcss-text-secondary: #94a3b8;
   --dcss-text-muted: #64748b;
-  --dcss-text-inverse: #090d16;
+  --dcss-text-inverse: #07080a;
 
-  /* Brand / Primary Accent (Indigo / Violet) */
-  --dcss-primary: #6366f1;
-  --dcss-primary-hover: #4f46e5;
-  --dcss-primary-active: #4338ca;
-  --dcss-primary-muted: rgba(99, 102, 241, 0.16);
+  /* Brand / Primary Accent (Cobalt Tech - Option C) */
+  --dcss-primary: #3b82f6;
+  --dcss-primary-hover: #60a5fa;
+  --dcss-primary-active: #1d4ed8;
+  --dcss-primary-subtle: rgba(59, 130, 246, 0.12);
+  --dcss-primary-muted: rgba(59, 130, 246, 0.12);
   --dcss-primary-contrast: #ffffff;
 
   /* Secondary / Accent */
-  --dcss-accent: #8b5cf6;
-  --dcss-accent-hover: #7c3aed;
-  --dcss-accent-active: #6d28d9;
-  --dcss-accent-muted: rgba(139, 92, 246, 0.16);
+  --dcss-accent: #6366f1;
+  --dcss-accent-hover: #4f46e5;
+  --dcss-accent-active: #4338ca;
+  --dcss-accent-muted: rgba(99, 102, 241, 0.16);
   --dcss-accent-contrast: #ffffff;
 
   /* Semantic - Success (Emerald) */
@@ -72,6 +83,7 @@
   /* Typography Fonts */
   --dcss-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --dcss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --dcss-letter-spacing-wide: 0.02em;
 
   /* Typography Scale */
   --dcss-font-xs: 0.75rem;     /* 12px */
@@ -108,21 +120,21 @@
   --dcss-space-11: 2.75rem;  /* 44px */
   --dcss-space-12: 3rem;     /* 48px */
 
-  /* Border Radiuses */
+  /* Precision Border Radiuses */
   --dcss-radius-none: 0px;
-  --dcss-radius-sm: 0.25rem;   /* 4px */
-  --dcss-radius-md: 0.375rem;  /* 6px */
-  --dcss-radius-lg: 0.5rem;    /* 8px */
-  --dcss-radius-xl: 0.75rem;   /* 12px */
-  --dcss-radius-2xl: 1rem;     /* 16px */
+  --dcss-radius-sm: 4px;
+  --dcss-radius-md: 8px;
+  --dcss-radius-lg: 12px;
+  --dcss-radius-xl: 16px;
+  --dcss-radius-2xl: 20px;
   --dcss-radius-full: 9999px;
 
-  /* Shadows & Elevations (Dark Mode) */
+  /* Shadows & Elevations (Raycast Obsidian Glow) */
   --dcss-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
   --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.45);
   --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
   --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
-  --dcss-shadow-glow: 0 0 16px rgba(99, 102, 241, 0.35);
+  --dcss-shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
   --dcss-shadow-glow-success: 0 0 16px rgba(16, 185, 129, 0.35);
   --dcss-shadow-glow-danger: 0 0 16px rgba(239, 68, 68, 0.35);
 
@@ -151,37 +163,47 @@
   color-scheme: light;
 
   /* Surfaces & Backgrounds */
+  --dcss-bg-base: #f8fafc;
   --dcss-bg-canvas: #f8fafc;
   --dcss-bg-surface: #ffffff;
+  --dcss-bg-card: #ffffff;
+  --dcss-bg-elevated: #ffffff;
   --dcss-bg-surface-elevated: #f1f5f9;
-  --dcss-bg-surface-subtle: #e2e8f0;
-  --dcss-bg-surface-glass: rgba(255, 255, 255, 0.82);
+  --dcss-bg-surface-subtle: #f1f5f9;
+  --dcss-bg-surface-glass: rgba(255, 255, 255, 0.85);
   --dcss-bg-overlay: rgba(15, 23, 42, 0.45);
+  --dcss-bg-hover: rgba(0, 0, 0, 0.04);
+  --dcss-bg-active: rgba(0, 0, 0, 0.07);
 
   /* Borders */
-  --dcss-border-subtle: rgba(0, 0, 0, 0.06);
-  --dcss-border-default: rgba(0, 0, 0, 0.12);
-  --dcss-border-strong: rgba(0, 0, 0, 0.22);
-  --dcss-border-focus: rgba(79, 70, 229, 0.6);
+  --dcss-border: rgba(0, 0, 0, 0.08);
+  --dcss-border-subtle: rgba(0, 0, 0, 0.04);
+  --dcss-border-default: rgba(0, 0, 0, 0.08);
+  --dcss-border-highlight: rgba(0, 0, 0, 0.12);
+  --dcss-border-strong: rgba(0, 0, 0, 0.18);
+  --dcss-border-focus: rgba(37, 99, 235, 0.6);
+  --dcss-top-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   /* Typography Colors */
   --dcss-text-primary: #0f172a;
+  --dcss-text-body: #334155;
   --dcss-text-secondary: #475569;
   --dcss-text-muted: #94a3b8;
   --dcss-text-inverse: #f8fafc;
 
-  /* Brand / Primary Accent (Indigo / Violet) */
-  --dcss-primary: #4f46e5;
-  --dcss-primary-hover: #4338ca;
-  --dcss-primary-active: #3730a3;
-  --dcss-primary-muted: rgba(79, 70, 229, 0.12);
+  /* Brand / Primary Accent (Cobalt Tech Light - #2563eb) */
+  --dcss-primary: #2563eb;
+  --dcss-primary-hover: #1d4ed8;
+  --dcss-primary-active: #1e40af;
+  --dcss-primary-subtle: rgba(37, 99, 235, 0.12);
+  --dcss-primary-muted: rgba(37, 99, 235, 0.12);
   --dcss-primary-contrast: #ffffff;
 
   /* Secondary / Accent */
-  --dcss-accent: #7c3aed;
-  --dcss-accent-hover: #6d28d9;
-  --dcss-accent-active: #5b21b6;
-  --dcss-accent-muted: rgba(124, 58, 237, 0.12);
+  --dcss-accent: #4f46e5;
+  --dcss-accent-hover: #4338ca;
+  --dcss-accent-active: #3730a3;
+  --dcss-accent-muted: rgba(79, 70, 229, 0.12);
   --dcss-accent-contrast: #ffffff;
 
   /* Semantic - Success */
@@ -217,7 +239,7 @@
   --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
   --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
   --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
-  --dcss-shadow-glow: 0 0 16px rgba(79, 70, 229, 0.22);
+  --dcss-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
   --dcss-shadow-glow-success: 0 0 16px rgba(5, 150, 105, 0.22);
   --dcss-shadow-glow-danger: 0 0 16px rgba(220, 38, 38, 0.22);
 }

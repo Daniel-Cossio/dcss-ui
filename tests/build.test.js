@@ -97,7 +97,12 @@ test('Hito 4: Verification of Bundled CSS Content and Syntax', async (t) => {
       '.dcss-toast',
       '.dcss-dropdown',
       '.dcss-tabs',
-      '.dcss-drawer'
+      '.dcss-drawer',
+      '.dcss-kbd',
+      '.dcss-list-item',
+      '.dcss-command-bar',
+      '.dcss-action-bar',
+      '.dcss-split-view'
     ];
 
     for (const sel of componentSelectors) {
