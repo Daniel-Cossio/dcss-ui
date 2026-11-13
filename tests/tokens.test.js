@@ -122,8 +122,30 @@ test('Hito 1: Verification of Design Tokens', async (t) => {
     assert.match(tokensContent, /--dcss-top-highlight:\s*inset 0 1px 0 rgba\(255,\s*255,\s*255,\s*0\.12\);/);
   });
 
-  await t.test('Cobalt Tech Accent palette (Option C)', () => {
-    assert.match(tokensContent, /--dcss-primary:\s*#3b82f6;/, 'Primary accent should be Cobalt Tech #3b82f6');
+  await t.test('Multi-Accent Palette Themes (Zero-AI Look & Productive Aesthetics)', () => {
+    // 1. Ruby Default
+    assert.match(tokensContent, /--dcss-primary:\s*#ff6363;/, 'Default primary accent should be Raycast Ruby #ff6363');
+    assert.match(tokensContent, /\[data-accent="ruby"\]/);
+    
+    // 2. Monochrome
+    assert.match(tokensContent, /\[data-accent="monochrome"\]/);
+    assert.match(tokensContent, /--dcss-primary:\s*#ededed;/);
+
+    // 3. Amber
+    assert.match(tokensContent, /\[data-accent="amber"\]/);
+    assert.match(tokensContent, /--dcss-primary:\s*#ff7d3c;/);
+
+    // 4. Emerald
+    assert.match(tokensContent, /\[data-accent="emerald"\]/);
+    assert.match(tokensContent, /--dcss-primary:\s*#3ecf8e;/);
+
+    // 5. Amethyst
+    assert.match(tokensContent, /\[data-accent="amethyst"\]/);
+    assert.match(tokensContent, /--dcss-primary:\s*#5e6ad2;/);
+
+    // 6. Cobalt
+    assert.match(tokensContent, /\[data-accent="cobalt"\]/);
+    assert.match(tokensContent, /--dcss-primary:\s*#3b82f6;/, 'Primary accent should include Cobalt Tech #3b82f6');
     assert.match(tokensContent, /--dcss-primary-hover:\s*#60a5fa;/);
     assert.match(tokensContent, /--dcss-primary-active:\s*#1d4ed8;/);
     assert.match(tokensContent, /--dcss-primary-subtle:\s*rgba\(59,\s*130,\s*246,\s*0\.12\);/);

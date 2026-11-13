@@ -352,6 +352,9 @@ test('Hito 3: Verification of JavaScript Modules Existence and Structure', async
     assert.strictEqual(typeof themeMod.theme.toggle, 'function', 'theme.toggle is function');
     assert.strictEqual(typeof themeMod.theme.get, 'function', 'theme.get is function');
     assert.strictEqual(typeof themeMod.theme.set, 'function', 'theme.set is function');
+    assert.strictEqual(typeof themeMod.theme.getAccent, 'function', 'theme.getAccent is function');
+    assert.strictEqual(typeof themeMod.theme.setAccent, 'function', 'theme.setAccent is function');
+    assert.strictEqual(typeof themeMod.theme.getAvailableAccents, 'function', 'theme.getAvailableAccents is function');
 
     const toastMod = await import('../src/js/toast.js');
     assert.strictEqual(typeof toastMod.toast, 'function', 'toast.js exports toast function');
@@ -427,8 +430,33 @@ test('Hito 3: Theme Manager Functional Tests', async (t) => {
 
   await t.test('theme.init respects localStorage if present', () => {
     localStorage.setItem('dcss-theme', 'light');
+    localStorage.setItem('dcss-accent', 'emerald');
     theme.init();
     assert.strictEqual(document.documentElement.getAttribute('data-theme'), 'light');
+    assert.strictEqual(document.documentElement.getAttribute('data-accent'), 'emerald');
+  });
+
+  await t.test('theme accent switcher sets attribute, stores in localStorage and emits custom event', () => {
+    let capturedAccentEvent = null;
+    document.addEventListener('dcss:accent-change', (e) => {
+      capturedAccentEvent = e;
+    });
+
+    const accents = theme.getAvailableAccents();
+    assert.deepStrictEqual(accents, ['ruby', 'monochrome', 'amber', 'emerald', 'amethyst', 'cobalt']);
+
+    const res = theme.setAccent('amber');
+    assert.strictEqual(res, 'amber');
+    assert.strictEqual(theme.getAccent(), 'amber');
+    assert.strictEqual(document.documentElement.getAttribute('data-accent'), 'amber');
+    assert.strictEqual(localStorage.getItem('dcss-accent'), 'amber');
+    assert.ok(capturedAccentEvent, 'Custom event dcss:accent-change was fired');
+    assert.strictEqual(capturedAccentEvent.detail.accent, 'amber');
+
+    // Fallback on invalid accent
+    const fallback = theme.setAccent('invalid-color');
+    assert.strictEqual(fallback, 'ruby');
+    assert.strictEqual(document.documentElement.getAttribute('data-accent'), 'ruby');
   });
 });
 

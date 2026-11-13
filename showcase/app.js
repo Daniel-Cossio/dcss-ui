@@ -345,4 +345,87 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ==========================================================================
+  // 9. Multi-Palette Switcher Reactive Sync
+  // ==========================================================================
+  const paletteNames = {
+    ruby: { name: 'Ruby', hex: '#FF6363', desc: 'Raycast macOS Original' },
+    monochrome: { name: 'Monochrome', hex: '#EDEDED', desc: 'Vercel Geist / Rams' },
+    amber: { name: 'Amber', hex: '#FF7D3C', desc: 'Arc Browser Sunset' },
+    emerald: { name: 'Emerald', hex: '#3ECF8E', desc: 'Supabase Terminal' },
+    amethyst: { name: 'Amethyst', hex: '#5E6AD2', desc: 'Linear.app Titanium' },
+    cobalt: { name: 'Cobalt', hex: '#3B82F6', desc: 'Tech Clásico' }
+  };
+
+  function updatePaletteUI(accent) {
+    const meta = paletteNames[accent] || paletteNames.ruby;
+
+    // Header label
+    const headerLabel = document.getElementById('current-palette-label');
+    if (headerLabel) headerLabel.textContent = meta.name;
+
+    // Hero badge
+    const heroBadge = document.getElementById('hero-palette-badge');
+    if (heroBadge) heroBadge.textContent = `Paleta: ${meta.name} (${meta.hex})`;
+
+    // Swatch text
+    const swatchVal = document.getElementById('swatch-primary-val');
+    if (swatchVal) swatchVal.textContent = meta.hex;
+
+    // Pill buttons in hero
+    document.querySelectorAll('.palette-btn').forEach((btn) => {
+      const target = btn.getAttribute('data-dcss-accent-set');
+      if (target === accent) {
+        btn.classList.add('dcss-btn-primary');
+        btn.classList.remove('dcss-btn-ghost');
+      } else {
+        btn.classList.remove('dcss-btn-primary');
+        btn.classList.add('dcss-btn-ghost');
+      }
+    });
+
+    // Cards in showcase #palettes
+    document.querySelectorAll('.palette-card').forEach((card) => {
+      const p = card.getAttribute('data-palette');
+      const ind = card.querySelector(`[data-palette-indicator="${p}"]`);
+      if (p === accent) {
+        card.style.borderColor = 'var(--dcss-primary)';
+        card.style.boxShadow = 'var(--dcss-shadow-glow)';
+        if (ind) {
+          ind.style.display = 'inline-block';
+          ind.className = 'dcss-badge dcss-badge-primary dcss-badge-pill';
+        }
+      } else {
+        card.style.borderColor = 'var(--dcss-border-default)';
+        card.style.boxShadow = 'none';
+        if (ind) ind.style.display = 'none';
+      }
+    });
+  }
+
+  // Listen to accent changes
+  window.addEventListener('dcss:accent-change', (e) => {
+    const accent = e.detail?.accent;
+    if (accent) {
+      updatePaletteUI(accent);
+      const meta = paletteNames[accent] || paletteNames.ruby;
+      window.DCSS?.toast?.info(`🎨 Paleta activada: ${meta.name} (${meta.hex})`);
+    }
+  });
+
+  // Clicking anywhere on a .palette-card switches the palette
+  document.querySelectorAll('.palette-card').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('button')) return; // let button handler run
+      const p = card.getAttribute('data-palette');
+      if (p && window.DCSS?.theme?.setAccent) {
+        window.DCSS.theme.setAccent(p);
+      }
+    });
+  });
+
+  // Initial UI sync
+  const currentInitialAccent = window.DCSS?.theme?.getAccent ? window.DCSS.theme.getAccent() : 'ruby';
+  updatePaletteUI(currentInitialAccent);
 });

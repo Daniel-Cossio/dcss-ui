@@ -1,7 +1,7 @@
 # ⚡ dcss-ui
 
 > **Design System & UI Kit Web Minimalista, Zero-Overhead & Dark-First**  
-> **Inspirado en la Precisión de Raycast con Identidad Cobalt Tech (#3B82F6)**
+> **Inspirado en la Precisión de Raycast con Sistema Multi-Paleta Anti-IA (Ruby, Monochrome, Amber, Emerald, Amethyst y Cobalt)**
 
 [![Deploy Live Preview](https://github.com/Daniel-Cossio/dcss-ui/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Daniel-Cossio/dcss-ui/actions/workflows/deploy-pages.yml)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-3b82f6?style=flat&logo=github)](https://daniel-cossio.github.io/dcss-ui/)
@@ -222,21 +222,30 @@ Disposición de dos paneles (columna de selección maestra y visor de detalles):
 
 Todos los módulos interactivos están accesibles a través del objeto global `window.DCSS` (o importables desde `'dcss-ui'`).
 
-### 1. `DCSS.theme` — Gestor de Temas
-Administra la conmutación entre modo oscuro (`dark`) y modo claro (`light`) con sincronización en `localStorage` y soporte para media queries del sistema.
+### 1. `DCSS.theme` — Gestor de Temas y Paletas de Acento
+Administra la conmutación entre modo oscuro (`dark`) y modo claro (`light`), y el intercambio en tiempo real entre las 6 paletas de autor con persistencia automática en `localStorage`.
 
 ```javascript
-// Obtener el tema actual ('dark' | 'light')
-const currentTheme = DCSS.theme.get();
-
-// Alternar entre temas
+// --- Modo Dark / Light ---
+const currentTheme = DCSS.theme.get(); // 'dark' | 'light'
 DCSS.theme.toggle();
-
-// Forzar un tema específico
 DCSS.theme.set('light');
+
+// --- Paletas de Acento (Zero-AI Look) ---
+// Obtener paleta activa ('ruby' | 'monochrome' | 'amber' | 'emerald' | 'amethyst' | 'cobalt')
+const currentAccent = DCSS.theme.getAccent();
+
+// Cambiar paleta en vivo (actualiza [data-accent] en <html> y emite dcss:accent-change)
+DCSS.theme.setAccent('ruby');        // 🔴 Raycast Original (#FF6363)
+DCSS.theme.setAccent('monochrome');  // ⚪ Vercel Geist / Rams (#EDEDED)
+DCSS.theme.setAccent('amber');       // 🟠 Arc Sunset Vermilion (#FF7D3C)
+DCSS.theme.setAccent('emerald');     // 🟢 Supabase Terminal (#3ECF8E)
+DCSS.theme.setAccent('amethyst');    // 🟣 Linear Titanium Slate (#5E6AD2)
+DCSS.theme.setAccent('cobalt');      // 🔵 Tech Clásico (#3B82F6)
 
 // Disparo declarativo vía HTML:
 // <button data-dcss-theme-toggle>Cambiar Tema</button>
+// <button data-dcss-accent-set="emerald">Activar Emerald</button>
 ```
 
 ### 2. `DCSS.toast` — Notificaciones Flotantes

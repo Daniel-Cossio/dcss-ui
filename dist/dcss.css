@@ -44,13 +44,14 @@
   --dcss-text-muted: #64748b;
   --dcss-text-inverse: #07080a;
 
-  /* Brand / Primary Accent (Cobalt Tech - Option C) */
-  --dcss-primary: #3b82f6;
-  --dcss-primary-hover: #60a5fa;
-  --dcss-primary-active: #1d4ed8;
-  --dcss-primary-subtle: rgba(59, 130, 246, 0.12);
-  --dcss-primary-muted: rgba(59, 130, 246, 0.12);
+  /* Brand / Primary Accent (Default: Raycast Ruby Coral - Zero AI Look) */
+  --dcss-primary: #ff6363;
+  --dcss-primary-hover: #ff7e7e;
+  --dcss-primary-active: #e04848;
+  --dcss-primary-subtle: rgba(255, 99, 99, 0.12);
+  --dcss-primary-muted: rgba(255, 99, 99, 0.12);
   --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(255, 99, 99, 0.6);
 
   /* Secondary / Accent */
   --dcss-accent: #6366f1;
@@ -141,7 +142,7 @@
   --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.45);
   --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
   --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
-  --dcss-shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
+  --dcss-shadow-glow: 0 0 20px rgba(255, 99, 99, 0.25);
   --dcss-shadow-glow-success: 0 0 16px rgba(16, 185, 129, 0.35);
   --dcss-shadow-glow-danger: 0 0 16px rgba(239, 68, 68, 0.35);
 
@@ -246,9 +247,148 @@
   --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
   --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
   --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
-  --dcss-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
+  --dcss-shadow-glow: 0 0 20px rgba(225, 29, 72, 0.2);
   --dcss-shadow-glow-success: 0 0 16px rgba(5, 150, 105, 0.22);
   --dcss-shadow-glow-danger: 0 0 16px rgba(220, 38, 38, 0.22);
+}
+
+/* ==========================================================================
+   Multi-Accent Palette Themes (Zero-AI Look & Productive Aesthetics)
+   Scoped via [data-accent="<name>"]
+   ========================================================================== */
+
+/* 1. Ruby / Crimson (Raycast macOS Original Signature) */
+[data-accent="ruby"] {
+  --dcss-primary: #ff6363;
+  --dcss-primary-hover: #ff7e7e;
+  --dcss-primary-active: #e04848;
+  --dcss-primary-subtle: rgba(255, 99, 99, 0.12);
+  --dcss-primary-muted: rgba(255, 99, 99, 0.12);
+  --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(255, 99, 99, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(255, 99, 99, 0.25);
+}
+[data-theme="light"][data-accent="ruby"],
+[data-theme="light"] [data-accent="ruby"] {
+  --dcss-primary: #e11d48;
+  --dcss-primary-hover: #be123c;
+  --dcss-primary-active: #9f1239;
+  --dcss-primary-subtle: rgba(225, 29, 72, 0.12);
+  --dcss-primary-muted: rgba(225, 29, 72, 0.12);
+  --dcss-border-focus: rgba(225, 29, 72, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(225, 29, 72, 0.2);
+}
+
+/* 2. Monochrome (Vercel Geist / Dieter Rams Architectural Luxury) */
+[data-accent="monochrome"] {
+  --dcss-primary: #ededed;
+  --dcss-primary-hover: #ffffff;
+  --dcss-primary-active: #d4d4d8;
+  --dcss-primary-subtle: rgba(255, 255, 255, 0.10);
+  --dcss-primary-muted: rgba(255, 255, 255, 0.10);
+  --dcss-primary-contrast: #07080a; /* Stark black text on white button */
+  --dcss-border-focus: rgba(255, 255, 255, 0.7);
+  --dcss-shadow-glow: 0 0 20px rgba(255, 255, 255, 0.18);
+}
+[data-theme="light"][data-accent="monochrome"],
+[data-theme="light"] [data-accent="monochrome"] {
+  --dcss-primary: #18181b;
+  --dcss-primary-hover: #09090b;
+  --dcss-primary-active: #27272a;
+  --dcss-primary-subtle: rgba(24, 24, 27, 0.08);
+  --dcss-primary-muted: rgba(24, 24, 27, 0.08);
+  --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(24, 24, 27, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(24, 24, 27, 0.15);
+}
+
+/* 3. Amber (Arc Browser / Sunset Vermilion Warm Artisanal) */
+[data-accent="amber"] {
+  --dcss-primary: #ff7d3c;
+  --dcss-primary-hover: #ff955c;
+  --dcss-primary-active: #e65a17;
+  --dcss-primary-subtle: rgba(255, 125, 60, 0.12);
+  --dcss-primary-muted: rgba(255, 125, 60, 0.12);
+  --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(255, 125, 60, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(255, 125, 60, 0.25);
+}
+[data-theme="light"][data-accent="amber"],
+[data-theme="light"] [data-accent="amber"] {
+  --dcss-primary: #ea580c;
+  --dcss-primary-hover: #c2410c;
+  --dcss-primary-active: #9a3412;
+  --dcss-primary-subtle: rgba(234, 88, 12, 0.12);
+  --dcss-primary-muted: rgba(234, 88, 12, 0.12);
+  --dcss-border-focus: rgba(234, 88, 12, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(234, 88, 12, 0.2);
+}
+
+/* 4. Emerald (Supabase / Terminal Mint Developer Precision) */
+[data-accent="emerald"] {
+  --dcss-primary: #3ecf8e;
+  --dcss-primary-hover: #5ee3a4;
+  --dcss-primary-active: #2bb375;
+  --dcss-primary-subtle: rgba(62, 207, 142, 0.12);
+  --dcss-primary-muted: rgba(62, 207, 142, 0.12);
+  --dcss-primary-contrast: #050807;
+  --dcss-border-focus: rgba(62, 207, 142, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(62, 207, 142, 0.25);
+}
+[data-theme="light"][data-accent="emerald"],
+[data-theme="light"] [data-accent="emerald"] {
+  --dcss-primary: #059669;
+  --dcss-primary-hover: #047857;
+  --dcss-primary-active: #065f46;
+  --dcss-primary-subtle: rgba(5, 150, 105, 0.12);
+  --dcss-primary-muted: rgba(5, 150, 105, 0.12);
+  --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(5, 150, 105, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(5, 150, 105, 0.2);
+}
+
+/* 5. Amethyst (Linear.app Titanium Slate / Deep Violet) */
+[data-accent="amethyst"] {
+  --dcss-primary: #5e6ad2;
+  --dcss-primary-hover: #717de0;
+  --dcss-primary-active: #4b55b3;
+  --dcss-primary-subtle: rgba(94, 106, 210, 0.12);
+  --dcss-primary-muted: rgba(94, 106, 210, 0.12);
+  --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(94, 106, 210, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(94, 106, 210, 0.22);
+}
+[data-theme="light"][data-accent="amethyst"],
+[data-theme="light"] [data-accent="amethyst"] {
+  --dcss-primary: #4f46e5;
+  --dcss-primary-hover: #4338ca;
+  --dcss-primary-active: #3730a3;
+  --dcss-primary-subtle: rgba(79, 70, 229, 0.12);
+  --dcss-primary-muted: rgba(79, 70, 229, 0.12);
+  --dcss-border-focus: rgba(79, 70, 229, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(79, 70, 229, 0.2);
+}
+
+/* 6. Cobalt (Tech Clásico / Legacy Reference) */
+[data-accent="cobalt"] {
+  --dcss-primary: #3b82f6;
+  --dcss-primary-hover: #60a5fa;
+  --dcss-primary-active: #1d4ed8;
+  --dcss-primary-subtle: rgba(59, 130, 246, 0.12);
+  --dcss-primary-muted: rgba(59, 130, 246, 0.12);
+  --dcss-primary-contrast: #ffffff;
+  --dcss-border-focus: rgba(59, 130, 246, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
+}
+[data-theme="light"][data-accent="cobalt"],
+[data-theme="light"] [data-accent="cobalt"] {
+  --dcss-primary: #2563eb;
+  --dcss-primary-hover: #1d4ed8;
+  --dcss-primary-active: #1e40af;
+  --dcss-primary-subtle: rgba(37, 99, 235, 0.12);
+  --dcss-primary-muted: rgba(37, 99, 235, 0.12);
+  --dcss-border-focus: rgba(37, 99, 235, 0.6);
+  --dcss-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
 }
 
 /**

@@ -54,6 +54,16 @@ test('Hito 5: Verification of Showcase Header, Theme and Navigation', async (t) 
     assert.match(html, /data-dcss-theme-toggle/, 'Must provide button with data-dcss-theme-toggle attribute');
   });
 
+  await t.test('Showcase provides interactive Multi-Palette Switcher and data-dcss-accent-set triggers', () => {
+    assert.ok(html.includes('id="palettes"'), 'Must have section #palettes');
+    assert.ok(html.includes('data-dcss-accent-set="ruby"'), 'Must support Ruby accent trigger');
+    assert.ok(html.includes('data-dcss-accent-set="monochrome"'), 'Must support Monochrome accent trigger');
+    assert.ok(html.includes('data-dcss-accent-set="amber"'), 'Must support Amber accent trigger');
+    assert.ok(html.includes('data-dcss-accent-set="emerald"'), 'Must support Emerald accent trigger');
+    assert.ok(html.includes('data-dcss-accent-set="amethyst"'), 'Must support Amethyst accent trigger');
+    assert.ok(html.includes('data-dcss-accent-set="cobalt"'), 'Must support Cobalt accent trigger');
+  });
+
   await t.test('Provides drawer sidebar and menu toggle for mobile viewports', () => {
     assert.ok(html.includes('dcss-drawer'), 'Must contain .dcss-drawer element');
     assert.match(html, /data-dcss-drawer-target=["']#main-drawer["']|data-dcss-drawer/, 'Must have drawer trigger button');

@@ -41,8 +41,8 @@
       height: 32px;
       border-radius: var(--dcss-radius-md);
       background: linear-gradient(135deg, var(--dcss-primary), var(--dcss-primary-active));
-      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-      color: #ffffff;
+      box-shadow: var(--dcss-shadow-glow);
+      color: var(--dcss-primary-contrast);
       font-weight: var(--dcss-font-weight-bold);
       font-size: var(--dcss-font-sm);
     }
@@ -68,7 +68,7 @@
     .showcase-hero {
       padding: var(--dcss-space-12) 0 var(--dcss-space-10);
       text-align: center;
-      background: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 65%);
+      background: radial-gradient(circle at 50% 20%, var(--dcss-primary-subtle) 0%, transparent 65%);
     }
     .showcase-hero h1 {
       font-size: clamp(2rem, 5vw, 3.25rem);
@@ -78,7 +78,7 @@
       line-height: var(--dcss-leading-tight);
     }
     .showcase-hero-gradient {
-      background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 50%, #1d4ed8 100%);
+      background: linear-gradient(135deg, var(--dcss-text-primary) 0%, var(--dcss-primary) 50%, var(--dcss-primary-hover) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -218,6 +218,29 @@
       <a href="#tables" class="showcase-nav-link" data-dcss-drawer-close>📊 Tablas</a>
       <a href="#interactive" class="showcase-nav-link" data-dcss-drawer-close>⚡ Interactivos (JS)</a>
       <hr style="border:none; border-top:1px solid var(--dcss-border-subtle); margin:var(--dcss-space-3) 0;">
+      <div style="margin-bottom:var(--dcss-space-3);">
+        <label style="font-size:var(--dcss-font-xs); color:var(--dcss-text-muted); display:block; margin-bottom:var(--dcss-space-2); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">🎨 Paleta de Acento:</label>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:var(--dcss-space-2);">
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="ruby" style="justify-content:flex-start; gap:6px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#ff6363; display:inline-block;"></span> Ruby
+          </button>
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="monochrome" style="justify-content:flex-start; gap:6px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#ededed; border:1px solid #777; display:inline-block;"></span> Mono
+          </button>
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="amber" style="justify-content:flex-start; gap:6px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#ff7d3c; display:inline-block;"></span> Amber
+          </button>
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="emerald" style="justify-content:flex-start; gap:6px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#3ecf8e; display:inline-block;"></span> Emerald
+          </button>
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="amethyst" style="justify-content:flex-start; gap:6px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#5e6ad2; display:inline-block;"></span> Amethyst
+          </button>
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="cobalt" style="justify-content:flex-start; gap:6px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#3b82f6; display:inline-block;"></span> Cobalt
+          </button>
+        </div>
+      </div>
       <button class="dcss-btn dcss-btn-secondary dcss-btn-sm" data-dcss-theme-toggle style="width:100%;">
         🌓 Alternar Tema (Dark/Light)
       </button>
@@ -239,7 +262,8 @@
       </div>
 
       <nav class="showcase-nav">
-        <a href="#raycast" class="showcase-nav-link" style="color:var(--dcss-primary); font-weight:600;">⌨️ Raycast</a>
+        <a href="#palettes" class="showcase-nav-link" style="color:var(--dcss-primary); font-weight:600;">🎨 Paletas</a>
+        <a href="#raycast" class="showcase-nav-link">⌨️ Raycast</a>
         <a href="#tokens" class="showcase-nav-link">Tokens</a>
         <a href="#buttons" class="showcase-nav-link">Botones</a>
         <a href="#cards" class="showcase-nav-link">Tarjetas</a>
@@ -250,6 +274,39 @@
       </nav>
 
       <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+        <!-- Interactive Accent Palette Dropdown -->
+        <div class="dcss-dropdown" id="palette-dropdown" style="display:inline-block;">
+          <button class="dcss-btn dcss-btn-secondary dcss-btn-sm" data-dcss-dropdown-trigger aria-label="Cambiar paleta de acento">
+            🎨 <span id="current-palette-label">Ruby</span> ▾
+          </button>
+          <div class="dcss-dropdown-menu" style="min-width: 190px;">
+            <button class="dcss-dropdown-item" data-dcss-accent-set="ruby" style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#ff6363; display:inline-block;"></span>
+              <span>Ruby (Raycast)</span>
+            </button>
+            <button class="dcss-dropdown-item" data-dcss-accent-set="monochrome" style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#ededed; border:1px solid #777; display:inline-block;"></span>
+              <span>Monochrome (Geist)</span>
+            </button>
+            <button class="dcss-dropdown-item" data-dcss-accent-set="amber" style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#ff7d3c; display:inline-block;"></span>
+              <span>Amber (Arc)</span>
+            </button>
+            <button class="dcss-dropdown-item" data-dcss-accent-set="emerald" style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#3ecf8e; display:inline-block;"></span>
+              <span>Emerald (Supabase)</span>
+            </button>
+            <button class="dcss-dropdown-item" data-dcss-accent-set="amethyst" style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#5e6ad2; display:inline-block;"></span>
+              <span>Amethyst (Linear)</span>
+            </button>
+            <button class="dcss-dropdown-item" data-dcss-accent-set="cobalt" style="display:flex; align-items:center; gap:8px;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#3b82f6; display:inline-block;"></span>
+              <span>Cobalt (Tech)</span>
+            </button>
+          </div>
+        </div>
+
         <button id="theme-toggle-btn" class="dcss-btn dcss-btn-secondary dcss-btn-sm" data-dcss-theme-toggle aria-label="Cambiar tema">
           🌓 <span style="display:none; @media(min-width:600px){display:inline;}">Tema</span>
         </button>
@@ -279,25 +336,176 @@
     <div class="dcss-container">
       <div style="display:flex; justify-content:center; gap:var(--dcss-space-2); margin-bottom:var(--dcss-space-3); flex-wrap:wrap;">
         <span class="dcss-badge dcss-badge-primary dcss-badge-pill">Estética Raycast Dark-First</span>
-        <span class="dcss-badge dcss-badge-outline dcss-badge-info">Cobalt Tech #3B82F6</span>
+        <span id="hero-palette-badge" class="dcss-badge dcss-badge-outline dcss-badge-primary">Paleta: Ruby (#FF6363)</span>
       </div>
+
+      <!-- Quick Interactive Palette Selector Bar -->
+      <div style="display:flex; justify-content:center; align-items:center; gap:var(--dcss-space-2); margin-bottom:var(--dcss-space-5); flex-wrap:wrap;">
+        <div class="palette-switcher-bar" style="display:inline-flex; background:var(--dcss-bg-surface); padding:4px; border-radius:var(--dcss-radius-full); border:1px solid var(--dcss-border-default); gap:4px; box-shadow:var(--dcss-top-highlight);">
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-xs palette-btn" data-dcss-accent-set="ruby" style="border-radius:var(--dcss-radius-full); gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#ff6363; display:inline-block;"></span> Ruby
+          </button>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-xs palette-btn" data-dcss-accent-set="monochrome" style="border-radius:var(--dcss-radius-full); gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#ededed; border:1px solid #777; display:inline-block;"></span> Monochrome
+          </button>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-xs palette-btn" data-dcss-accent-set="amber" style="border-radius:var(--dcss-radius-full); gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#ff7d3c; display:inline-block;"></span> Amber
+          </button>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-xs palette-btn" data-dcss-accent-set="emerald" style="border-radius:var(--dcss-radius-full); gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#3ecf8e; display:inline-block;"></span> Emerald
+          </button>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-xs palette-btn" data-dcss-accent-set="amethyst" style="border-radius:var(--dcss-radius-full); gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#5e6ad2; display:inline-block;"></span> Amethyst
+          </button>
+          <button class="dcss-btn dcss-btn-ghost dcss-btn-xs palette-btn" data-dcss-accent-set="cobalt" style="border-radius:var(--dcss-radius-full); gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#3b82f6; display:inline-block;"></span> Cobalt
+          </button>
+        </div>
+      </div>
+
       <h1>
         Experiencias web fluidas con <br>
         <span class="showcase-hero-gradient">Zero-Overhead & Dark-First</span>
       </h1>
       <p>
-        Design System minimalista con superficies obsidiana de alta densidad, bordes hairline de precisión, keycaps 3D táctiles y utilidades interactivas en JavaScript Vanilla sin dependencias pesadas.
+        Design System minimalista con superficies obsidiana de alta densidad, bordes hairline de precisión, keycaps 3D táctiles y utilidades interactivas en JavaScript Vanilla sin dependencias pesadas ni look genérico de IA.
       </p>
       <div style="display:flex; justify-content:center; gap:var(--dcss-space-3); flex-wrap:wrap;">
-        <a href="#raycast" class="dcss-btn dcss-btn-primary dcss-btn-lg">⌨️ Componentes Raycast</a>
-        <a href="#interactive" class="dcss-btn dcss-btn-secondary dcss-btn-lg">⚡ Ver Demos Interactivas</a>
-        <a href="#tokens" class="dcss-btn dcss-btn-ghost dcss-btn-lg">🎨 Tokens de Diseño</a>
+        <a href="#palettes" class="dcss-btn dcss-btn-primary dcss-btn-lg">🎨 Explorar Paletas</a>
+        <a href="#raycast" class="dcss-btn dcss-btn-secondary dcss-btn-lg">⌨️ Componentes Raycast</a>
+        <a href="#interactive" class="dcss-btn dcss-btn-ghost dcss-btn-lg">⚡ Ver Demos Interactivas</a>
       </div>
     </div>
   </section>
 
   <!-- MAIN CONTENT CONTAINER -->
   <main class="dcss-container">
+
+    <!-- ==========================================
+         SECCIÓN 0: CONMUTADOR DE PALETAS DE AUTOR (ZERO-AI LOOK)
+         ========================================== -->
+    <section id="palettes" class="showcase-section">
+      <div class="showcase-section-header">
+        <div style="display:flex; align-items:center; gap:var(--dcss-space-2); margin-bottom:var(--dcss-space-2);">
+          <span class="dcss-badge dcss-badge-primary dcss-badge-pill">6 Paletas Disponibles</span>
+          <span class="dcss-badge dcss-badge-outline dcss-badge-success">Intercambio en Tiempo Real</span>
+        </div>
+        <h2 class="showcase-section-title">🎨 Conmutador de Paletas de Autor (Zero-AI Look)</h2>
+        <p class="showcase-section-desc">Selecciona cualquiera de las paletas para transformar toda la interfaz al instante. Diseñadas para distanciarse del aspecto genérico de IA y reflejar identidades de producto icónicas.</p>
+      </div>
+
+      <div class="showcase-demo-box">
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:var(--dcss-space-4);">
+          <!-- Card 1: Ruby (Raycast) -->
+          <div class="dcss-card dcss-card-interactive palette-card" data-palette="ruby" style="cursor:pointer; border:1px solid var(--dcss-border-default);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+                <span style="width:18px; height:18px; border-radius:50%; background:#ff6363; box-shadow:0 0 10px rgba(255,99,99,0.5); display:inline-block;"></span>
+                <span style="font-weight:700; color:var(--dcss-text-primary);">Ruby (Raycast)</span>
+              </div>
+              <span class="dcss-badge dcss-badge-primary dcss-badge-pill palette-active-indicator" data-palette-indicator="ruby">Activo</span>
+            </div>
+            <p style="font-size:var(--dcss-font-xs); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">
+              Coral neón sobre obsidiana profunda. La auténtica firma visual de Raycast macOS. Táctil, de hardware y anti-IA.
+            </p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <code style="font-size:var(--dcss-font-xs); color:#ff6363; background:rgba(255,99,99,0.1); padding:2px 6px; border-radius:4px;">#FF6363</code>
+              <button class="dcss-btn dcss-btn-primary dcss-btn-xs" data-dcss-accent-set="ruby">Aplicar</button>
+            </div>
+          </div>
+
+          <!-- Card 2: Monochrome (Geist) -->
+          <div class="dcss-card dcss-card-interactive palette-card" data-palette="monochrome" style="cursor:pointer; border:1px solid var(--dcss-border-default);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+                <span style="width:18px; height:18px; border-radius:50%; background:#ededed; border:1px solid #777; box-shadow:0 0 10px rgba(255,255,255,0.3); display:inline-block;"></span>
+                <span style="font-weight:700; color:var(--dcss-text-primary);">Monochrome (Geist)</span>
+              </div>
+              <span class="dcss-badge dcss-badge-secondary dcss-badge-pill palette-active-indicator" data-palette-indicator="monochrome" style="display:none;">Activo</span>
+            </div>
+            <p style="font-size:var(--dcss-font-xs); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">
+              Pureza minimalista inspirada en Dieter Rams y Vercel. Blanco y negro puro de alto contraste tipográfico suizo.
+            </p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <code style="font-size:var(--dcss-font-xs); color:#ededed; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">#EDEDED</code>
+              <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="monochrome">Aplicar</button>
+            </div>
+          </div>
+
+          <!-- Card 3: Amber (Arc) -->
+          <div class="dcss-card dcss-card-interactive palette-card" data-palette="amber" style="cursor:pointer; border:1px solid var(--dcss-border-default);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+                <span style="width:18px; height:18px; border-radius:50%; background:#ff7d3c; box-shadow:0 0 10px rgba(255,125,60,0.5); display:inline-block;"></span>
+                <span style="font-weight:700; color:var(--dcss-text-primary);">Amber (Arc Browser)</span>
+              </div>
+              <span class="dcss-badge dcss-badge-secondary dcss-badge-pill palette-active-indicator" data-palette-indicator="amber" style="display:none;">Activo</span>
+            </div>
+            <p style="font-size:var(--dcss-font-xs); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">
+              Ámbar cálido y vermilion sunset. Inspirado en Teenage Engineering y Arc: creativo, artesanal y humanizado.
+            </p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <code style="font-size:var(--dcss-font-xs); color:#ff7d3c; background:rgba(255,125,60,0.1); padding:2px 6px; border-radius:4px;">#FF7D3C</code>
+              <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="amber">Aplicar</button>
+            </div>
+          </div>
+
+          <!-- Card 4: Emerald (Supabase) -->
+          <div class="dcss-card dcss-card-interactive palette-card" data-palette="emerald" style="cursor:pointer; border:1px solid var(--dcss-border-default);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+                <span style="width:18px; height:18px; border-radius:50%; background:#3ecf8e; box-shadow:0 0 10px rgba(62,207,142,0.5); display:inline-block;"></span>
+                <span style="font-weight:700; color:var(--dcss-text-primary);">Emerald (Supabase)</span>
+              </div>
+              <span class="dcss-badge dcss-badge-secondary dcss-badge-pill palette-active-indicator" data-palette-indicator="emerald" style="display:none;">Activo</span>
+            </div>
+            <p style="font-size:var(--dcss-font-xs); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">
+              Menta de alta precisión técnica para consolas de desarrollador y arquitectura de datos. Estilo UNIX moderno.
+            </p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <code style="font-size:var(--dcss-font-xs); color:#3ecf8e; background:rgba(62,207,142,0.1); padding:2px 6px; border-radius:4px;">#3ECF8E</code>
+              <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="emerald">Aplicar</button>
+            </div>
+          </div>
+
+          <!-- Card 5: Amethyst (Linear) -->
+          <div class="dcss-card dcss-card-interactive palette-card" data-palette="amethyst" style="cursor:pointer; border:1px solid var(--dcss-border-default);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+                <span style="width:18px; height:18px; border-radius:50%; background:#5e6ad2; box-shadow:0 0 10px rgba(94,106,210,0.5); display:inline-block;"></span>
+                <span style="font-weight:700; color:var(--dcss-text-primary);">Amethyst (Linear)</span>
+              </div>
+              <span class="dcss-badge dcss-badge-secondary dcss-badge-pill palette-active-indicator" data-palette-indicator="amethyst" style="display:none;">Activo</span>
+            </div>
+            <p style="font-size:var(--dcss-font-xs); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">
+              Índigo pizarra y titanio satinado. Estética de gestión de producto de élite, sobria y orientada a ingeniería.
+            </p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <code style="font-size:var(--dcss-font-xs); color:#5e6ad2; background:rgba(94,106,210,0.1); padding:2px 6px; border-radius:4px;">#5E6AD2</code>
+              <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="amethyst">Aplicar</button>
+            </div>
+          </div>
+
+          <!-- Card 6: Cobalt (Tech) -->
+          <div class="dcss-card dcss-card-interactive palette-card" data-palette="cobalt" style="cursor:pointer; border:1px solid var(--dcss-border-default);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--dcss-space-3);">
+              <div style="display:flex; align-items:center; gap:var(--dcss-space-2);">
+                <span style="width:18px; height:18px; border-radius:50%; background:#3b82f6; box-shadow:0 0 10px rgba(59,130,246,0.5); display:inline-block;"></span>
+                <span style="font-weight:700; color:var(--dcss-text-primary);">Cobalt (Tech)</span>
+              </div>
+              <span class="dcss-badge dcss-badge-secondary dcss-badge-pill palette-active-indicator" data-palette-indicator="cobalt" style="display:none;">Activo</span>
+            </div>
+            <p style="font-size:var(--dcss-font-xs); color:var(--dcss-text-secondary); margin-bottom:var(--dcss-space-3);">
+              Azul cobalto eléctrico clásico. Mantenido como referencia y para proyectos técnicos estándar.
+            </p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <code style="font-size:var(--dcss-font-xs); color:#3b82f6; background:rgba(59,130,246,0.1); padding:2px 6px; border-radius:4px;">#3B82F6</code>
+              <button class="dcss-btn dcss-btn-secondary dcss-btn-xs" data-dcss-accent-set="cobalt">Aplicar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ==========================================
          SECCIÓN DESTACADA: COMPONENTES DE PRODUCTIVIDAD RAYCAST
@@ -694,7 +902,7 @@
       </div>
 
       <!-- Paleta de Colores -->
-      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">Paleta de Superficies Raycast & Acento Cobalt Tech</h3>
+      <h3 style="font-size:var(--dcss-font-lg); margin-bottom:var(--dcss-space-3);">Paleta de Superficies Obsidiana & Acento Dinámico</h3>
       <div class="showcase-demo-box">
         <div class="color-swatch-grid">
           <div class="color-swatch">
@@ -728,8 +936,8 @@
           <div class="color-swatch">
             <div class="color-swatch-box" style="background-color: var(--dcss-primary);"></div>
             <div class="color-swatch-info">
-              <div class="color-swatch-name">primary</div>
-              <div class="color-swatch-val">#3b82f6</div>
+              <div class="color-swatch-name">primary (activo)</div>
+              <div class="color-swatch-val" id="swatch-primary-val">dinámico</div>
             </div>
           </div>
           <div class="color-swatch">
