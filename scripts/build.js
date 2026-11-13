@@ -314,6 +314,19 @@ export function build() {
   const dcssMinJsPath = path.join(distDir, 'dcss.min.js');
   fs.writeFileSync(dcssMinJsPath, minifiedJS, 'utf8');
 
+  // 5. Synchronize root index.html from showcase
+  console.log('  -> Syncing root index.html from showcase...');
+  const showcaseHtmlPath = path.join(rootDir, 'showcase', 'index.html');
+  const rootIndexPath = path.join(rootDir, 'index.html');
+  if (fs.existsSync(showcaseHtmlPath)) {
+    let showcaseContent = fs.readFileSync(showcaseHtmlPath, 'utf8');
+    showcaseContent = showcaseContent
+      .replace(/href=["']\.\.\/dist\/dcss\.min\.css["']/g, 'href="./dist/dcss.min.css"')
+      .replace(/src=["']\.\.\/dist\/dcss\.min\.js["']/g, 'src="./dist/dcss.min.js"')
+      .replace(/src=["']app\.js["']/g, 'src="./showcase/app.js"');
+    fs.writeFileSync(rootIndexPath, showcaseContent, 'utf8');
+  }
+
   const elapsed = Date.now() - startTime;
 
   // Format file size

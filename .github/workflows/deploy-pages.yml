@@ -40,21 +40,11 @@ jobs:
       - name: Assemble GitHub Pages site
         run: |
           mkdir -p _site/dist _site/showcase
+          touch _site/.nojekyll
           cp -r dist/* _site/dist/
           cp -r showcase/* _site/showcase/
-          cat << 'EOF' > _site/index.html
-          <!DOCTYPE html>
-          <html lang="es">
-            <head>
-              <meta charset="utf-8">
-              <meta http-equiv="refresh" content="0; url=showcase/">
-              <title>dcss-ui — Live Showcase</title>
-            </head>
-            <body>
-              <p>Cargando dcss-ui Showcase... Si no redirige automáticamente, <a href="showcase/">haz clic aquí</a>.</p>
-            </body>
-          </html>
-          EOF
+          cp index.html _site/index.html
+          cp showcase/app.js _site/app.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

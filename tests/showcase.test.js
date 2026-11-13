@@ -19,6 +19,15 @@ test('Hito 5: Verification of Showcase Structure and Asset References', async (t
     assert.ok(content.length > 500, 'showcase/index.html should have substantial content');
   });
 
+  await t.test('Root index.html and .nojekyll exist for GitHub Pages direct deployment', () => {
+    const rootIndexPath = path.join(rootDir, 'index.html');
+    const noJekyllPath = path.join(rootDir, '.nojekyll');
+    assert.ok(fs.existsSync(rootIndexPath), 'Root index.html must exist for GitHub Pages root rendering');
+    assert.ok(fs.existsSync(noJekyllPath), '.nojekyll must exist to bypass default Jekyll processing');
+    const rootHtml = fs.readFileSync(rootIndexPath, 'utf8');
+    assert.match(rootHtml, /data-theme=["']dark["']/, 'Root index.html must initialize with dark theme');
+  });
+
   await t.test('showcase/app.js exists and is not empty', () => {
     assert.ok(fs.existsSync(showcaseJsPath), `showcase/app.js must exist at ${showcaseJsPath}`);
     const content = fs.readFileSync(showcaseJsPath, 'utf8').trim();
