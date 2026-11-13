@@ -279,6 +279,14 @@ function toast(options = {}) {
 
   toastEl.className = `dcss-toast dcss-toast--${safeType} is-${safeType}`;
   toastEl.setAttribute('role', 'alert');
+  toastEl.setAttribute('aria-atomic', 'true');
+
+  // Progressive Popover API support
+  if (typeof toastEl.showPopover === 'function' && toastEl.hasAttribute('popover')) {
+    try {
+      toastEl.showPopover();
+    } catch (_) {}
+  }
 
   const iconMarkup = `<div class="dcss-toast-icon">${ICONS[safeType] || ICONS.info}</div>`;
   const titleMarkup = title ? `<div class="dcss-toast-title">${title}</div>` : '';
@@ -307,11 +315,41 @@ function toast(options = {}) {
     closeBtn.addEventListener('click', () => dismiss(toastEl));
   }
 
-  // Auto dismiss timer
+  // Auto dismiss timer with pause on hover/focus (WCAG 2.2.1 Timing Adjustable)
   if (duration > 0) {
-    setTimeout(() => {
-      dismiss(toastEl);
-    }, duration);
+    let dismissTimer = null;
+    let remaining = duration;
+    let startTime = Date.now();
+
+    const startTimer = (ms) => {
+      if (ms > 0) {
+        dismissTimer = setTimeout(() => {
+          dismiss(toastEl);
+        }, ms);
+      }
+    };
+
+    const pauseTimer = () => {
+      if (dismissTimer) {
+        clearTimeout(dismissTimer);
+        dismissTimer = null;
+        remaining -= Date.now() - startTime;
+      }
+    };
+
+    const resumeTimer = () => {
+      if (remaining > 0 && !dismissTimer) {
+        startTime = Date.now();
+        startTimer(remaining);
+      }
+    };
+
+    toastEl.addEventListener('mouseenter', pauseTimer);
+    toastEl.addEventListener('mouseleave', resumeTimer);
+    toastEl.addEventListener('focusin', pauseTimer);
+    toastEl.addEventListener('focusout', resumeTimer);
+
+    startTimer(duration);
   }
 
   container.appendChild(toastEl);
@@ -383,6 +421,11 @@ const modal = {
     const el = resolveElement(modalElOrId);
     if (!el) return null;
 
+    // Save previous active element for focus restoration (WCAG 2.4.3)
+    if (typeof document !== 'undefined' && document.activeElement && document.activeElement !== document.body) {
+      el._previousActiveElement = document.activeElement;
+    }
+
     const backdrop = getBackdrop();
     if (backdrop) {
       backdrop.classList.add('is-open');
@@ -391,6 +434,15 @@ const modal = {
     el.classList.add('is-open');
     el.setAttribute('aria-hidden', 'false');
 
+    // Progressive enhancement: Native HTML5 <dialog> support
+    if (typeof el.showModal === 'function' && !el.open) {
+      try {
+        el.showModal();
+      } catch (_) {
+        // Fallback gracefully if already open or custom element
+      }
+    }
+
     if (!activeModals.includes(el)) {
       activeModals.push(el);
     }
@@ -398,6 +450,44 @@ const modal = {
     if (!isKeydownAttached && typeof document !== 'undefined') {
       document.addEventListener('keydown', onGlobalKeydown);
       isKeydownAttached = true;
+    }
+
+    // Native <dialog> cancel event sync (ESC key in browser top-layer)
+    if (!el._cancelBound) {
+      el.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        modal.close(el);
+      });
+      el._cancelBound = true;
+    }
+
+    // Accessible Focus Trap inside modal dialog
+    if (!el._focusTrapBound) {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          const focusable = el.querySelectorAll('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+          if (focusable.length > 0) {
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) {
+              e.preventDefault();
+              if (typeof last.focus === 'function') last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              if (typeof first.focus === 'function') first.focus();
+            }
+          }
+        }
+      });
+      el._focusTrapBound = true;
+    }
+
+    // Auto-focus first focusable control inside modal or dialog itself
+    const firstFocusable = el.querySelector('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+    if (firstFocusable && typeof firstFocusable.focus === 'function') {
+      firstFocusable.focus();
+    } else if (typeof el.focus === 'function') {
+      el.focus();
     }
 
     // Attach click listener on backdrop or modal wrapper click outside dialog
@@ -439,6 +529,23 @@ const modal = {
     el.classList.remove('is-open');
     el.setAttribute('aria-hidden', 'true');
 
+    // Progressive enhancement: Native HTML5 <dialog> close
+    if (typeof el.close === 'function' && el.open) {
+      try {
+        el.close();
+      } catch (_) {
+        // Fallback gracefully
+      }
+    }
+
+    // Restore previous focus
+    if (el._previousActiveElement && typeof el._previousActiveElement.focus === 'function') {
+      try {
+        el._previousActiveElement.focus();
+      } catch (_) {}
+      el._previousActiveElement = null;
+    }
+
     activeModals = activeModals.filter((m) => m !== el);
 
     if (activeModals.length === 0) {
@@ -476,10 +583,13 @@ const modal = {
       confirmText = 'Aceptar',
       cancelText = 'Cancelar',
       onConfirm = null,
-      onCancel = null
+      onCancel = null,
+      useDialog = false
     } = options;
 
-    const modalEl = document.createElement('div');
+    const modalEl = (useDialog && typeof HTMLDialogElement !== 'undefined')
+      ? document.createElement('dialog')
+      : document.createElement('div');
     modalEl.className = 'dcss-modal';
     modalEl.setAttribute('role', 'dialog');
     modalEl.setAttribute('aria-modal', 'true');
@@ -627,6 +737,22 @@ const dropdown = {
     menu.classList.add('is-open');
     menu.setAttribute('aria-expanded', 'true');
 
+    // Progressive Popover API support
+    if (typeof menu.showPopover === 'function' && menu.hasAttribute('popover')) {
+      try {
+        menu.showPopover();
+      } catch (_) {}
+    }
+
+    // Sync ARIA expanded state on trigger if within container
+    const container = menu.closest ? menu.closest('.dcss-dropdown') : null;
+    if (container) {
+      const trigger = container.querySelector('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    }
+
     if (!isOutsideClickAttached && typeof document !== 'undefined') {
       document.addEventListener('click', handleOutsideClick);
       document.addEventListener('keydown', handleDropdownKeydown);
@@ -646,6 +772,23 @@ const dropdown = {
 
     menu.classList.remove('is-open');
     menu.setAttribute('aria-expanded', 'false');
+
+    // Progressive Popover API support
+    if (typeof menu.hidePopover === 'function' && menu.hasAttribute('popover')) {
+      try {
+        menu.hidePopover();
+      } catch (_) {}
+    }
+
+    // Sync ARIA expanded state on trigger if within container
+    const container = menu.closest ? menu.closest('.dcss-dropdown') : null;
+    if (container) {
+      const trigger = container.querySelector('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
     return menu;
   },
 
@@ -673,6 +816,20 @@ const dropdown = {
     openMenus.forEach((m) => {
       m.classList.remove('is-open');
       m.setAttribute('aria-expanded', 'false');
+
+      if (typeof m.hidePopover === 'function' && m.hasAttribute('popover')) {
+        try {
+          m.hidePopover();
+        } catch (_) {}
+      }
+
+      const container = m.closest ? m.closest('.dcss-dropdown') : null;
+      if (container) {
+        const trigger = container.querySelector('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
+        if (trigger) {
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      }
     });
   },
 
@@ -683,27 +840,93 @@ const dropdown = {
   init(root = typeof document !== 'undefined' ? document : null) {
     if (!root) return;
 
+    const containers = root.querySelectorAll('.dcss-dropdown');
+    containers.forEach((container) => {
+      const menu = container.querySelector('.dcss-dropdown-menu');
+      if (menu && !menu.getAttribute('role')) {
+        menu.setAttribute('role', 'menu');
+      }
+    });
+
     const triggers = root.querySelectorAll('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
     triggers.forEach((trigger) => {
+      if (!trigger.hasAttribute('aria-haspopup')) {
+        trigger.setAttribute('aria-haspopup', 'menu');
+      }
+      if (!trigger.hasAttribute('aria-expanded')) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+
       if (trigger._dropdownInitialized) return;
       trigger._dropdownInitialized = true;
 
       trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+        if (typeof e.preventDefault === 'function') e.preventDefault();
+        if (typeof e.stopPropagation === 'function') e.stopPropagation();
         this.toggle(trigger);
+      });
+
+      // Keyboard navigation from trigger (ArrowDown opens and focuses first item)
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          const menu = this.open(trigger);
+          if (menu) {
+            const firstItem = menu.querySelector('.dcss-dropdown-item:not(:disabled)');
+            if (firstItem && typeof firstItem.focus === 'function') firstItem.focus();
+          }
+        }
       });
     });
 
-    // Auto-close open menu when an item is selected
+    // Auto-close open menu when an item is selected & keyboard navigation
     const items = root.querySelectorAll('.dcss-dropdown-item');
     items.forEach((item) => {
+      if (!item.hasAttribute('role')) {
+        item.setAttribute('role', 'menuitem');
+      }
+
       if (item._dropdownItemBound) return;
       item._dropdownItemBound = true;
+
       item.addEventListener('click', () => {
-        const parentMenu = item.closest('.dcss-dropdown-menu');
+        const parentMenu = item.closest ? item.closest('.dcss-dropdown-menu') : null;
         if (parentMenu) {
           this.close(parentMenu);
+        }
+      });
+
+      // WAI-ARIA keyboard navigation within dropdown items
+      item.addEventListener('keydown', (e) => {
+        const parentMenu = item.closest ? item.closest('.dcss-dropdown-menu') : null;
+        if (!parentMenu) return;
+
+        const menuItems = Array.from(parentMenu.querySelectorAll('.dcss-dropdown-item:not(:disabled)'));
+        const currentIndex = menuItems.indexOf(item);
+
+        if (e.key === 'ArrowDown') {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          const next = menuItems[(currentIndex + 1) % menuItems.length];
+          if (next && typeof next.focus === 'function') next.focus();
+        } else if (e.key === 'ArrowUp') {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          const prev = menuItems[(currentIndex - 1 + menuItems.length) % menuItems.length];
+          if (prev && typeof prev.focus === 'function') prev.focus();
+        } else if (e.key === 'Home') {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          if (menuItems[0] && typeof menuItems[0].focus === 'function') menuItems[0].focus();
+        } else if (e.key === 'End') {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          const last = menuItems[menuItems.length - 1];
+          if (last && typeof last.focus === 'function') last.focus();
+        } else if (e.key === 'Escape') {
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          this.close(parentMenu);
+          const container = parentMenu.closest ? parentMenu.closest('.dcss-dropdown') : null;
+          if (container) {
+            const trig = container.querySelector('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
+            if (trig && typeof trig.focus === 'function') trig.focus();
+          }
         }
       });
     });
@@ -779,9 +1002,17 @@ const tabs = {
       const contentContainer = pane.closest('.dcss-tabs-content') || pane.parentElement;
       if (contentContainer) {
         const allPanes = contentContainer.querySelectorAll('.dcss-tab-pane, [role="tabpanel"]');
-        allPanes.forEach((p) => p.classList.remove('is-active'));
+        allPanes.forEach((p) => {
+          p.classList.remove('is-active');
+          p.setAttribute('aria-hidden', 'true');
+        });
       }
       pane.classList.add('is-active');
+      pane.setAttribute('aria-hidden', 'false');
+      if (!pane.hasAttribute('role')) {
+        pane.setAttribute('role', 'tabpanel');
+      }
+      pane.setAttribute('tabindex', '0');
     }
   },
 
@@ -821,7 +1052,7 @@ const tabs = {
             this.activate(btn);
           });
 
-          // Keyboard arrow navigation between tabs
+          // Keyboard arrow & Home/End navigation between tabs (WAI-ARIA Tabs pattern)
           btn.addEventListener('keydown', (e) => {
             let targetBtn = null;
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -830,6 +1061,12 @@ const tabs = {
             } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
               e.preventDefault();
               targetBtn = buttons[(index - 1 + buttons.length) % buttons.length];
+            } else if (e.key === 'Home') {
+              e.preventDefault();
+              targetBtn = buttons[0];
+            } else if (e.key === 'End') {
+              e.preventDefault();
+              targetBtn = buttons[buttons.length - 1];
             }
 
             if (targetBtn) {
@@ -916,6 +1153,11 @@ const drawer = {
     const el = resolveDrawer(drawerElOrId);
     if (!el) return null;
 
+    // Save previous active element for focus restoration (WCAG 2.4.3)
+    if (typeof document !== 'undefined' && document.activeElement && document.activeElement !== document.body) {
+      el._previousActiveElement = document.activeElement;
+    }
+
     const backdrop = getBackdrop();
     if (backdrop) {
       backdrop.classList.add('is-open');
@@ -924,6 +1166,20 @@ const drawer = {
     el.classList.add('is-open');
     el.setAttribute('aria-hidden', 'false');
 
+    // Progressive Popover API support
+    if (typeof el.showPopover === 'function' && el.hasAttribute('popover')) {
+      try {
+        el.showPopover();
+      } catch (_) {}
+    }
+
+    // Progressive native <dialog> support
+    if (typeof el.showModal === 'function' && el.tagName === 'DIALOG' && !el.open) {
+      try {
+        el.showModal();
+      } catch (_) {}
+    }
+
     if (!activeDrawers.includes(el)) {
       activeDrawers.push(el);
     }
@@ -931,6 +1187,35 @@ const drawer = {
     if (!isKeydownAttached && typeof document !== 'undefined') {
       document.addEventListener('keydown', onGlobalKeydown);
       isKeydownAttached = true;
+    }
+
+    // Accessible Focus Trap inside drawer
+    if (!el._focusTrapBound) {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          const focusable = el.querySelectorAll('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+          if (focusable.length > 0) {
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) {
+              e.preventDefault();
+              if (typeof last.focus === 'function') last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              if (typeof first.focus === 'function') first.focus();
+            }
+          }
+        }
+      });
+      el._focusTrapBound = true;
+    }
+
+    // Auto-focus first focusable element inside drawer
+    const firstFocusable = el.querySelector('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+    if (firstFocusable && typeof firstFocusable.focus === 'function') {
+      firstFocusable.focus();
+    } else if (typeof el.focus === 'function') {
+      el.focus();
     }
 
     // Attach listeners on close buttons
@@ -964,6 +1249,28 @@ const drawer = {
 
     el.classList.remove('is-open');
     el.setAttribute('aria-hidden', 'true');
+
+    // Progressive Popover API support
+    if (typeof el.hidePopover === 'function' && el.hasAttribute('popover')) {
+      try {
+        el.hidePopover();
+      } catch (_) {}
+    }
+
+    // Progressive native <dialog> close
+    if (typeof el.close === 'function' && el.tagName === 'DIALOG' && el.open) {
+      try {
+        el.close();
+      } catch (_) {}
+    }
+
+    // Restore previous focus
+    if (el._previousActiveElement && typeof el._previousActiveElement.focus === 'function') {
+      try {
+        el._previousActiveElement.focus();
+      } catch (_) {}
+      el._previousActiveElement = null;
+    }
 
     activeDrawers = activeDrawers.filter((d) => d !== el);
 

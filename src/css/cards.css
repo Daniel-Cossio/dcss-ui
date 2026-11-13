@@ -66,6 +66,13 @@
   border-color: var(--dcss-border-strong);
 }
 
+/* Modern :has() focus-visible lift for interactive cards */
+.dcss-card-interactive:has(a:focus-visible),
+.dcss-card-interactive:has(button:focus-visible) {
+  border-color: var(--dcss-border-focus);
+  box-shadow: var(--dcss-shadow-glow);
+}
+
 /* Glassmorphism Variant */
 .dcss-card-glass {
   background-color: var(--dcss-bg-surface-glass);

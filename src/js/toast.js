@@ -76,6 +76,14 @@ export function toast(options = {}) {
 
   toastEl.className = `dcss-toast dcss-toast--${safeType} is-${safeType}`;
   toastEl.setAttribute('role', 'alert');
+  toastEl.setAttribute('aria-atomic', 'true');
+
+  // Progressive Popover API support
+  if (typeof toastEl.showPopover === 'function' && toastEl.hasAttribute('popover')) {
+    try {
+      toastEl.showPopover();
+    } catch (_) {}
+  }
 
   const iconMarkup = `<div class="dcss-toast-icon">${ICONS[safeType] || ICONS.info}</div>`;
   const titleMarkup = title ? `<div class="dcss-toast-title">${title}</div>` : '';
@@ -104,11 +112,41 @@ export function toast(options = {}) {
     closeBtn.addEventListener('click', () => dismiss(toastEl));
   }
 
-  // Auto dismiss timer
+  // Auto dismiss timer with pause on hover/focus (WCAG 2.2.1 Timing Adjustable)
   if (duration > 0) {
-    setTimeout(() => {
-      dismiss(toastEl);
-    }, duration);
+    let dismissTimer = null;
+    let remaining = duration;
+    let startTime = Date.now();
+
+    const startTimer = (ms) => {
+      if (ms > 0) {
+        dismissTimer = setTimeout(() => {
+          dismiss(toastEl);
+        }, ms);
+      }
+    };
+
+    const pauseTimer = () => {
+      if (dismissTimer) {
+        clearTimeout(dismissTimer);
+        dismissTimer = null;
+        remaining -= Date.now() - startTime;
+      }
+    };
+
+    const resumeTimer = () => {
+      if (remaining > 0 && !dismissTimer) {
+        startTime = Date.now();
+        startTimer(remaining);
+      }
+    };
+
+    toastEl.addEventListener('mouseenter', pauseTimer);
+    toastEl.addEventListener('mouseleave', resumeTimer);
+    toastEl.addEventListener('focusin', pauseTimer);
+    toastEl.addEventListener('focusout', resumeTimer);
+
+    startTimer(duration);
   }
 
   container.appendChild(toastEl);

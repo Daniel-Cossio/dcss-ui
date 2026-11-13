@@ -32,6 +32,19 @@
   margin-top: calc(-1 * var(--dcss-space-1));
 }
 
+/* Modern :has() progressive enhancements */
+.dcss-form-group:has(:focus-visible) > .dcss-label {
+  color: var(--dcss-primary);
+}
+
+.dcss-form-group:has(.is-invalid) > .dcss-label {
+  color: var(--dcss-danger);
+}
+
+.dcss-form-group:has(:disabled) {
+  opacity: 0.7;
+}
+
 /* Base Inputs: text, select, textarea */
 .dcss-input,
 .dcss-select,

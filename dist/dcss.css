@@ -391,6 +391,19 @@
   --dcss-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
 }
 
+/* ==========================================================================
+   Modern Web Guidance: Progressive native light-dark() design tokens
+   ========================================================================== */
+@supports (color: light-dark(#fff, #000)) {
+  :root {
+    --dcss-adaptive-bg: light-dark(#f8fafc, #07080a);
+    --dcss-adaptive-surface: light-dark(#ffffff, #0d0e11);
+    --dcss-adaptive-text: light-dark(#0f172a, #f8fafc);
+    --dcss-adaptive-text-muted: light-dark(#94a3b8, #64748b);
+    --dcss-adaptive-border: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
+  }
+}
+
 /**
  * dcss-ui — Modern CSS Reset & Base Normalization
  */
@@ -410,6 +423,7 @@ html {
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
   font-size: 16px;
   line-height: var(--dcss-leading-normal, 1.5);
   tab-size: 4;
@@ -429,6 +443,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
 }
 
 /* 4. Media elements */
@@ -856,6 +871,13 @@ ol {
   border-color: var(--dcss-border-strong);
 }
 
+/* Modern :has() focus-visible lift for interactive cards */
+.dcss-card-interactive:has(a:focus-visible),
+.dcss-card-interactive:has(button:focus-visible) {
+  border-color: var(--dcss-border-focus);
+  box-shadow: var(--dcss-shadow-glow);
+}
+
 /* Glassmorphism Variant */
 .dcss-card-glass {
   background-color: var(--dcss-bg-surface-glass);
@@ -896,6 +918,19 @@ ol {
   font-size: var(--dcss-font-xs);
   color: var(--dcss-danger);
   margin-top: calc(-1 * var(--dcss-space-1));
+}
+
+/* Modern :has() progressive enhancements */
+.dcss-form-group:has(:focus-visible) > .dcss-label {
+  color: var(--dcss-primary);
+}
+
+.dcss-form-group:has(.is-invalid) > .dcss-label {
+  color: var(--dcss-danger);
+}
+
+.dcss-form-group:has(:disabled) {
+  opacity: 0.7;
 }
 
 /* Base Inputs: text, select, textarea */
@@ -1564,6 +1599,13 @@ input[type="checkbox"].dcss-checkbox:disabled {
   gap: var(--dcss-space-8);
 }
 
+/* Modern Container Queries progressive utility */
+@supports (container-type: inline-size) {
+  .dcss-container-cq {
+    container-type: inline-size;
+  }
+}
+
 /**
  * dcss-ui — Keyboard Key (Kbd) Component
  * Raycast-Inspired Tactile 3D Keys
@@ -2098,6 +2140,24 @@ input[type="checkbox"].dcss-checkbox:disabled {
   visibility: visible;
 }
 
+/* Progressive enhancement: Native HTML5 <dialog> styling */
+dialog.dcss-modal {
+  border: none;
+  background: transparent;
+  padding: var(--dcss-space-4);
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+dialog.dcss-modal::backdrop {
+  background-color: var(--dcss-bg-overlay);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+}
+
 .dcss-modal-dialog {
   position: relative;
   width: 100%;
@@ -2167,6 +2227,8 @@ input[type="checkbox"].dcss-checkbox:disabled {
 .dcss-modal-body {
   padding: var(--dcss-space-5);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   color: var(--dcss-text-secondary);
   font-size: var(--dcss-font-sm);
   line-height: var(--dcss-leading-relaxed);
@@ -2214,11 +2276,19 @@ input[type="checkbox"].dcss-checkbox:disabled {
               visibility var(--dcss-transition-fast);
 }
 
-.dcss-dropdown-menu.is-open {
+.dcss-dropdown-menu.is-open,
+[popover].dcss-dropdown-menu:popover-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+/* Progressive enhancement: Popover API styling */
+[popover].dcss-dropdown-menu {
+  border: 1px solid var(--dcss-border-default);
+  margin: 0;
+  inset: unset;
 }
 
 /* Dropdown Alignments */
@@ -2485,6 +2555,8 @@ input[type="checkbox"].dcss-checkbox:disabled {
   flex: 1 1 auto;
   padding: var(--dcss-space-5);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   color: var(--dcss-text-secondary);
 }
 

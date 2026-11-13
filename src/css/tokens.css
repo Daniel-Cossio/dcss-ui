@@ -383,3 +383,16 @@
   --dcss-border-focus: rgba(37, 99, 235, 0.6);
   --dcss-shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
 }
+
+/* ==========================================================================
+   Modern Web Guidance: Progressive native light-dark() design tokens
+   ========================================================================== */
+@supports (color: light-dark(#fff, #000)) {
+  :root {
+    --dcss-adaptive-bg: light-dark(#f8fafc, #07080a);
+    --dcss-adaptive-surface: light-dark(#ffffff, #0d0e11);
+    --dcss-adaptive-text: light-dark(#0f172a, #f8fafc);
+    --dcss-adaptive-text-muted: light-dark(#94a3b8, #64748b);
+    --dcss-adaptive-border: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
+  }
+}

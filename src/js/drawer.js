@@ -63,6 +63,11 @@ export const drawer = {
     const el = resolveDrawer(drawerElOrId);
     if (!el) return null;
 
+    // Save previous active element for focus restoration (WCAG 2.4.3)
+    if (typeof document !== 'undefined' && document.activeElement && document.activeElement !== document.body) {
+      el._previousActiveElement = document.activeElement;
+    }
+
     const backdrop = getBackdrop();
     if (backdrop) {
       backdrop.classList.add('is-open');
@@ -71,6 +76,20 @@ export const drawer = {
     el.classList.add('is-open');
     el.setAttribute('aria-hidden', 'false');
 
+    // Progressive Popover API support
+    if (typeof el.showPopover === 'function' && el.hasAttribute('popover')) {
+      try {
+        el.showPopover();
+      } catch (_) {}
+    }
+
+    // Progressive native <dialog> support
+    if (typeof el.showModal === 'function' && el.tagName === 'DIALOG' && !el.open) {
+      try {
+        el.showModal();
+      } catch (_) {}
+    }
+
     if (!activeDrawers.includes(el)) {
       activeDrawers.push(el);
     }
@@ -78,6 +97,35 @@ export const drawer = {
     if (!isKeydownAttached && typeof document !== 'undefined') {
       document.addEventListener('keydown', onGlobalKeydown);
       isKeydownAttached = true;
+    }
+
+    // Accessible Focus Trap inside drawer
+    if (!el._focusTrapBound) {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          const focusable = el.querySelectorAll('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+          if (focusable.length > 0) {
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) {
+              e.preventDefault();
+              if (typeof last.focus === 'function') last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              if (typeof first.focus === 'function') first.focus();
+            }
+          }
+        }
+      });
+      el._focusTrapBound = true;
+    }
+
+    // Auto-focus first focusable element inside drawer
+    const firstFocusable = el.querySelector('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+    if (firstFocusable && typeof firstFocusable.focus === 'function') {
+      firstFocusable.focus();
+    } else if (typeof el.focus === 'function') {
+      el.focus();
     }
 
     // Attach listeners on close buttons
@@ -111,6 +159,28 @@ export const drawer = {
 
     el.classList.remove('is-open');
     el.setAttribute('aria-hidden', 'true');
+
+    // Progressive Popover API support
+    if (typeof el.hidePopover === 'function' && el.hasAttribute('popover')) {
+      try {
+        el.hidePopover();
+      } catch (_) {}
+    }
+
+    // Progressive native <dialog> close
+    if (typeof el.close === 'function' && el.tagName === 'DIALOG' && el.open) {
+      try {
+        el.close();
+      } catch (_) {}
+    }
+
+    // Restore previous focus
+    if (el._previousActiveElement && typeof el._previousActiveElement.focus === 'function') {
+      try {
+        el._previousActiveElement.focus();
+      } catch (_) {}
+      el._previousActiveElement = null;
+    }
 
     activeDrawers = activeDrawers.filter((d) => d !== el);
 

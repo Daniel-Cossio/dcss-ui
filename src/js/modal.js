@@ -47,6 +47,11 @@ export const modal = {
     const el = resolveElement(modalElOrId);
     if (!el) return null;
 
+    // Save previous active element for focus restoration (WCAG 2.4.3)
+    if (typeof document !== 'undefined' && document.activeElement && document.activeElement !== document.body) {
+      el._previousActiveElement = document.activeElement;
+    }
+
     const backdrop = getBackdrop();
     if (backdrop) {
       backdrop.classList.add('is-open');
@@ -55,6 +60,15 @@ export const modal = {
     el.classList.add('is-open');
     el.setAttribute('aria-hidden', 'false');
 
+    // Progressive enhancement: Native HTML5 <dialog> support
+    if (typeof el.showModal === 'function' && !el.open) {
+      try {
+        el.showModal();
+      } catch (_) {
+        // Fallback gracefully if already open or custom element
+      }
+    }
+
     if (!activeModals.includes(el)) {
       activeModals.push(el);
     }
@@ -62,6 +76,44 @@ export const modal = {
     if (!isKeydownAttached && typeof document !== 'undefined') {
       document.addEventListener('keydown', onGlobalKeydown);
       isKeydownAttached = true;
+    }
+
+    // Native <dialog> cancel event sync (ESC key in browser top-layer)
+    if (!el._cancelBound) {
+      el.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        modal.close(el);
+      });
+      el._cancelBound = true;
+    }
+
+    // Accessible Focus Trap inside modal dialog
+    if (!el._focusTrapBound) {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          const focusable = el.querySelectorAll('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+          if (focusable.length > 0) {
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) {
+              e.preventDefault();
+              if (typeof last.focus === 'function') last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              if (typeof first.focus === 'function') first.focus();
+            }
+          }
+        }
+      });
+      el._focusTrapBound = true;
+    }
+
+    // Auto-focus first focusable control inside modal or dialog itself
+    const firstFocusable = el.querySelector('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])');
+    if (firstFocusable && typeof firstFocusable.focus === 'function') {
+      firstFocusable.focus();
+    } else if (typeof el.focus === 'function') {
+      el.focus();
     }
 
     // Attach click listener on backdrop or modal wrapper click outside dialog
@@ -103,6 +155,23 @@ export const modal = {
     el.classList.remove('is-open');
     el.setAttribute('aria-hidden', 'true');
 
+    // Progressive enhancement: Native HTML5 <dialog> close
+    if (typeof el.close === 'function' && el.open) {
+      try {
+        el.close();
+      } catch (_) {
+        // Fallback gracefully
+      }
+    }
+
+    // Restore previous focus
+    if (el._previousActiveElement && typeof el._previousActiveElement.focus === 'function') {
+      try {
+        el._previousActiveElement.focus();
+      } catch (_) {}
+      el._previousActiveElement = null;
+    }
+
     activeModals = activeModals.filter((m) => m !== el);
 
     if (activeModals.length === 0) {
@@ -140,10 +209,13 @@ export const modal = {
       confirmText = 'Aceptar',
       cancelText = 'Cancelar',
       onConfirm = null,
-      onCancel = null
+      onCancel = null,
+      useDialog = false
     } = options;
 
-    const modalEl = document.createElement('div');
+    const modalEl = (useDialog && typeof HTMLDialogElement !== 'undefined')
+      ? document.createElement('dialog')
+      : document.createElement('div');
     modalEl.className = 'dcss-modal';
     modalEl.setAttribute('role', 'dialog');
     modalEl.setAttribute('aria-modal', 'true');

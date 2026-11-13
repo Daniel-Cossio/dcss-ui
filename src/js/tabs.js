@@ -58,9 +58,17 @@ export const tabs = {
       const contentContainer = pane.closest('.dcss-tabs-content') || pane.parentElement;
       if (contentContainer) {
         const allPanes = contentContainer.querySelectorAll('.dcss-tab-pane, [role="tabpanel"]');
-        allPanes.forEach((p) => p.classList.remove('is-active'));
+        allPanes.forEach((p) => {
+          p.classList.remove('is-active');
+          p.setAttribute('aria-hidden', 'true');
+        });
       }
       pane.classList.add('is-active');
+      pane.setAttribute('aria-hidden', 'false');
+      if (!pane.hasAttribute('role')) {
+        pane.setAttribute('role', 'tabpanel');
+      }
+      pane.setAttribute('tabindex', '0');
     }
   },
 
@@ -100,7 +108,7 @@ export const tabs = {
             this.activate(btn);
           });
 
-          // Keyboard arrow navigation between tabs
+          // Keyboard arrow & Home/End navigation between tabs (WAI-ARIA Tabs pattern)
           btn.addEventListener('keydown', (e) => {
             let targetBtn = null;
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -109,6 +117,12 @@ export const tabs = {
             } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
               e.preventDefault();
               targetBtn = buttons[(index - 1 + buttons.length) % buttons.length];
+            } else if (e.key === 'Home') {
+              e.preventDefault();
+              targetBtn = buttons[0];
+            } else if (e.key === 'End') {
+              e.preventDefault();
+              targetBtn = buttons[buttons.length - 1];
             }
 
             if (targetBtn) {

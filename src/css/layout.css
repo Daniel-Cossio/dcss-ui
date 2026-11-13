@@ -166,3 +166,10 @@
 .dcss-stack-xl {
   gap: var(--dcss-space-8);
 }
+
+/* Modern Container Queries progressive utility */
+@supports (container-type: inline-size) {
+  .dcss-container-cq {
+    container-type: inline-size;
+  }
+}
