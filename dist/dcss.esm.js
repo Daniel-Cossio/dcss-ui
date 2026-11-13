@@ -556,7 +556,8 @@ function resolveMenu(triggerOrMenu) {
     }
 
     // Check data attribute target
-    const target = triggerOrMenu.getAttribute('data-dcss-dropdown');
+    const target = triggerOrMenu.getAttribute('data-dcss-dropdown') ||
+                   triggerOrMenu.getAttribute('data-dcss-dropdown-trigger');
     if (target && target !== '' && target !== 'true') {
       const targetEl = document.querySelector(target.startsWith('#') ? target : `#${target}`);
       if (targetEl) return targetEl;
@@ -588,7 +589,8 @@ function handleOutsideClick(e) {
     const isInsideMenu = menu.contains(e.target);
     const isInsideContainer = container && container.contains(e.target);
     const isTrigger = e.target.hasAttribute?.('data-dcss-dropdown') ||
-                      e.target.closest?.('[data-dcss-dropdown]');
+                      e.target.hasAttribute?.('data-dcss-dropdown-trigger') ||
+                      e.target.closest?.('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
 
     if (!isInsideMenu && !isInsideContainer && !isTrigger) {
       dropdown.close(menu);
@@ -672,7 +674,7 @@ const dropdown = {
   init(root = typeof document !== 'undefined' ? document : null) {
     if (!root) return;
 
-    const triggers = root.querySelectorAll('[data-dcss-dropdown]');
+    const triggers = root.querySelectorAll('[data-dcss-dropdown], [data-dcss-dropdown-trigger]');
     triggers.forEach((trigger) => {
       if (trigger._dropdownInitialized) return;
       trigger._dropdownInitialized = true;
@@ -681,6 +683,19 @@ const dropdown = {
         e.preventDefault();
         e.stopPropagation();
         this.toggle(trigger);
+      });
+    });
+
+    // Auto-close open menu when an item is selected
+    const items = root.querySelectorAll('.dcss-dropdown-item');
+    items.forEach((item) => {
+      if (item._dropdownItemBound) return;
+      item._dropdownItemBound = true;
+      item.addEventListener('click', () => {
+        const parentMenu = item.closest('.dcss-dropdown-menu');
+        if (parentMenu) {
+          this.close(parentMenu);
+        }
       });
     });
 

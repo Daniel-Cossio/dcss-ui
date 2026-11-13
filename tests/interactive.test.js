@@ -588,6 +588,26 @@ test('Hito 3: Dropdown System Tests', async (t) => {
     assert.ok(!menu1.classList.contains('is-open'));
     assert.ok(!menu2.classList.contains('is-open'));
   });
+
+  await t.test('dropdown.init binds to data-dcss-dropdown and data-dcss-dropdown-trigger', () => {
+    const container = document.createElement('div');
+    container.className = 'dcss-dropdown';
+
+    const trigger = document.createElement('button');
+    trigger.setAttribute('data-dcss-dropdown-trigger', '');
+    const menu = document.createElement('div');
+    menu.className = 'dcss-dropdown-menu';
+
+    container.appendChild(trigger);
+    container.appendChild(menu);
+    document.body.appendChild(container);
+
+    dropdown.init(container);
+
+    // Simulate click on trigger
+    trigger.dispatchEvent({ type: 'click', preventDefault() {}, stopPropagation() {} });
+    assert.ok(menu.classList.contains('is-open'), 'Trigger with data-dcss-dropdown-trigger opened menu');
+  });
 });
 
 test('Hito 3: Tabs System Tests', async (t) => {
