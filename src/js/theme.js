@@ -66,9 +66,6 @@ export const theme = {
         bubbles: true
       });
       document.dispatchEvent(event);
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(event);
-      }
     }
 
     return nextTheme;
@@ -134,9 +131,6 @@ export const theme = {
         bubbles: true
       });
       document.dispatchEvent(event);
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(event);
-      }
     }
 
     return nextAccent;
@@ -168,7 +162,8 @@ export const theme = {
     this.setAccent(initialAccent);
 
     // Setup declarative click handlers if in DOM
-    if (typeof document !== 'undefined' && document.addEventListener) {
+    if (typeof document !== 'undefined' && document.addEventListener && !this._accentClickBound) {
+      this._accentClickBound = true;
       document.addEventListener('click', (e) => {
         const trigger = e.target.closest('[data-dcss-accent-set]');
         if (trigger) {

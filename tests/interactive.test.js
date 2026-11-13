@@ -438,8 +438,10 @@ test('Hito 3: Theme Manager Functional Tests', async (t) => {
 
   await t.test('theme accent switcher sets attribute, stores in localStorage and emits custom event', () => {
     let capturedAccentEvent = null;
+    let eventCallCount = 0;
     document.addEventListener('dcss:accent-change', (e) => {
       capturedAccentEvent = e;
+      eventCallCount++;
     });
 
     const accents = theme.getAvailableAccents();
@@ -452,11 +454,13 @@ test('Hito 3: Theme Manager Functional Tests', async (t) => {
     assert.strictEqual(localStorage.getItem('dcss-accent'), 'amber');
     assert.ok(capturedAccentEvent, 'Custom event dcss:accent-change was fired');
     assert.strictEqual(capturedAccentEvent.detail.accent, 'amber');
+    assert.strictEqual(eventCallCount, 1, 'Event should only be fired once per accent change (no duplicates)');
 
     // Fallback on invalid accent
     const fallback = theme.setAccent('invalid-color');
     assert.strictEqual(fallback, 'ruby');
     assert.strictEqual(document.documentElement.getAttribute('data-accent'), 'ruby');
+    assert.strictEqual(eventCallCount, 2, 'Fallback change fired event exactly once more');
   });
 });
 

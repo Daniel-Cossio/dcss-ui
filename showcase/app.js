@@ -404,11 +404,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Listen to accent changes
+  // Listen to accent changes with deduplication
+  let lastNotifiedAccent = null;
+  let lastNotifiedTime = 0;
+
   window.addEventListener('dcss:accent-change', (e) => {
     const accent = e.detail?.accent;
-    if (accent) {
-      updatePaletteUI(accent);
+    if (!accent) return;
+
+    updatePaletteUI(accent);
+
+    const now = Date.now();
+    // Only notify if accent changed or if more than 500ms passed
+    if (accent !== lastNotifiedAccent || (now - lastNotifiedTime > 500)) {
+      lastNotifiedAccent = accent;
+      lastNotifiedTime = now;
       const meta = paletteNames[accent] || paletteNames.ruby;
       window.DCSS?.toast?.info(`🎨 Paleta activada: ${meta.name} (${meta.hex})`);
     }
