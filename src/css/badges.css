@@ -1,0 +1,137 @@
+/**
+ * dcss-ui — Badges & Status Chips Component
+ * Minimalist Design System & UI Kit
+ */
+
+@keyframes dcss-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+}
+
+/* Base Badge */
+.dcss-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dcss-space-1);
+  font-family: var(--dcss-font-sans);
+  font-size: var(--dcss-font-xs);
+  font-weight: var(--dcss-font-weight-medium);
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--dcss-radius-sm);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+}
+
+/* Semantic Color Variants */
+
+/* Neutral / Default */
+.dcss-badge-neutral {
+  background-color: var(--dcss-bg-surface-elevated);
+  color: var(--dcss-text-secondary);
+  border-color: var(--dcss-border-subtle);
+}
+
+/* Primary */
+.dcss-badge-primary {
+  background-color: var(--dcss-primary-muted);
+  color: var(--dcss-primary);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* Success */
+.dcss-badge-success {
+  background-color: var(--dcss-success-muted);
+  color: var(--dcss-success);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+/* Warning */
+.dcss-badge-warning {
+  background-color: var(--dcss-warning-muted);
+  color: var(--dcss-warning);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* Danger */
+.dcss-badge-danger {
+  background-color: var(--dcss-danger-muted);
+  color: var(--dcss-danger);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* Info */
+.dcss-badge-info {
+  background-color: var(--dcss-info-muted);
+  color: var(--dcss-info);
+  border-color: rgba(14, 165, 233, 0.25);
+}
+
+/* Style Variants */
+
+/* Pill (Rounded Full) */
+.dcss-badge-pill {
+  border-radius: var(--dcss-radius-full);
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+/* Outline Variant */
+.dcss-badge-outline {
+  background-color: transparent;
+}
+
+.dcss-badge-outline.dcss-badge-neutral {
+  border-color: var(--dcss-border-strong);
+}
+
+.dcss-badge-outline.dcss-badge-primary {
+  border-color: var(--dcss-primary);
+}
+
+.dcss-badge-outline.dcss-badge-success {
+  border-color: var(--dcss-success);
+}
+
+.dcss-badge-outline.dcss-badge-warning {
+  border-color: var(--dcss-warning);
+}
+
+.dcss-badge-outline.dcss-badge-danger {
+  border-color: var(--dcss-danger);
+}
+
+.dcss-badge-outline.dcss-badge-info {
+  border-color: var(--dcss-info);
+}
+
+/* Status Dot Indicator */
+.dcss-badge-dot::before,
+.dcss-badge .dcss-dot {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: var(--dcss-radius-full);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+/* Pulse Animation for Active Dot */
+.dcss-badge-pulse::before,
+.dcss-badge .dcss-dot-pulse,
+.dcss-badge-dot.is-active::before {
+  animation: dcss-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

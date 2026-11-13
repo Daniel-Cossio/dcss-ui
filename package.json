@@ -1,0 +1,37 @@
+{
+  "name": "dcss-ui",
+  "version": "0.1.0",
+  "description": "Minimalist, zero-overhead CSS and Vanilla JS UI system",
+  "main": "./dist/dcss.js",
+  "module": "./dist/dcss.esm.js",
+  "style": "./dist/dcss.min.css",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/dcss.esm.js",
+      "require": "./dist/dcss.js",
+      "default": "./dist/dcss.js"
+    },
+    "./css": "./dist/dcss.min.css",
+    "./dist/*": "./dist/*"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "pretest": "npm run build",
+    "test": "node --test tests/*.test.js",
+    "test:tokens": "node --test tests/tokens.test.js",
+    "test:components": "node --test tests/components.test.js",
+    "test:interactive": "node --test tests/interactive.test.js",
+    "test:build": "node --test tests/build.test.js",
+    "test:showcase": "node --test tests/showcase.test.js"
+  },
+  "keywords": [
+    "ui",
+    "css",
+    "vanilla-js",
+    "design-system",
+    "minimalist"
+  ],
+  "author": "Daniel Cossio",
+  "license": "MIT"
+}

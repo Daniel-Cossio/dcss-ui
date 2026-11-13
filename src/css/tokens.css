@@ -1,0 +1,223 @@
+/**
+ * dcss-ui — Design Tokens
+ * Minimalist Design System & UI Kit
+ */
+
+:root {
+  /* Color Scheme */
+  color-scheme: dark;
+
+  /* Surfaces & Backgrounds (Dark Mode - Default) */
+  --dcss-bg-canvas: #090d16;
+  --dcss-bg-surface: #111827;
+  --dcss-bg-surface-elevated: #1e293b;
+  --dcss-bg-surface-subtle: #172033;
+  --dcss-bg-surface-glass: rgba(17, 24, 39, 0.75);
+  --dcss-bg-overlay: rgba(3, 7, 18, 0.75);
+
+  /* Borders (Dark Mode) */
+  --dcss-border-subtle: rgba(255, 255, 255, 0.08);
+  --dcss-border-default: rgba(255, 255, 255, 0.16);
+  --dcss-border-strong: rgba(255, 255, 255, 0.28);
+  --dcss-border-focus: rgba(99, 102, 241, 0.6);
+
+  /* Typography Colors (Dark Mode) */
+  --dcss-text-primary: #f8fafc;
+  --dcss-text-secondary: #94a3b8;
+  --dcss-text-muted: #64748b;
+  --dcss-text-inverse: #090d16;
+
+  /* Brand / Primary Accent (Indigo / Violet) */
+  --dcss-primary: #6366f1;
+  --dcss-primary-hover: #4f46e5;
+  --dcss-primary-active: #4338ca;
+  --dcss-primary-muted: rgba(99, 102, 241, 0.16);
+  --dcss-primary-contrast: #ffffff;
+
+  /* Secondary / Accent */
+  --dcss-accent: #8b5cf6;
+  --dcss-accent-hover: #7c3aed;
+  --dcss-accent-active: #6d28d9;
+  --dcss-accent-muted: rgba(139, 92, 246, 0.16);
+  --dcss-accent-contrast: #ffffff;
+
+  /* Semantic - Success (Emerald) */
+  --dcss-success: #10b981;
+  --dcss-success-hover: #059669;
+  --dcss-success-active: #047857;
+  --dcss-success-muted: rgba(16, 185, 129, 0.16);
+  --dcss-success-contrast: #ffffff;
+
+  /* Semantic - Warning (Amber) */
+  --dcss-warning: #f59e0b;
+  --dcss-warning-hover: #d97706;
+  --dcss-warning-active: #b45309;
+  --dcss-warning-muted: rgba(245, 158, 11, 0.16);
+  --dcss-warning-contrast: #0f172a;
+
+  /* Semantic - Danger (Red) */
+  --dcss-danger: #ef4444;
+  --dcss-danger-hover: #dc2626;
+  --dcss-danger-active: #b91c1c;
+  --dcss-danger-muted: rgba(239, 68, 68, 0.16);
+  --dcss-danger-contrast: #ffffff;
+
+  /* Semantic - Info (Sky) */
+  --dcss-info: #0ea5e9;
+  --dcss-info-hover: #0284c7;
+  --dcss-info-active: #0369a1;
+  --dcss-info-muted: rgba(14, 165, 233, 0.16);
+  --dcss-info-contrast: #ffffff;
+
+  /* Typography Fonts */
+  --dcss-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --dcss-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  /* Typography Scale */
+  --dcss-font-xs: 0.75rem;     /* 12px */
+  --dcss-font-sm: 0.875rem;    /* 14px */
+  --dcss-font-base: 1rem;       /* 16px */
+  --dcss-font-lg: 1.125rem;    /* 18px */
+  --dcss-font-xl: 1.25rem;     /* 20px */
+  --dcss-font-2xl: 1.5rem;     /* 24px */
+  --dcss-font-3xl: 1.875rem;   /* 30px */
+  --dcss-font-4xl: 2.25rem;    /* 36px */
+
+  /* Typography Weights */
+  --dcss-font-weight-normal: 400;
+  --dcss-font-weight-medium: 500;
+  --dcss-font-weight-semibold: 600;
+  --dcss-font-weight-bold: 700;
+
+  /* Typography Line Heights */
+  --dcss-leading-tight: 1.25;
+  --dcss-leading-normal: 1.5;
+  --dcss-leading-relaxed: 1.625;
+
+  /* Spacing Scale (Modular 4px grid) */
+  --dcss-space-1: 0.25rem;   /* 4px */
+  --dcss-space-2: 0.5rem;    /* 8px */
+  --dcss-space-3: 0.75rem;   /* 12px */
+  --dcss-space-4: 1rem;      /* 16px */
+  --dcss-space-5: 1.25rem;   /* 20px */
+  --dcss-space-6: 1.5rem;    /* 24px */
+  --dcss-space-7: 1.75rem;   /* 28px */
+  --dcss-space-8: 2rem;      /* 32px */
+  --dcss-space-9: 2.25rem;   /* 36px */
+  --dcss-space-10: 2.5rem;   /* 40px */
+  --dcss-space-11: 2.75rem;  /* 44px */
+  --dcss-space-12: 3rem;     /* 48px */
+
+  /* Border Radiuses */
+  --dcss-radius-none: 0px;
+  --dcss-radius-sm: 0.25rem;   /* 4px */
+  --dcss-radius-md: 0.375rem;  /* 6px */
+  --dcss-radius-lg: 0.5rem;    /* 8px */
+  --dcss-radius-xl: 0.75rem;   /* 12px */
+  --dcss-radius-2xl: 1rem;     /* 16px */
+  --dcss-radius-full: 9999px;
+
+  /* Shadows & Elevations (Dark Mode) */
+  --dcss-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.45);
+  --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+  --dcss-shadow-glow: 0 0 16px rgba(99, 102, 241, 0.35);
+  --dcss-shadow-glow-success: 0 0 16px rgba(16, 185, 129, 0.35);
+  --dcss-shadow-glow-danger: 0 0 16px rgba(239, 68, 68, 0.35);
+
+  /* Backdrop Filters / Glassmorphism */
+  --dcss-glass-blur: blur(12px);
+  --dcss-glass-saturate: saturate(180%);
+
+  /* Transitions */
+  --dcss-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --dcss-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --dcss-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index Hierarchy */
+  --dcss-z-dropdown: 1000;
+  --dcss-z-sticky: 1020;
+  --dcss-z-drawer: 1040;
+  --dcss-z-modal: 1050;
+  --dcss-z-toast: 1080;
+  --dcss-z-tooltip: 1090;
+}
+
+/* Light Theme Variables */
+[data-theme="light"],
+.light-theme {
+  /* Color Scheme */
+  color-scheme: light;
+
+  /* Surfaces & Backgrounds */
+  --dcss-bg-canvas: #f8fafc;
+  --dcss-bg-surface: #ffffff;
+  --dcss-bg-surface-elevated: #f1f5f9;
+  --dcss-bg-surface-subtle: #e2e8f0;
+  --dcss-bg-surface-glass: rgba(255, 255, 255, 0.82);
+  --dcss-bg-overlay: rgba(15, 23, 42, 0.45);
+
+  /* Borders */
+  --dcss-border-subtle: rgba(0, 0, 0, 0.06);
+  --dcss-border-default: rgba(0, 0, 0, 0.12);
+  --dcss-border-strong: rgba(0, 0, 0, 0.22);
+  --dcss-border-focus: rgba(79, 70, 229, 0.6);
+
+  /* Typography Colors */
+  --dcss-text-primary: #0f172a;
+  --dcss-text-secondary: #475569;
+  --dcss-text-muted: #94a3b8;
+  --dcss-text-inverse: #f8fafc;
+
+  /* Brand / Primary Accent (Indigo / Violet) */
+  --dcss-primary: #4f46e5;
+  --dcss-primary-hover: #4338ca;
+  --dcss-primary-active: #3730a3;
+  --dcss-primary-muted: rgba(79, 70, 229, 0.12);
+  --dcss-primary-contrast: #ffffff;
+
+  /* Secondary / Accent */
+  --dcss-accent: #7c3aed;
+  --dcss-accent-hover: #6d28d9;
+  --dcss-accent-active: #5b21b6;
+  --dcss-accent-muted: rgba(124, 58, 237, 0.12);
+  --dcss-accent-contrast: #ffffff;
+
+  /* Semantic - Success */
+  --dcss-success: #059669;
+  --dcss-success-hover: #047857;
+  --dcss-success-active: #065f46;
+  --dcss-success-muted: rgba(5, 150, 105, 0.12);
+  --dcss-success-contrast: #ffffff;
+
+  /* Semantic - Warning */
+  --dcss-warning: #d97706;
+  --dcss-warning-hover: #b45309;
+  --dcss-warning-active: #92400e;
+  --dcss-warning-muted: rgba(217, 119, 6, 0.12);
+  --dcss-warning-contrast: #ffffff;
+
+  /* Semantic - Danger */
+  --dcss-danger: #dc2626;
+  --dcss-danger-hover: #b91c1c;
+  --dcss-danger-active: #991b1b;
+  --dcss-danger-muted: rgba(220, 38, 38, 0.12);
+  --dcss-danger-contrast: #ffffff;
+
+  /* Semantic - Info */
+  --dcss-info: #0284c7;
+  --dcss-info-hover: #0369a1;
+  --dcss-info-active: #075985;
+  --dcss-info-muted: rgba(2, 132, 199, 0.12);
+  --dcss-info-contrast: #ffffff;
+
+  /* Shadows (Light Mode) */
+  --dcss-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --dcss-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --dcss-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --dcss-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --dcss-shadow-glow: 0 0 16px rgba(79, 70, 229, 0.22);
+  --dcss-shadow-glow-success: 0 0 16px rgba(5, 150, 105, 0.22);
+  --dcss-shadow-glow-danger: 0 0 16px rgba(220, 38, 38, 0.22);
+}

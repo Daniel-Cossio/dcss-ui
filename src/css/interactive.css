@@ -1,0 +1,620 @@
+/**
+ * dcss-ui — Interactive Components Stylesheet
+ * Minimalist Design System & UI Kit
+ * Covers: Toasts, Modals, Dropdowns, Tabs, and Drawers
+ */
+
+/* ==========================================================================
+   1. TOAST NOTIFICATIONS
+   ========================================================================== */
+
+.dcss-toast-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dcss-space-3);
+  z-index: var(--dcss-z-toast);
+  pointer-events: none;
+  max-width: 420px;
+  width: calc(100% - var(--dcss-space-6));
+  box-sizing: border-box;
+}
+
+/* Positions */
+.dcss-toast-container.top-right,
+.dcss-toast-container--top-right {
+  top: var(--dcss-space-5);
+  right: var(--dcss-space-5);
+  align-items: flex-end;
+}
+
+.dcss-toast-container.top-left,
+.dcss-toast-container--top-left {
+  top: var(--dcss-space-5);
+  left: var(--dcss-space-5);
+  align-items: flex-start;
+}
+
+.dcss-toast-container.bottom-right,
+.dcss-toast-container--bottom-right {
+  bottom: var(--dcss-space-5);
+  right: var(--dcss-space-5);
+  align-items: flex-end;
+  flex-direction: column-reverse;
+}
+
+.dcss-toast-container.bottom-left,
+.dcss-toast-container--bottom-left {
+  bottom: var(--dcss-space-5);
+  left: var(--dcss-space-5);
+  align-items: flex-start;
+  flex-direction: column-reverse;
+}
+
+/* Toast Element */
+.dcss-toast {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dcss-space-3);
+  width: 100%;
+  padding: var(--dcss-space-3) var(--dcss-space-4);
+  background-color: var(--dcss-bg-surface-elevated);
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-lg);
+  box-shadow: var(--dcss-shadow-lg);
+  color: var(--dcss-text-primary);
+  pointer-events: auto;
+  overflow: hidden;
+  animation: dcss-toast-slide-in var(--dcss-transition-normal) forwards;
+  transition: opacity var(--dcss-transition-fast),
+              transform var(--dcss-transition-fast);
+}
+
+.dcss-toast.is-leaving,
+.dcss-toast.fade-out {
+  animation: dcss-toast-fade-out var(--dcss-transition-fast) forwards;
+}
+
+.dcss-toast-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--dcss-font-lg);
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.dcss-toast-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dcss-toast-title {
+  font-size: var(--dcss-font-sm);
+  font-weight: var(--dcss-font-weight-semibold);
+  color: var(--dcss-text-primary);
+  margin-bottom: var(--dcss-space-1);
+}
+
+.dcss-toast-message {
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-secondary);
+  line-height: var(--dcss-leading-normal);
+  word-break: break-word;
+}
+
+.dcss-toast-close {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: var(--dcss-text-muted);
+  cursor: pointer;
+  padding: var(--dcss-space-1);
+  margin: -4px -4px 0 0;
+  border-radius: var(--dcss-radius-sm);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--dcss-transition-fast),
+              background-color var(--dcss-transition-fast);
+}
+
+.dcss-toast-close:hover {
+  color: var(--dcss-text-primary);
+  background-color: var(--dcss-border-subtle);
+}
+
+/* Toast Semantic Variants */
+.dcss-toast--info,
+.dcss-toast.is-info {
+  border-left: 4px solid var(--dcss-info);
+}
+.dcss-toast--info .dcss-toast-icon,
+.dcss-toast.is-info .dcss-toast-icon {
+  color: var(--dcss-info);
+}
+
+.dcss-toast--success,
+.dcss-toast.is-success {
+  border-left: 4px solid var(--dcss-success);
+}
+.dcss-toast--success .dcss-toast-icon,
+.dcss-toast.is-success .dcss-toast-icon {
+  color: var(--dcss-success);
+}
+
+.dcss-toast--warning,
+.dcss-toast.is-warning {
+  border-left: 4px solid var(--dcss-warning);
+}
+.dcss-toast--warning .dcss-toast-icon,
+.dcss-toast.is-warning .dcss-toast-icon {
+  color: var(--dcss-warning);
+}
+
+.dcss-toast--danger,
+.dcss-toast.is-danger {
+  border-left: 4px solid var(--dcss-danger);
+}
+.dcss-toast--danger .dcss-toast-icon,
+.dcss-toast.is-danger .dcss-toast-icon {
+  color: var(--dcss-danger);
+}
+
+@keyframes dcss-toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dcss-toast-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+}
+
+
+/* ==========================================================================
+   2. MODALS & DIALOGS
+   ========================================================================== */
+
+.dcss-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--dcss-bg-overlay);
+  backdrop-filter: var(--dcss-glass-blur);
+  -webkit-backdrop-filter: var(--dcss-glass-blur);
+  z-index: var(--dcss-z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dcss-transition-normal),
+              visibility var(--dcss-transition-normal);
+}
+
+.dcss-modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dcss-modal {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--dcss-z-modal) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--dcss-space-4);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dcss-transition-normal),
+              visibility var(--dcss-transition-normal);
+}
+
+.dcss-modal.is-open {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.dcss-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background-color: var(--dcss-bg-surface);
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-xl);
+  box-shadow: var(--dcss-shadow-xl);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - var(--dcss-space-8));
+  overflow: hidden;
+  transform: scale(0.94) translateY(8px);
+  transition: transform var(--dcss-transition-normal);
+}
+
+.dcss-modal.is-open .dcss-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Header */
+.dcss-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dcss-space-3);
+  padding: var(--dcss-space-4) var(--dcss-space-5);
+  border-bottom: 1px solid var(--dcss-border-subtle);
+}
+
+.dcss-modal-title {
+  margin: 0;
+  font-size: var(--dcss-font-lg);
+  font-weight: var(--dcss-font-weight-semibold);
+  color: var(--dcss-text-primary);
+}
+
+.dcss-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--dcss-text-muted);
+  cursor: pointer;
+  padding: var(--dcss-space-1);
+  border-radius: var(--dcss-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--dcss-font-lg);
+  line-height: 1;
+  transition: color var(--dcss-transition-fast),
+              background-color var(--dcss-transition-fast);
+}
+
+.dcss-modal-close:hover {
+  color: var(--dcss-text-primary);
+  background-color: var(--dcss-border-subtle);
+}
+
+/* Modal Body */
+.dcss-modal-body {
+  padding: var(--dcss-space-5);
+  overflow-y: auto;
+  color: var(--dcss-text-secondary);
+  font-size: var(--dcss-font-sm);
+  line-height: var(--dcss-leading-relaxed);
+}
+
+/* Modal Footer */
+.dcss-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--dcss-space-3);
+  padding: var(--dcss-space-4) var(--dcss-space-5);
+  border-top: 1px solid var(--dcss-border-subtle);
+  background-color: var(--dcss-bg-surface-subtle);
+}
+
+
+/* ==========================================================================
+   3. DROPDOWNS
+   ========================================================================== */
+
+.dcss-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dcss-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--dcss-space-1);
+  min-width: 180px;
+  background-color: var(--dcss-bg-surface-elevated);
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-md);
+  box-shadow: var(--dcss-shadow-lg);
+  padding: var(--dcss-space-1) 0;
+  z-index: var(--dcss-z-dropdown);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity var(--dcss-transition-fast),
+              transform var(--dcss-transition-fast),
+              visibility var(--dcss-transition-fast);
+}
+
+.dcss-dropdown-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Dropdown Alignments */
+.dcss-dropdown-menu.align-right,
+.dcss-dropdown-menu--right {
+  left: auto;
+  right: 0;
+}
+
+.dcss-dropdown-menu.align-up,
+.dcss-dropdown-menu--up {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: var(--dcss-space-1);
+  transform: translateY(6px);
+}
+
+.dcss-dropdown-menu.align-up.is-open,
+.dcss-dropdown-menu--up.is-open {
+  transform: translateY(0);
+}
+
+.dcss-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--dcss-space-2);
+  width: 100%;
+  padding: var(--dcss-space-2) var(--dcss-space-4);
+  font-size: var(--dcss-font-sm);
+  color: var(--dcss-text-primary);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dcss-transition-fast),
+              color var(--dcss-transition-fast);
+  box-sizing: border-box;
+}
+
+.dcss-dropdown-item:hover,
+.dcss-dropdown-item:focus {
+  background-color: var(--dcss-primary-muted);
+  color: var(--dcss-primary);
+  outline: none;
+}
+
+.dcss-dropdown-item.is-danger,
+.dcss-dropdown-item--danger {
+  color: var(--dcss-danger);
+}
+
+.dcss-dropdown-item.is-danger:hover,
+.dcss-dropdown-item--danger:hover {
+  background-color: var(--dcss-danger-muted);
+  color: var(--dcss-danger);
+}
+
+.dcss-dropdown-header {
+  padding: var(--dcss-space-2) var(--dcss-space-4);
+  font-size: var(--dcss-font-xs);
+  font-weight: var(--dcss-font-weight-semibold);
+  color: var(--dcss-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dcss-dropdown-divider {
+  height: 1px;
+  margin: var(--dcss-space-1) 0;
+  background-color: var(--dcss-border-subtle);
+  border: none;
+}
+
+
+/* ==========================================================================
+   4. TABS
+   ========================================================================== */
+
+.dcss-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dcss-tabs-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--dcss-space-2);
+  border-bottom: 1px solid var(--dcss-border-default);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.dcss-tab-item {
+  margin: 0;
+  padding: 0;
+}
+
+.dcss-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dcss-space-2);
+  padding: var(--dcss-space-3) var(--dcss-space-4);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+  font-size: var(--dcss-font-sm);
+  font-weight: var(--dcss-font-weight-medium);
+  color: var(--dcss-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--dcss-transition-fast),
+              border-color var(--dcss-transition-fast);
+  margin-bottom: -1px;
+}
+
+.dcss-tab-btn:hover {
+  color: var(--dcss-text-primary);
+}
+
+.dcss-tab-btn.is-active,
+.dcss-tab-btn[aria-selected="true"] {
+  color: var(--dcss-primary);
+  border-bottom-color: var(--dcss-primary);
+  font-weight: var(--dcss-font-weight-semibold);
+}
+
+.dcss-tab-btn:focus-visible {
+  outline: 2px solid var(--dcss-border-focus);
+  outline-offset: -2px;
+}
+
+.dcss-tabs-content {
+  padding-top: var(--dcss-space-4);
+}
+
+.dcss-tab-pane {
+  display: none;
+}
+
+.dcss-tab-pane.is-active {
+  display: block;
+  animation: dcss-tab-fade-in var(--dcss-transition-fast) forwards;
+}
+
+@keyframes dcss-tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ==========================================================================
+   5. DRAWER / SIDEBAR
+   ========================================================================== */
+
+.dcss-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--dcss-bg-overlay);
+  backdrop-filter: var(--dcss-glass-blur);
+  -webkit-backdrop-filter: var(--dcss-glass-blur);
+  z-index: var(--dcss-z-drawer);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--dcss-transition-normal),
+              visibility var(--dcss-transition-normal);
+}
+
+.dcss-drawer-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.dcss-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: calc(var(--dcss-z-drawer) + 1);
+  width: 320px;
+  max-width: calc(100vw - var(--dcss-space-8));
+  background-color: var(--dcss-bg-surface-elevated);
+  border-right: 1px solid var(--dcss-border-default);
+  box-shadow: var(--dcss-shadow-xl);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--dcss-transition-normal);
+}
+
+/* Default Drawer from Left */
+.dcss-drawer,
+.dcss-drawer--left {
+  left: 0;
+  right: auto;
+  transform: translateX(-100%);
+  border-right: 1px solid var(--dcss-border-default);
+  border-left: none;
+}
+
+/* Drawer from Right */
+.dcss-drawer--right,
+.dcss-drawer.from-right {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+  border-left: 1px solid var(--dcss-border-default);
+  border-right: none;
+}
+
+/* Open State */
+.dcss-drawer.is-open {
+  transform: translateX(0);
+}
+
+.dcss-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--dcss-space-4) var(--dcss-space-5);
+  border-bottom: 1px solid var(--dcss-border-subtle);
+}
+
+.dcss-drawer-title {
+  margin: 0;
+  font-size: var(--dcss-font-lg);
+  font-weight: var(--dcss-font-weight-semibold);
+  color: var(--dcss-text-primary);
+}
+
+.dcss-drawer-close {
+  background: transparent;
+  border: none;
+  color: var(--dcss-text-muted);
+  cursor: pointer;
+  padding: var(--dcss-space-1);
+  border-radius: var(--dcss-radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--dcss-font-lg);
+  line-height: 1;
+  transition: color var(--dcss-transition-fast),
+              background-color var(--dcss-transition-fast);
+}
+
+.dcss-drawer-close:hover {
+  color: var(--dcss-text-primary);
+  background-color: var(--dcss-border-subtle);
+}
+
+.dcss-drawer-body {
+  flex: 1 1 auto;
+  padding: var(--dcss-space-5);
+  overflow-y: auto;
+  color: var(--dcss-text-secondary);
+}
+
+.dcss-drawer-footer {
+  padding: var(--dcss-space-4) var(--dcss-space-5);
+  border-top: 1px solid var(--dcss-border-subtle);
+  background-color: var(--dcss-bg-surface-subtle);
+}

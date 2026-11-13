@@ -1,0 +1,321 @@
+/**
+ * dcss-ui — Forms Component
+ * Minimalist Design System & UI Kit
+ */
+
+/* Form Group & Labels */
+.dcss-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dcss-space-2);
+  margin-bottom: var(--dcss-space-4);
+}
+
+.dcss-label {
+  display: inline-block;
+  font-family: var(--dcss-font-sans);
+  font-size: var(--dcss-font-sm);
+  font-weight: var(--dcss-font-weight-medium);
+  color: var(--dcss-text-primary);
+  user-select: none;
+}
+
+.dcss-form-hint {
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-text-muted);
+  margin-top: calc(-1 * var(--dcss-space-1));
+}
+
+.dcss-form-error {
+  font-size: var(--dcss-font-xs);
+  color: var(--dcss-danger);
+  margin-top: calc(-1 * var(--dcss-space-1));
+}
+
+/* Base Inputs: text, select, textarea */
+.dcss-input,
+.dcss-select,
+.dcss-textarea {
+  display: block;
+  width: 100%;
+  font-family: var(--dcss-font-sans);
+  font-size: var(--dcss-font-sm);
+  line-height: var(--dcss-leading-normal);
+  color: var(--dcss-text-primary);
+  background-color: var(--dcss-bg-surface);
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-md);
+  padding: var(--dcss-space-2) var(--dcss-space-3);
+  box-shadow: var(--dcss-shadow-sm);
+  transition: border-color var(--dcss-transition-fast),
+              box-shadow var(--dcss-transition-fast),
+              background-color var(--dcss-transition-fast);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.dcss-input::placeholder,
+.dcss-textarea::placeholder {
+  color: var(--dcss-text-muted);
+  opacity: 0.8;
+}
+
+/* Hover & Focus States */
+.dcss-input:hover:not(:disabled),
+.dcss-select:hover:not(:disabled),
+.dcss-textarea:hover:not(:disabled) {
+  border-color: var(--dcss-border-strong);
+}
+
+.dcss-input:focus,
+.dcss-select:focus,
+.dcss-textarea:focus {
+  border-color: var(--dcss-border-focus);
+  box-shadow: var(--dcss-shadow-glow);
+}
+
+/* Disabled State */
+.dcss-input:disabled,
+.dcss-select:disabled,
+.dcss-textarea:disabled,
+.dcss-input.is-disabled,
+.dcss-select.is-disabled,
+.dcss-textarea.is-disabled {
+  opacity: 0.6;
+  background-color: var(--dcss-bg-surface-subtle);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Textarea Specific */
+.dcss-textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+/* Select Specific */
+.dcss-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: var(--dcss-space-8);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem 1rem;
+  cursor: pointer;
+}
+
+/* Validation States */
+.dcss-input.is-invalid,
+.dcss-select.is-invalid,
+.dcss-textarea.is-invalid {
+  border-color: var(--dcss-danger);
+  box-shadow: var(--dcss-shadow-glow-danger);
+}
+
+.dcss-input.is-invalid:focus,
+.dcss-select.is-invalid:focus,
+.dcss-textarea.is-invalid:focus {
+  border-color: var(--dcss-danger);
+  box-shadow: var(--dcss-shadow-glow-danger);
+}
+
+.dcss-input.is-valid,
+.dcss-select.is-valid,
+.dcss-textarea.is-valid {
+  border-color: var(--dcss-success);
+  box-shadow: var(--dcss-shadow-glow-success);
+}
+
+.dcss-input.is-valid:focus,
+.dcss-select.is-valid:focus,
+.dcss-textarea.is-valid:focus {
+  border-color: var(--dcss-success);
+  box-shadow: var(--dcss-shadow-glow-success);
+}
+
+/* Checkbox */
+.dcss-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dcss-space-2);
+  font-size: var(--dcss-font-sm);
+  color: var(--dcss-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dcss-checkbox input[type="checkbox"],
+input[type="checkbox"].dcss-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-sm);
+  background-color: var(--dcss-bg-surface);
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+  display: inline-grid;
+  place-content: center;
+  transition: background-color var(--dcss-transition-fast),
+              border-color var(--dcss-transition-fast),
+              box-shadow var(--dcss-transition-fast);
+}
+
+.dcss-checkbox input[type="checkbox"]:hover,
+input[type="checkbox"].dcss-checkbox:hover {
+  border-color: var(--dcss-border-strong);
+}
+
+.dcss-checkbox input[type="checkbox"]:focus-visible,
+input[type="checkbox"].dcss-checkbox:focus-visible {
+  outline: 2px solid var(--dcss-border-focus);
+  outline-offset: 1px;
+}
+
+.dcss-checkbox input[type="checkbox"]:checked,
+input[type="checkbox"].dcss-checkbox:checked {
+  background-color: var(--dcss-primary);
+  border-color: var(--dcss-primary);
+}
+
+.dcss-checkbox input[type="checkbox"]:checked::before,
+input[type="checkbox"].dcss-checkbox:checked::before {
+  content: "";
+  width: 0.625rem;
+  height: 0.35rem;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.dcss-checkbox input[type="checkbox"]:disabled,
+input[type="checkbox"].dcss-checkbox:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Switch (Animated Toggle) */
+.dcss-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dcss-space-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: var(--dcss-font-sm);
+  color: var(--dcss-text-primary);
+}
+
+.dcss-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.dcss-switch-slider {
+  position: relative;
+  display: inline-block;
+  width: 2.5rem;   /* 40px */
+  height: 1.375rem; /* 22px */
+  background-color: var(--dcss-bg-surface-elevated);
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-full);
+  transition: background-color var(--dcss-transition-fast),
+              border-color var(--dcss-transition-fast),
+              box-shadow var(--dcss-transition-fast);
+  flex-shrink: 0;
+}
+
+.dcss-switch-slider::before {
+  content: "";
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--dcss-text-primary);
+  border-radius: var(--dcss-radius-full);
+  transition: transform var(--dcss-transition-fast),
+              background-color var(--dcss-transition-fast);
+  box-shadow: var(--dcss-shadow-sm);
+}
+
+.dcss-switch input[type="checkbox"]:focus-visible + .dcss-switch-slider {
+  outline: 2px solid var(--dcss-border-focus);
+  outline-offset: 2px;
+}
+
+.dcss-switch input[type="checkbox"]:checked + .dcss-switch-slider {
+  background-color: var(--dcss-primary);
+  border-color: var(--dcss-primary);
+}
+
+.dcss-switch input[type="checkbox"]:checked + .dcss-switch-slider::before {
+  transform: translateX(1.125rem);
+  background-color: #ffffff;
+}
+
+.dcss-switch input[type="checkbox"]:disabled + .dcss-switch-slider {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Input Group (Prefix/Suffix addons) */
+.dcss-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border-radius: var(--dcss-radius-md);
+  box-shadow: var(--dcss-shadow-sm);
+}
+
+.dcss-input-group .dcss-input,
+.dcss-input-group .dcss-select {
+  flex: 1 1 auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.dcss-input-group .dcss-input:first-child,
+.dcss-input-group .dcss-select:first-child {
+  border-top-left-radius: var(--dcss-radius-md);
+  border-bottom-left-radius: var(--dcss-radius-md);
+}
+
+.dcss-input-group .dcss-input:last-child,
+.dcss-input-group .dcss-select:last-child {
+  border-top-right-radius: var(--dcss-radius-md);
+  border-bottom-right-radius: var(--dcss-radius-md);
+}
+
+.dcss-input-group > *:not(:first-child) {
+  margin-left: -1px;
+}
+
+.dcss-input-addon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--dcss-space-3);
+  font-size: var(--dcss-font-sm);
+  color: var(--dcss-text-muted);
+  background-color: var(--dcss-bg-surface-subtle);
+  border: 1px solid var(--dcss-border-default);
+  white-space: nowrap;
+}
+
+.dcss-input-group .dcss-input-addon:first-child {
+  border-top-left-radius: var(--dcss-radius-md);
+  border-bottom-left-radius: var(--dcss-radius-md);
+}
+
+.dcss-input-group .dcss-input-addon:last-child {
+  border-top-right-radius: var(--dcss-radius-md);
+  border-bottom-right-radius: var(--dcss-radius-md);
+}

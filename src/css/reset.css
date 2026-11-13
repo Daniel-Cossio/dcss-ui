@@ -1,0 +1,149 @@
+/**
+ * dcss-ui — Modern CSS Reset & Base Normalization
+ */
+
+/* 1. Use a more-intuitive box-sizing model and clear browser default margins/paddings */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Prevent font size inflation and set root behavior */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  line-height: var(--dcss-leading-normal, 1.5);
+  tab-size: 4;
+}
+
+/* 3. Base body setup using design tokens */
+body {
+  min-height: 100vh;
+  font-family: var(--dcss-font-sans, system-ui, -apple-system, sans-serif);
+  font-size: var(--dcss-font-base, 1rem);
+  font-weight: var(--dcss-font-weight-normal, 400);
+  line-height: var(--dcss-leading-normal, 1.5);
+  color: var(--dcss-text-primary, #f8fafc);
+  background-color: var(--dcss-bg-canvas, #090d16);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* 4. Media elements */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 5. Inherit fonts and base styling for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 6. Typography elements default resets */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--dcss-font-weight-bold, 700);
+  line-height: var(--dcss-leading-tight, 1.25);
+  color: var(--dcss-text-primary, #f8fafc);
+}
+
+a {
+  color: var(--dcss-primary, #6366f1);
+  text-decoration: none;
+  transition: color var(--dcss-transition-fast, 150ms ease);
+}
+
+a:hover {
+  color: var(--dcss-primary-hover, #4f46e5);
+}
+
+/* 7. Code, pre, kbd */
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--dcss-font-mono, monospace);
+  font-size: 0.9em;
+}
+
+/* 8. Lists */
+ul,
+ol {
+  list-style-position: inside;
+}
+
+/* 9. Modern Custom Scrollbars */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dcss-border-default, rgba(255, 255, 255, 0.16)) transparent;
+}
+
+/* WebKit & Chromium */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--dcss-border-default, rgba(255, 255, 255, 0.16));
+  border-radius: var(--dcss-radius-full, 9999px);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--dcss-border-strong, rgba(255, 255, 255, 0.28));
+}

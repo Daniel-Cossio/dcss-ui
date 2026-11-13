@@ -1,0 +1,70 @@
+/**
+ * dcss-ui — Tables Component
+ * Minimalist Design System & UI Kit
+ */
+
+.dcss-table-container,
+.dcss-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--dcss-border-default);
+  border-radius: var(--dcss-radius-lg);
+  background-color: var(--dcss-bg-surface);
+}
+
+.dcss-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: var(--dcss-font-sans);
+  font-size: var(--dcss-font-sm);
+  color: var(--dcss-text-primary);
+  background-color: transparent;
+}
+
+/* Header Cells */
+.dcss-table th {
+  padding: var(--dcss-space-3) var(--dcss-space-4);
+  font-weight: var(--dcss-font-weight-semibold);
+  font-size: var(--dcss-font-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--dcss-text-secondary);
+  background-color: var(--dcss-bg-surface-subtle);
+  border-bottom: 2px solid var(--dcss-border-default);
+  white-space: nowrap;
+}
+
+/* Data Cells */
+.dcss-table td {
+  padding: var(--dcss-space-3) var(--dcss-space-4);
+  border-bottom: 1px solid var(--dcss-border-subtle);
+  vertical-align: middle;
+}
+
+.dcss-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Modifier: Striped */
+.dcss-table-striped tbody tr:nth-child(even) {
+  background-color: var(--dcss-bg-surface-elevated);
+}
+
+/* Modifier: Hover */
+.dcss-table-hover tbody tr {
+  transition: background-color var(--dcss-transition-fast);
+}
+
+.dcss-table-hover tbody tr:hover {
+  background-color: var(--dcss-primary-muted);
+}
+
+/* Modifier: Sticky Header */
+.dcss-table-sticky th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0 1px 0 var(--dcss-border-default);
+}

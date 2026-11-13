@@ -1,0 +1,168 @@
+/**
+ * dcss-ui — Layout Utilities Component
+ * Minimalist Design System & UI Kit
+ */
+
+/* Container */
+.dcss-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--dcss-space-4);
+  padding-right: var(--dcss-space-4);
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .dcss-container {
+    max-width: 640px;
+    padding-left: var(--dcss-space-5);
+    padding-right: var(--dcss-space-5);
+  }
+}
+
+@media (min-width: 768px) {
+  .dcss-container {
+    max-width: 768px;
+    padding-left: var(--dcss-space-6);
+    padding-right: var(--dcss-space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dcss-container {
+    max-width: 1024px;
+    padding-left: var(--dcss-space-8);
+    padding-right: var(--dcss-space-8);
+  }
+}
+
+@media (min-width: 1280px) {
+  .dcss-container {
+    max-width: 1280px;
+  }
+}
+
+/* Grid System */
+.dcss-grid {
+  display: grid;
+  gap: var(--dcss-space-4);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dcss-grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.dcss-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dcss-grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dcss-grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.dcss-grid-auto {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Responsive collapse on mobile */
+@media (max-width: 639px) {
+  .dcss-grid-cols-2,
+  .dcss-grid-cols-3,
+  .dcss-grid-cols-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .dcss-grid-cols-3,
+  .dcss-grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Flex Utilities */
+.dcss-flex {
+  display: flex;
+  gap: var(--dcss-space-3);
+  box-sizing: border-box;
+}
+
+.dcss-flex-row {
+  flex-direction: row;
+}
+
+.dcss-flex-col {
+  flex-direction: column;
+}
+
+.dcss-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.dcss-items-start {
+  align-items: flex-start;
+}
+
+.dcss-items-center {
+  align-items: center;
+}
+
+.dcss-items-end {
+  align-items: flex-end;
+}
+
+.dcss-items-stretch {
+  align-items: stretch;
+}
+
+.dcss-justify-start {
+  justify-content: flex-start;
+}
+
+.dcss-justify-center {
+  justify-content: center;
+}
+
+.dcss-justify-end {
+  justify-content: flex-end;
+}
+
+.dcss-justify-between {
+  justify-content: space-between;
+}
+
+/* Vertical Stack (Clean ergonomic apilamiento) */
+.dcss-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dcss-space-4);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dcss-stack-xs {
+  gap: var(--dcss-space-1);
+}
+
+.dcss-stack-sm {
+  gap: var(--dcss-space-2);
+}
+
+.dcss-stack-md {
+  gap: var(--dcss-space-4);
+}
+
+.dcss-stack-lg {
+  gap: var(--dcss-space-6);
+}
+
+.dcss-stack-xl {
+  gap: var(--dcss-space-8);
+}
