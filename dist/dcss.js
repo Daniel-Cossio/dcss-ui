@@ -28,13 +28,6 @@ const theme = {
    * Get the current active theme ('dark' or 'light')
    */
   get() {
-    if (typeof document !== 'undefined' && document.documentElement) {
-      const currentAttr = document.documentElement.getAttribute('data-theme');
-      if (currentAttr === 'light' || currentAttr === 'dark') {
-        return currentAttr;
-      }
-    }
-
     if (typeof localStorage !== 'undefined') {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -46,12 +39,14 @@ const theme = {
       }
     }
 
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDark ? 'dark' : 'light';
+    if (typeof document !== 'undefined' && document.documentElement) {
+      const currentAttr = document.documentElement.getAttribute('data-theme');
+      if (currentAttr === 'light' || currentAttr === 'dark') {
+        return currentAttr;
+      }
     }
 
-    return 'dark'; // Default fallback
+    return 'dark'; // Strict dark-first default (Raycast aesthetic)
   },
 
   /**
@@ -97,48 +92,23 @@ const theme = {
   },
 
   /**
-   * Initialize theme from localStorage or system preferences
+   * Initialize theme from localStorage or default to dark
    */
   init() {
-    let initialTheme = 'dark';
+    let initialTheme = 'dark'; // Strict dark-first default
 
     if (typeof localStorage !== 'undefined') {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved === 'light' || saved === 'dark') {
           initialTheme = saved;
-        } else if (typeof window !== 'undefined' && window.matchMedia) {
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          initialTheme = prefersDark ? 'dark' : 'light';
         }
       } catch (e) {
-        if (typeof window !== 'undefined' && window.matchMedia) {
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          initialTheme = prefersDark ? 'dark' : 'light';
-        }
+        // Fallback to dark
       }
     }
 
     this.set(initialTheme);
-
-    // Listen to OS theme changes if user hasn't explicitly set localStorage
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      try {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        if (mediaQuery.addEventListener) {
-          mediaQuery.addEventListener('change', (e) => {
-            let hasSaved = false;
-            try {
-              hasSaved = Boolean(localStorage.getItem(STORAGE_KEY));
-            } catch (err) {}
-            if (!hasSaved) {
-              this.set(e.matches ? 'dark' : 'light');
-            }
-          });
-        }
-      } catch (e) {}
-    }
-
     return initialTheme;
   }
 };
