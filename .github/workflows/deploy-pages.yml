@@ -1,0 +1,69 @@
+name: Deploy Live Preview (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permisos requeridos para desplegar a GitHub Pages con token OIDC
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Cancelar despliegues concurrentes para evitar colisiones
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies & run tests
+        run: |
+          npm install
+          npm test
+
+      - name: Assemble GitHub Pages site
+        run: |
+          mkdir -p _site/dist _site/showcase
+          cp -r dist/* _site/dist/
+          cp -r showcase/* _site/showcase/
+          cat << 'EOF' > _site/index.html
+          <!DOCTYPE html>
+          <html lang="es">
+            <head>
+              <meta charset="utf-8">
+              <meta http-equiv="refresh" content="0; url=showcase/">
+              <title>dcss-ui — Live Showcase</title>
+            </head>
+            <body>
+              <p>Cargando dcss-ui Showcase... Si no redirige automáticamente, <a href="showcase/">haz clic aquí</a>.</p>
+            </body>
+          </html>
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

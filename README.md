@@ -3,6 +3,11 @@
 > **Design System & UI Kit Web Minimalista, Zero-Overhead & Dark-First**  
 > **Inspirado en la Precisión de Raycast con Identidad Cobalt Tech (#3B82F6)**
 
+[![Deploy Live Preview](https://github.com/Daniel-Cossio/dcss-ui/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Daniel-Cossio/dcss-ui/actions/workflows/deploy-pages.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-3b82f6?style=flat&logo=github)](https://daniel-cossio.github.io/dcss-ui/)
+
+🌐 **Live Showcase en Vivo:** [https://daniel-cossio.github.io/dcss-ui/](https://daniel-cossio.github.io/dcss-ui/)
+
 `dcss-ui` es una librería gráfica web moderna y agnóstica de frameworks concebida para desarrolladores que necesitan interfaces de productividad ultra-rápidas, densas y elegantes (&lt; 43KB CSS minificado, &lt; 21KB JS standalone) sin lidiar con complejas cadenas de compilación ni dependencias pesadas en tiempo de ejecución.
 
 ---
